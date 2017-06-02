@@ -23,6 +23,7 @@ import CONFIG from '../../lib/config'
  */
 const BackendFactory = require('../../lib/BackendFactory').default
 import {appAuthToken} from '../../lib/AppAuthToken'
+import _ from 'lodash';
 
 /**
  * ## retreiving profile actions
@@ -83,8 +84,14 @@ export function getPopular () {
       }).then((data) => {
 
         let json = (typeof data === 'string') ? JSON.parse(data): data;
+        let result = _.map(json.result, (item) => {
+          return {
+            ...item.podcast
+          };
+        });
+
         (json.status == 1) ?
-          dispatch(getPopularSuccess(json.result)) :
+          dispatch(getPopularSuccess(result)) :
           dispatch(getPopularFailure({error: 'err: server status 0'}));
 
         // GOTO SOME PAGE

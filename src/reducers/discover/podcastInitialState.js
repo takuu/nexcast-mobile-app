@@ -5,11 +5,11 @@ import {Record} from 'immutable'
 var PodcastRecord = Record({
 
   "ranking_sid": "",
-  "name": "",
+  "title": "",
   "rss_feed_id": "",
-  "rss_feed": "",
-  "summary": "",
-  "artworkUrl100": "",
+  "feed_url": "",
+  "description": "",
+  "image_url": "",
   "ranking": "",
   "genre_id": "",
   "genre_name": "",

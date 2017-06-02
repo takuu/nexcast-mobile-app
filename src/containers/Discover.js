@@ -41,7 +41,7 @@ const Button = require('apsl-react-native-button')
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 40,
+    marginTop: 0,
     flexDirection: 'column',
     flex: 1
   },

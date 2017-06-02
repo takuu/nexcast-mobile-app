@@ -13,7 +13,8 @@ module.exports = {
     remote: {
       // url: 'https://snowflakeserver-bartonhammond.rhcloud.com/'
       // url: 'http://dev.nexcast.co/mapi/v1'
-      url: 'http://www.nexcast.co/mapi/v1'
+      // url: 'http://www.nexcast.co/mapi/v1'
+      url: 'http://localhost:1337/v1/api'
     }
   },
   PARSE: {

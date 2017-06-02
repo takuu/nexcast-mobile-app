@@ -51,7 +51,7 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginBottom: 60,
-    marginTop: 60
+    marginTop: 0
   },
   summary: {
     fontFamily: 'BodoniSvtyTwoITCTT-Book',
@@ -161,7 +161,7 @@ class UserPodcasts extends Component {
 
           } else {
             return (
-              <View style={{marginTop: 64}}>
+              <View style={{marginTop: 0}}>
                   <TouchableWithoutFeedback onPress={() => Actions.Main({title: 'Discover'})}>
                     <View style={{flex: 1, flexDirection: 'row', borderBottomWidth: 1, borderColor: '#DDDDDD'}}>
                       <View style={{ height: height/10,justifyContent: 'center',marginLeft: 8}}>

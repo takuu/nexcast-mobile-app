@@ -55,7 +55,7 @@ var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     flex: 1,
-    marginTop: 70
+    marginTop: 0
   },
   summary: {
     fontFamily: 'BodoniSvtyTwoITCTT-Book',

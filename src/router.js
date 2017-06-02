@@ -106,7 +106,7 @@ const App = () => (
             underlayColor='#f0f4f7'
             style={styles.navItem}>
             <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', alignSelf: 'center'}}>
-              <Ionicons name="logo-buffer" size={32} color="#eee" />
+              <Ionicons name="logo-buffer" size={32} color="#888" />
               <Text style={{color: "#888888", fontSize: 10}}>Queue</Text>
             </View>
 
@@ -116,7 +116,7 @@ const App = () => (
             underlayColor='#f0f4f7'
             style={styles.navItem} >
             <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', alignSelf: 'center'}}>
-              <Ionicons name="ios-mic" size={32} color="#eee" />
+              <Ionicons name="ios-mic" size={32} color="#888" />
               <Text style={{color: "#888888", fontSize: 10}}>Podcasts</Text>
             </View>
           </Link>
@@ -125,7 +125,7 @@ const App = () => (
             underlayColor='#f0f4f7'
             style={styles.navItem}>
             <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', alignSelf: 'center'}}>
-              <Ionicons name="ios-search" size={32} color="#eee" />
+              <Ionicons name="ios-search" size={32} color="#888" />
               <Text style={{color: "#888888", fontSize: 10}}>Search</Text>
             </View>
           </Link>
@@ -134,7 +134,7 @@ const App = () => (
             underlayColor='#f0f4f7'
             style={styles.navItem} >
             <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', alignSelf: 'center'}}>
-              <Ionicons name="ios-star" size={32} color="#eee" />
+              <Ionicons name="ios-star" size={32} color="#888" />
               <Text style={{color: "#888888", fontSize: 10}}>Discover</Text>
             </View>
           </Link>
@@ -143,7 +143,7 @@ const App = () => (
             underlayColor='#f0f4f7'
             style={styles.navItem} >
             <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', alignSelf: 'center'}}>
-              <Ionicons name="ios-person" size={32} color="#eee" />
+              <Ionicons name="ios-person" size={32} color="#888" />
               <Text style={{color: "#888888", fontSize: 10}}>Profile</Text>
             </View>
           </Link>
@@ -159,19 +159,21 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   subContainer: {
-    height: '87%'
+    height: '86.5%'
   },
   header: {
-    fontSize: 20,
     height: '5%',
     backgroundColor: '#387ef5',
+    zIndex: 1000
   },
   nav: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignSelf: 'flex-end',
     height: 51,
-    backgroundColor: '#ffffff',
+    borderTopColor: '#B2B2B2',
+    borderTopWidth: 1,
+    backgroundColor: '#F8F8F8',
   },
   navItem: {
     flex: 1,

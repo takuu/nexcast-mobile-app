@@ -192,11 +192,13 @@ export class Hapi extends Backend {
     console.log('Hapi.getPopular()');
     // url: API_URL + 'popular?category=All&max=200&order_type=asc'
     return await this._fetch({
-      method: 'POST',
-      url: '/popular?category=All&max=200&order_type=asc'
+      // method: 'POST',
+      method: 'GET',
+      // url: '/popular?category=All&max=200&order_type=asc'
+      url: '/toppodcasts/popular?category_id=1303'
     })
       .then((res) => {
-        console.log('getPopular (GET) raw results: ', res)
+        // console.log('getPopular (GET) raw results: ', res)
         if ((res.status === 200 || res.status === 201)) {
           return res.json
         } else {
@@ -211,7 +213,8 @@ export class Hapi extends Backend {
     // url: API_URL + 'categorylist'
     return await this._fetch({
       method: 'GET',
-      url: '/categorylist'
+      // url: '/categorylist'
+      url: '/genres/all'
     })
       .then((res) => {
         if ((res.status === 200 || res.status === 201)) {
@@ -245,8 +248,10 @@ export class Hapi extends Backend {
     // url: API_URL + 'getEpisodesByRss?rss=' + rss;
     console.log('Hapi getEpisodes params (rss): ', rss);
     return await this._fetch({
-      method: 'POST',
-      url: `/getEpisodesByRss?rss=${rss}`
+      // method: 'POST',
+      // url: `/getEpisodesByRss?rss=${rss}`
+      method: 'GET',
+      url: `/episodes/episodeByRSS?rss=${rss}`
     })
       .then((res) => {
         if ((res.status === 200 || res.status === 201)) {
@@ -262,8 +267,10 @@ export class Hapi extends Backend {
   async hasTag(url) {
     // url: API_URL + 'hastag?rssurl=' + url
     return await this._fetch({
-      method: 'POST',
-      url: `/hastag?rssurl=${url}`
+      method: 'GET',
+      // method: 'POST',
+      // url: `/hastag?rssurl=${url}`
+      url: `/episodes/hastags?podcast_id=788236947`
     })
       .then((res) => {
         if ((res.status === 200 || res.status === 201)) {
@@ -316,7 +323,8 @@ export class Hapi extends Backend {
     // url: API_URL + 'search/' + key
     return await this._fetch({
       method: 'GET',
-      url: `/search/${key}`
+      // url: `/search/${key}`
+      url: `/podcasts/search?term=${key}`
     })
       .then((res) => {
         if ((res.status === 200 || res.status === 201)) {
@@ -350,7 +358,8 @@ export class Hapi extends Backend {
     // url: API_URL + 'taggedShow'
     return await this._fetch({
       method: 'GET',
-      url: '/taggedShows'
+      // url: '/taggedShows'
+      url: '/podcasts/hastags'
     })
       .then((res) => {
         if ((res.status === 200 || res.status === 201)) {
@@ -367,7 +376,8 @@ export class Hapi extends Backend {
     // url: API_URL + 'tags/' + id
     return await this._fetch({
       method: 'GET',
-      url: `/tags/${id}`
+      // url: `/tags/${id}`
+      url: `/cards/all?episode_id=${id}`
     })
       .then((res) => {
         if ((res.status === 200 || res.status === 201)) {

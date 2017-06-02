@@ -103,8 +103,9 @@ class PopularShows extends Component {
   }
 
   render() {
-    console.log('PopularShows container');
+
     const list = ds.cloneWithRows(this.props.podcasts.toJS());
+    console.log('PopularShows container', list.length);
     // const list = ds.cloneWithRows(rawData);
     return (
 
@@ -125,7 +126,7 @@ class PopularShows extends Component {
                         enableEmptySections={true}
                         dataSource={list}
 
-                        renderRow={(item) => <ShowItem imageUrl={item.artworkUrl100} title={item.name} description={item.summary} rss={item.rss_feed} />}
+                        renderRow={(item) => <ShowItem imageUrl={item.image_url} title={item.title} description={item.description} rss={item.feed_url} />}
               />
             );
           } else {
