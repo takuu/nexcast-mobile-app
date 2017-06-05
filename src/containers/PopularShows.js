@@ -105,7 +105,7 @@ class PopularShows extends Component {
   render() {
 
     const list = ds.cloneWithRows(this.props.podcasts.toJS());
-    console.log('PopularShows container', list.length);
+    console.log('PopularShows container', list.length, this.props.match);
     // const list = ds.cloneWithRows(rawData);
     return (
 

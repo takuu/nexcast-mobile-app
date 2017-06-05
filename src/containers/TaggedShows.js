@@ -12,7 +12,9 @@ import ShowItem from '../components/ShowItem';
 import Loader from '../components/Loader';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as taggedShowActions from '../reducers/taggedShow/taggedShowActions'
+import * as taggedShowActions from '../reducers/taggedShow/taggedShowActions';
+import { NativeRouter, Route, Link } from 'react-router-native';
+import Show from '../containers/Show';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 const rawData = [
@@ -168,11 +170,13 @@ class TaggedShows extends Component {
   }
 
   render() {
-    console.log('TaggedShows container');
+    console.log('TaggedShows (Container): ', (this.props.taggedShows.toJS())[0]);
+    console.log('props', this.props.match);
     const list = ds.cloneWithRows(this.props.taggedShows.toJS());
     // const list = ds.cloneWithRows(rawData);
     return (
 
+      <View>
       <ScrollView
         tabLabel='Tagged'
         refreshControl={
@@ -188,7 +192,7 @@ class TaggedShows extends Component {
               <ListView style={{marginBottom: 60}}
                         enableEmptySections={true}
                         dataSource={list}
-                        renderRow={(item) => <ShowItem imageUrl={item.imageurl} title={item.title} description={item.author} rss={item.rssurl} />}
+                        renderRow={(item) => <ShowItem imageUrl={item.imageurl} title={item.title} description={item.author} rss={item.rssurl} match={this.props.match} />}
               />
             );
           } else {
@@ -198,6 +202,7 @@ class TaggedShows extends Component {
           }
         })(this.props.taggedShows.toJS(), list)}
       </ScrollView>
+      </View>
 
 
 

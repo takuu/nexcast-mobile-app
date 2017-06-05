@@ -167,6 +167,7 @@ class Show extends Component {
     const thisShow = this.props.showDetail[this.props.rss] || {};
     const tags = this.props.tags;
     const hasSubscription = this.props.subscription && this.props.subscription[this.props.rss];
+    console.log('Show (Container)');
     // console.log('episodes.. Check for sting duration: ', thisShow.episodes);
 
     thisShow.episodes = _.map(thisShow.episodes, (episode) => {

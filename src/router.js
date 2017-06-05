@@ -17,6 +17,7 @@ import Discover from './containers/Discover';
 import Profile from './containers/Profile';
 import Queue from './containers/Queue';
 import UserPodcasts from './containers/UserPodcasts';
+import Show from './containers/Show';
 
 
 function getInitialState () {
@@ -36,11 +37,14 @@ const Home = () => (
   </Text>
 )
 
-const About = () => (
-  <Text style={styles.header}>
-    About
-  </Text>
-)
+const About = () => {
+  console.log('About: jes testing');
+  return (
+    <Text style={styles.header}>
+      About
+    </Text>
+  )
+};
 
 const Topic = ({ match }) => (
   <Text style={styles.topic}>
@@ -79,6 +83,27 @@ const Topics = ({ match }) => (
   </View>
 )
 
+const routes = [
+  {path: '/', component: Home },
+  {path: '/about', component: About },
+  {path: '/topics', component: Topics },
+  {path: '/queue', component: Queue },
+  {path: '/userpodcasts', component: UserPodcasts },
+  {path: '/search', component: Search },
+  {path: '/discover', component: Discover,
+    routes: [
+      {path: '/discover/showitem', component: Show}
+    ]
+  },
+  {path: '/profile', component: Profile },
+];
+
+const RouteWithSubRoutes = (route) => (
+  <Route path={route.path} render={ (props) => (
+    <route.component {...props} routes={route.routes} />
+  )} />
+);
+
 const store = configureStore(getInitialState())
 
 const App = () => (
@@ -89,6 +114,11 @@ const App = () => (
 
         </View>
         <View style={styles.subContainer}>
+          {routes.map((route, i) => (
+            <RouteWithSubRoutes key={i} {...route} />
+          ))}
+
+{/*
           <Route exact path="/" component={Home}/>
           <Route path="/about" component={About}/>
           <Route path="/topics" component={Topics}/>
@@ -98,6 +128,8 @@ const App = () => (
           <Route path="/search" component={Search}/>
           <Route path="/discover" component={Discover}/>
           <Route path="/profile" component={Profile}/>
+          */}
+
         </View>
 
         <View style={styles.nav}>

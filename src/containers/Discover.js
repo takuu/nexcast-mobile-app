@@ -18,12 +18,10 @@ import Actions from '../lib/ActionsMock';
 
 import ScrollableTabView, { ScrollableTabBar, } from 'react-native-scrollable-tab-view';
 
-/**
- * The Header will display a Image and support Hot Loading
- */
+import { NativeRouter, Route, Link } from 'react-router-native'
+
 import Header from '../components/Header'
 
-import Show from '../containers/Show'
 
 import PopularShows from './PopularShows';
 import TaggedShows from './TaggedShows';
@@ -75,6 +73,14 @@ var I18n = require('react-native-i18n')
 import Translations from '../lib/Translations'
 I18n.translations = Translations
 
+const RouteWithSubRoutes = (route) => (
+  <Route path={route.path} render={ (props) => (
+    <route.component {...props} routes={route.routes} />
+  )} />
+);
+
+
+
 /**
  * ## App class
  */
@@ -93,7 +99,8 @@ class Discover extends Component {
   }
 
   render () {
-    console.log('Discover container');
+    const {routes} = this.props;
+    console.log('Discover container', routes);
     return (
       <View style={styles.container}>
         <ScrollableTabView
@@ -105,15 +112,19 @@ class Discover extends Component {
           scrollWithoutAnimation={true}
           renderTabBar={() => <ScrollableTabBar />}>
 
-            <TaggedShows tabLabel='Tagged' />
+            <TaggedShows tabLabel='Tagged' match={this.props.match} />
 
 
-            <PopularShows tabLabel='Popular' />
+            <PopularShows tabLabel='Popular' match={this.props.match} />
 
             <ScrollView tabLabel='Categories'>
               <CategoryList />
             </ScrollView>
         </ScrollableTabView>
+
+        {routes.map((route, i) => (
+          <RouteWithSubRoutes key={i} {...route} />
+        ))}
       </View>
     )
   }

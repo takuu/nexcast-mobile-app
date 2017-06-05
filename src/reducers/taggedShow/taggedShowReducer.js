@@ -25,9 +25,10 @@ export default (state = initialState, action) => {
     case GET_TAGGED_SHOWS_FAILURE:
     // Received pocasts data from an external API
     case GET_TAGGED_SHOWS_SUCCESS:
-      console.log('GET_TAGGED_SHOWS_SUCCESS: ', action);
-      if (!action.payload || !action.payload.length) { return state }
 
+      if (!action.payload || !action.payload.length) { return state }
+      console.log(`%cGET_TAGGED_SHOWS_SUCCESS: ${action.payload.length}`);
+      console.log(action.payload[0]);
       return mergeEntities(state, Immutable.fromJS(action.payload));
   }
   return state;
