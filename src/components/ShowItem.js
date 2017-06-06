@@ -43,7 +43,7 @@ const ShowItem = ({imageUrl, title, description, route, rss, match}) => {
   const decodedImageUrl = decodeURI(imageUrl);
   return (
     <View>
-      <Link to={`/discover/showitem`}>
+      <Link to={`/discover/showitem?rss=${rss}&title=${title}`}>
         <View style={styles.container}>
 
             { decodedImageUrl ? <Image source={{ uri: decodedImageUrl}} style={styles.photo} /> : null }

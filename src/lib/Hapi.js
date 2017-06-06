@@ -270,7 +270,8 @@ export class Hapi extends Backend {
       method: 'GET',
       // method: 'POST',
       // url: `/hastag?rssurl=${url}`
-      url: `/episodes/hastags?podcast_id=788236947`
+      // url: `/episodes/hastags?podcast_id=788236947`
+      url: `/episodes/hastagsByRSS?rss=${url}`
     })
       .then((res) => {
         if ((res.status === 200 || res.status === 201)) {

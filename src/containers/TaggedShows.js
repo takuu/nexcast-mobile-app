@@ -192,7 +192,7 @@ class TaggedShows extends Component {
               <ListView style={{marginBottom: 60}}
                         enableEmptySections={true}
                         dataSource={list}
-                        renderRow={(item) => <ShowItem imageUrl={item.imageurl} title={item.title} description={item.author} rss={item.rssurl} match={this.props.match} />}
+                        renderRow={(item) => <ShowItem imageUrl={item.image_url} title={item.title} description={item.description} rss={item.feed_url} match={this.props.match} />}
               />
             );
           } else {
