@@ -5,20 +5,16 @@ import {
   View,
   AppRegistry,
 } from 'react-native'
+import PropTypes from 'prop-types';
 
 import { NativeRouter, Route, Link } from 'react-router-native'
 import { Provider } from 'react-redux'
 import { Ionicons } from '@expo/vector-icons';
+import { connect } from 'react-redux';
+import { createStore } from 'redux';
+import AppReducer from './reducers';
 
 import configureStore from './lib/configureStore'
-
-import Search from './containers/Search';
-import Discover from './containers/Discover';
-import Profile from './containers/Profile';
-import Queue from './containers/Queue';
-import UserPodcasts from './containers/UserPodcasts';
-import Show from './containers/Show';
-
 
 function getInitialState () {
   const _initState = {
@@ -31,82 +27,20 @@ function getInitialState () {
 }
 
 
-const Home = () => (
-  <Text style={styles.header}>
-    Home
-  </Text>
-)
 
-const About = () => {
-  console.log('About: jes testing');
-  return (
-    <Text style={styles.header}>
-      About
-    </Text>
-  )
-};
+import AppWithNavigationState from './navigator';
 
-const Topic = ({ match }) => (
-  <Text style={styles.topic}>
-    {match.params.topicId}
-  </Text>
-)
 
-const Topics = ({ match }) => (
-  <View>
-    <Text style={styles.header}>Topics</Text>
-    <View>
-      <Link
-        to={`${match.url}/rendering`}
-        style={styles.subNavItem}
-        underlayColor='#f0f4f7'>
-        <Text>Rendering with React</Text>
-      </Link>
-      <Link
-        to={`${match.url}/components`}
-        style={styles.subNavItem}
-        underlayColor='#f0f4f7'>
-        <Text>Components</Text>
-      </Link>
-      <Link
-        to={`${match.url}/props-v-state`}
-        style={styles.subNavItem}
-        underlayColor='#f0f4f7'>
-        <Text>Props v. State</Text>
-      </Link>
-    </View>
 
-    <Route path={`${match.url}/:topicId`} component={Topic}/>
-    <Route exact path={match.url} render={() => (
-      <Text style={styles.topic}>Please select a topic.</Text>
-    )} />
-  </View>
-)
-
-const routes = [
-  {path: '/', component: Home },
-  {path: '/about', component: About },
-  {path: '/topics', component: Topics },
-  {path: '/queue', component: Queue },
-  {path: '/userpodcasts', component: UserPodcasts },
-  {path: '/search', component: Search },
-  {path: '/discover', component: Discover,
-    routes: [
-      {path: '/discover/showitem', component: Show}
-    ]
-  },
-  {path: '/profile', component: Profile },
-];
-
-const RouteWithSubRoutes = (route) => (
-  <Route path={route.path} render={ (props) => (
-    <route.component {...props} routes={route.routes} />
-  )} />
-);
-
-const store = configureStore(getInitialState())
+const store = createStore(AppReducer);
 
 const App = () => (
+  <Provider store={store}>
+    <AppWithNavigationState />
+  </Provider>
+);
+
+/*const App = () => (
   <Provider store={store}>
     <NativeRouter>
       <View style={styles.container}>
@@ -118,7 +52,7 @@ const App = () => (
             <RouteWithSubRoutes key={i} {...route} />
           ))}
 
-{/*
+{/!*
           <Route exact path="/" component={Home}/>
           <Route path="/about" component={About}/>
           <Route path="/topics" component={Topics}/>
@@ -128,7 +62,7 @@ const App = () => (
           <Route path="/search" component={Search}/>
           <Route path="/discover" component={Discover}/>
           <Route path="/profile" component={Profile}/>
-          */}
+          *!/}
 
         </View>
 
@@ -184,7 +118,7 @@ const App = () => (
       </View>
     </NativeRouter>
   </Provider>
-)
+)*/
 
 const styles = StyleSheet.create({
   container: {
