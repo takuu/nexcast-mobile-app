@@ -1,15 +1,7 @@
-/**
- * # reducers
- *
- * This class combines all the reducers into one
- *
- */
-'use strict'
-/**
- * ## Imports
- *
- * our 4 reducers
- */
+'use strict';
+
+import { combineReducers } from 'redux';
+
 import auth from './auth/authReducer'
 import device from './device/deviceReducer'
 import global from './global/globalReducer'
@@ -24,7 +16,15 @@ import subscription from './subscription/subscriptionReducer'
 import tags from './tag/tagReducer'
 import searchShows from './search/searchReducer'
 
-import { combineReducers } from 'redux'
+
+
+// Navigation
+import { QueueNavigation } from '../navigation/QueueNavigation'
+import { UserPodcastsNavigation } from '../navigation/UserPodcastsNavigation'
+import { SearchNavigation } from '../navigation/SearchNavigation'
+import { DiscoverNavigation } from '../navigation/DiscoverNavigation'
+import { TabBar, tabBarReducer } from '../navigation/TabBarNavigation'
+
 
 /**
  * ## CombineReducers
@@ -33,6 +33,13 @@ import { combineReducers } from 'redux'
  * EVERY TIME there is a basic action
  */
 const rootReducer = combineReducers({
+  tabBar: tabBarReducer,
+
+  tabOne: (state,action) => QueueNavigation.router.getStateForAction(action,state),
+
+  tabTwo: (state,action) => UserPodcastsNavigation.router.getStateForAction(action,state),
+
+  tabThree: (state,action) => SearchNavigation.router.getStateForAction(action,state),
   auth,
   device,
   global,

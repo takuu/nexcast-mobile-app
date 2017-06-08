@@ -11,32 +11,13 @@ import { NativeRouter, Route, Link } from 'react-router-native'
 import { Provider } from 'react-redux'
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
-import { createStore } from 'redux';
-import AppReducer from './reducers';
+import store from './store'
 
-import configureStore from './lib/configureStore'
-
-function getInitialState () {
-  const _initState = {
-    auth: {},
-    device: {},
-    global: {},
-    profile: {}
-  }
-  return _initState
-}
-
-
-
-import AppWithNavigationState from './navigator';
-
-
-
-const store = createStore(AppReducer);
+import TabBar from './navigation/TabBar';
 
 const App = () => (
   <Provider store={store}>
-    <AppWithNavigationState />
+    <TabBar />
   </Provider>
 );
 

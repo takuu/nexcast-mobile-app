@@ -44,8 +44,10 @@ export const AppNavigator = StackNavigator({
   About: { screen: About },
   Queue: { screen: Queue },
   UserPodcasts: { screen: UserPodcasts },
-  Search: { screen: Search },
   Discover: { screen: Discover },
+  Search: { screen: Search },
+  About: { screen: About },
+
 });
 
 const AppWithNavigationState = ({ dispatch, nav }) => (

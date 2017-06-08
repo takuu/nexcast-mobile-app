@@ -39,11 +39,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const ShowItem = ({imageUrl, title, description, route, rss, match}) => {
+const ShowItem = ({imageUrl, title, description, route, rss, match, navigation}) => {
   const decodedImageUrl = decodeURI(imageUrl);
   return (
     <View>
-      <Link to={`/discover/showitem?rss=${rss}&title=${title}`}>
+      <TouchableWithoutFeedback onPress={() => navigation.navigate('Show')}>
         <View style={styles.container}>
 
             { decodedImageUrl ? <Image source={{ uri: decodedImageUrl}} style={styles.photo} /> : null }
@@ -57,7 +57,7 @@ const ShowItem = ({imageUrl, title, description, route, rss, match}) => {
               </Text>
             </View>
         </View>
-      </Link>
+      </TouchableWithoutFeedback>
     </View>
   )
 };

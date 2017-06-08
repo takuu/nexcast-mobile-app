@@ -99,8 +99,7 @@ class Discover extends Component {
   }
 
   render () {
-    const {routes} = this.props;
-    console.log('Discover container', routes);
+
     return (
       <View style={styles.container}>
         <ScrollableTabView
@@ -122,9 +121,6 @@ class Discover extends Component {
             </ScrollView>
         </ScrollableTabView>
 
-        {routes.map((route, i) => (
-          <RouteWithSubRoutes key={i} {...route} />
-        ))}
       </View>
     )
   }
