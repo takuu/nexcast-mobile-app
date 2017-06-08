@@ -114,6 +114,9 @@ export default class Backend {
   getEpisodes(rss){
     // url: API_URL + 'getEpisodesByRss?rss=' + rss;
   }
+  getPodcast(rss){
+    // url: API_URL + 'getByRSS?rss=' + rss;
+  }
   hasTag(url){
     // url: API_URL + 'hastag?rssurl=' + url
   }

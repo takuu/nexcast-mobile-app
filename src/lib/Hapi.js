@@ -264,6 +264,26 @@ export class Hapi extends Backend {
         throw (error)
       })
   }
+
+  async getPodcast(rss) {
+    console.log('Hapi getPodcast params (rss): ', rss);
+    return await this._fetch({
+      // method: 'POST',
+      // url: `/getEpisodesByRss?rss=${rss}`
+      method: 'GET',
+      url: `/podcasts/getByRSS?rss=${rss}`
+    })
+      .then((res) => {
+        if ((res.status === 200 || res.status === 201)) {
+          return res.json
+        } else {
+          throw (res.json)
+        }
+      })
+      .catch((error) => {
+        throw (error)
+      })
+  }
   async hasTag(url) {
     // url: API_URL + 'hastag?rssurl=' + url
     return await this._fetch({

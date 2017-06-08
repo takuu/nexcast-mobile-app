@@ -4,6 +4,8 @@ const {
   GET_EPISODES_REQUEST,
   GET_EPISODES_SUCCESS,
   GET_EPISODES_FAILURE,
+  GET_PODCAST_SUCCESS,
+  GET_PODCAST_FAILURE,
 
 } = require('../../lib/constants').default;
 
@@ -31,6 +33,38 @@ export function getEpisodesFailure (err) {
   }
 }
 
+
+export function getPodcastSuccess (json) {
+  return {
+    type: GET_PODCAST_SUCCESS,
+    payload: json
+  }
+}
+export function getPodcastFailure (err) {
+  console.log('getPodcastFailure: ', err);
+  return {
+    type: GET_PODCAST_FAILURE,
+    payload: err
+  }
+}
+
+export function getPodcast (rss = '') {
+  return async (dispatch) =>  {
+    try {
+      console.log('starting getPodcast: ');
+      const tokenResult = await BackendFactory().registerThisDevice(CONFIG.deviceUID);
+      console.log('tokenResult: ', tokenResult);
+      if(tokenResult.status == 1) {
+
+      } else {
+        // stuff failed to token initialize
+      }
+    } catch(err) {
+
+    }
+  }
+}
+
 export function getEpisodes (rss = '') {
   console.log('getEpisodes() was called');
   return async (dispatch) => {
@@ -43,14 +77,12 @@ export function getEpisodes (rss = '') {
         const episodesResult = await BackendFactory(token).getEpisodes(rss);
         if (episodesResult.status == 1) {
           let {result} = episodesResult;
-          result.rss = rss;
-          result.episodes = _.map(result.episodes, (episode) => {
-            episode.durationFormatted = episode.duration;
-            episode.duration = helpers.hmsToSecondsOnly(episode.duration);
+          const episodes = _.map(result, (episode) => {
             episode.title = episode.title.replace('↵', '');
-            return episode;
+            episode.rss = rss;
+            return episode
           });
-          dispatch(getEpisodesSuccess(result));
+          dispatch(getEpisodesSuccess(episodes));
         } else {
           dispatch(getEpisodesFailure({error: 'err: fetching episodes failed'}));
         }

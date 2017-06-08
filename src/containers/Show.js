@@ -18,9 +18,12 @@ import { List, ListItem, Button } from 'react-native-elements'
 import EpisodeItem from '../components/EpisodeItem';
 
 import * as showDetailActions from '../reducers/showDetail/showDetailActions'
+import * as podcastActions from '../reducers/podcast/podcastActions';
 import * as subscriptionActions from '../reducers/subscription/subscriptionActions';
 import * as tagActions from '../reducers/tag/tagActions';
 import Loader from '../components/Loader';
+
+import { getParameterByName } from '../lib/helpers';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 const rawData = {
@@ -131,6 +134,7 @@ const styles = StyleSheet.create({
 function mapStateToProps (state) {
   return {
     showDetail: state.showDetail.toJS() || {},
+    podcastInfo: state.podcastInfo.toJS() || {},
     subscription: state.subscription.toJS(),
     tags: state.tags.toJS()
   }
@@ -138,7 +142,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({ ...showDetailActions, ...subscriptionActions, ...tagActions  }, dispatch)
+    actions: bindActionCreators({ ...showDetailActions, ...subscriptionActions, ...tagActions, ...podcastActions }, dispatch)
   }
 }
 
@@ -149,9 +153,13 @@ class Show extends Component {
     this.removeSubscription = this.removeSubscription.bind(this);
   }
   componentWillMount() {
-    this.props.actions.getEpisodes(this.props.rss);
-    this.props.actions.hasTag(this.props.rss);
+    var url = 'http://localhost:80' + this.props.location.search;
+    var rssFeed = getParameterByName('rss', url);
+    console.log('Show componentWillMount', rssFeed);
+    this.props.actions.getEpisodes(rssFeed);
+    this.props.actions.hasTag(rssFeed);
     this.props.actions.getAllSubscription();
+    this.props.actions.getPodcast(rssFeed);
 
   }
 
@@ -164,19 +172,22 @@ class Show extends Component {
   }
 
   render() {
-    const thisShow = this.props.showDetail[this.props.rss] || {};
+    var url = 'http://localhost:80' + this.props.location.search;
+    var rssFeed = getParameterByName('rss', url);
+    let episodes = this.props.showDetail[rssFeed] || [];
+    let thisShow = this.props.podcastInfo[rssFeed];
     const tags = this.props.tags;
     const hasSubscription = this.props.subscription && this.props.subscription[this.props.rss];
-    console.log('Show (Container)', this.props);
-    // console.log('episodes.. Check for sting duration: ', thisShow.episodes);
 
-    thisShow.episodes = _.map(thisShow.episodes, (episode) => {
+    episodes = _.map(episodes, (episode) => {
       return {
         ...episode,
         hasTag: !!tags[episode.episode_key]
       }
     });
-    const list = ds.cloneWithRows((thisShow && thisShow.episodes) || []);
+    console.log('Show (Container)', thisShow, episodes);
+
+    const list = ds.cloneWithRows((episodes) || []);
     return (
       <View style={{flex: 1}}>
 
@@ -184,9 +195,9 @@ class Show extends Component {
             if (episodes && episodes.length) {
               return (
                 <View style={styles.listContainer}>
-                  <List containerStyle={{marginTop: 60}}>
+                  <List containerStyle={{marginTop: 0}}>
                     <View style={styles.container}>
-                      <Image source={{ uri: thisShow && thisShow.imageurl}} style={styles.photo} />
+                      <Image source={{ uri: thisShow && thisShow.image_url}} style={styles.photo} />
                       <View style={styles.textStyle}>
                         <View style={{flex: 1, flexDirection: 'row', height: 30}}>
                           <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
@@ -197,7 +208,7 @@ class Show extends Component {
 
                         <View style={styles.subContainer}>
                           <Text style={styles.date} numberOfLines={2} ellipsizeMode="tail">
-                            {`${thisShow.author || ''}\n` }
+                            {`${thisShow.artist_name || ''}\n` }
                           </Text>
 
                           {((hasSubscription, thisShow, removeSubscription, setSubcription) => {
@@ -234,7 +245,7 @@ class Show extends Component {
                           Description
                         </Text>
                         <Text style={styles.description} numberOfLines={4} ellipsizeMode="tail" lineBreakMode="tail">
-                          {thisShow.long_desc}
+                          {thisShow.description}
                         </Text>
                       </View>
                     </View>
@@ -245,7 +256,7 @@ class Show extends Component {
                     style={{paddingBottom: 0}}
                     renderRow={(item) => <EpisodeItem title={thisShow.title} description={item.description}
                     date={item.pubDate} duration={item.duration} episodeTitle={item.title} media={item.media_location}
-                    imageUrl={thisShow.imageurl} episodeKey={item.episode_key} hasTag={item.hasTag} />} />
+                    imageUrl={thisShow.image_url} episodeKey={item.episode_key} hasTag={item.hasTag} />} />
                 </View>
               )
             } else {
@@ -253,7 +264,7 @@ class Show extends Component {
                 <Loader />
               )
             }
-          })(thisShow && thisShow.episodes, list)}
+          })(episodes, list)}
 
 
       </View>

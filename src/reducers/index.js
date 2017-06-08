@@ -13,7 +13,8 @@
 import auth from './auth/authReducer'
 import device from './device/deviceReducer'
 import global from './global/globalReducer'
-import podcasts from './discover/podcastReducer';
+import podcasts from './discover/discoverReducer';
+import podcastInfo from './podcast/podcastReducer';
 import profile from './profile/profileReducer'
 import taggedShows from './taggedShow/taggedShowReducer'
 import showDetail from './showDetail/showDetailReducer'
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   global,
   profile,
   podcasts,
+  podcastInfo,
   taggedShows,
   showDetail,
   player,

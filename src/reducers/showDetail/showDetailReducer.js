@@ -5,14 +5,19 @@ const {
 
 } = require('../../lib/constants').default
 import Immutable from 'immutable';
+import _ from 'lodash';
+import showDetailInitial from './showDetailInitialState';
 
-import showDetailInitial from './showDetailInitialState'
 
 const initialState = new Immutable.Map();
 
 
 const mapEntities = (state, newShowDetail) => {
-  return state.set(newShowDetail.rss, newShowDetail);
+  if(newShowDetail.length) {
+    return state.set(newShowDetail[0].rss, newShowDetail);
+  } else {
+    return state;
+  }
 };
 
 

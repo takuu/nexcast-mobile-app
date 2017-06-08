@@ -80,26 +80,3 @@ ShowItem.defaultProps = {
 };
 
 export default ShowItem;
-
-
-const foobar = ({imageUrl, title, description, route, rss, match}) =>(
-  <View>
-    <Link to={`${match.url}/showitem?rss=${rss}&title=${title}`}>
-      <View style={styles.container}>
-
-        { decodedImageUrl ? <Image source={{ uri: decodedImageUrl}} style={styles.photo}/> : null }
-        <View style={styles.textStyle}>
-          <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
-            {title}
-          </Text>
-          <Text style={styles.date}></Text>
-          <Text style={styles.description} numberOfLines={3} ellipsizeMode="tail">
-            {description}
-          </Text>
-        </View>
-
-      </View>
-    </Link>
-    <Route path={`${match.url}/showitem`} component={Show}></Route>
-  </View>
-)
