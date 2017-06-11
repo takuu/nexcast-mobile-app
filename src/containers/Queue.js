@@ -38,7 +38,7 @@ import Ion from 'react-native-vector-icons/Ionicons'
 
 
 import { List, ListItem } from 'react-native-elements'
-
+import { Ionicons } from '@expo/vector-icons';
 /**
  *  Instead of including all app states via ...state
  *  One could explicitly enumerate only those which Queue.js will depend on.
@@ -102,6 +102,8 @@ function mapStateToProps (state) {
   }
 }
 
+
+
 /*
  * Bind all the actions
  */
@@ -137,6 +139,18 @@ class Queue extends Component {
     this.setState({refreshing: true});
     this.props.actions.getAllPodcastHistory();
   }
+
+  static navigationOptions = {
+    title: 'Queue',
+    tabBarLabel: 'Queue',
+    // Note: By default the icon is only shown on iOS. Search the showIcon option below.
+    tabBarIcon: ({ tintColor }) => (
+      <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', alignSelf: 'center'}}>
+        <Ionicons name="logo-buffer" size={32} color="#888" />
+        <Text style={{color: "#888888", fontSize: 10}}>Queue</Text>
+      </View>
+    )
+  };
 
   render () {
     // console.log('Queue: ', this.props);

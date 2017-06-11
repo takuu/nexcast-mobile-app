@@ -13,11 +13,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import store from './store'
 
-import TabBar from './navigation/TabBar';
+// import TabBar from './navigation/TabBar';
+import Navigation, { PrimaryNav } from './navigation';
 
 const App = () => (
   <Provider store={store}>
-    <TabBar />
+    <Navigation />
   </Provider>
 );
 

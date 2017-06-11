@@ -1,3 +1,5 @@
+console.log('==========================SHOW: THIS DOES LOAD HERE A');
+
 import React, {PropTypes, Component} from 'react';
 import {
   View,
@@ -11,7 +13,7 @@ import {
 const {height, width} = Dimensions.get('window');
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import striptags from 'striptags';
+// import striptags from 'striptags';
 import _ from 'lodash';
 import { List, ListItem, Button } from 'react-native-elements'
 
@@ -24,6 +26,7 @@ import * as tagActions from '../reducers/tag/tagActions';
 import Loader from '../components/Loader';
 
 import { getParameterByName } from '../lib/helpers';
+console.log('==========================SHOW: THIS DOES LOAD HERE B');
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 const rawData = {
@@ -145,17 +148,21 @@ function mapDispatchToProps (dispatch) {
     actions: bindActionCreators({ ...showDetailActions, ...subscriptionActions, ...tagActions, ...podcastActions }, dispatch)
   }
 }
+console.log('==========================SHOW: THIS DOES LOAD HERE C');
 
 class Show extends Component {
   constructor(props) {
     super(props);
+    console.log('Show constructor');
     this.setSubscription = this.setSubscription.bind(this);
     this.removeSubscription = this.removeSubscription.bind(this);
+    console.log('==========================SHOW: THIS DOES LOAD HERE D');
   }
   componentWillMount() {
-    var url = 'http://localhost:80' + this.props.location.search;
-    var rssFeed = getParameterByName('rss', url);
-    console.log('Show componentWillMount', rssFeed);
+    // var url = 'http://localhost:80' + this.props.location.search;
+    // var rssFeed = getParameterByName('rss', url);
+    // console.log('Show componentWillMount', rssFeed);
+    var rssFeed = 'http://feeds.feedburner.com/BuildingNexcast/rss';
     this.props.actions.getEpisodes(rssFeed);
     this.props.actions.hasTag(rssFeed);
     this.props.actions.getAllSubscription();
@@ -172,12 +179,13 @@ class Show extends Component {
   }
 
   render() {
-    var url = 'http://localhost:80' + this.props.location.search;
-    var rssFeed = getParameterByName('rss', url);
+
+    var rssFeed = 'http://feeds.feedburner.com/BuildingNexcast/rss';
+
     let episodes = this.props.showDetail[rssFeed] || [];
     let thisShow = this.props.podcastInfo[rssFeed];
     const tags = this.props.tags;
-    const hasSubscription = this.props.subscription && this.props.subscription[this.props.rss];
+    const hasSubscription = this.props.subscription && this.props.subscription[rssFeed];
 
     episodes = _.map(episodes, (episode) => {
       return {

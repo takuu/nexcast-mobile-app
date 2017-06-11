@@ -171,7 +171,7 @@ class TaggedShows extends Component {
 
   render() {
     console.log('TaggedShows (Container): ', (this.props.taggedShows.toJS())[0]);
-    console.log('props', this.props.match);
+    console.log('props', this.props);
     const list = ds.cloneWithRows(this.props.taggedShows.toJS());
     // const list = ds.cloneWithRows(rawData);
     return (
@@ -192,7 +192,7 @@ class TaggedShows extends Component {
               <ListView style={{marginBottom: 60}}
                         enableEmptySections={true}
                         dataSource={list}
-                        renderRow={(item) => <ShowItem imageUrl={item.image_url} title={item.title} description={item.description} rss={item.feed_url} match={this.props.match} />}
+                        renderRow={(item) => <ShowItem imageUrl={item.image_url} title={item.title} description={item.description} rss={item.feed_url} match={this.props.match} navigation={this.props.navigation} />}
               />
             );
           } else {

@@ -10,7 +10,7 @@ import Actions from '../lib/ActionsMock';
 import * as authActions from '../reducers/auth/authActions'
 import * as globalActions from '../reducers/global/globalActions'
 import * as subscriptionActions from '../reducers/subscription/subscriptionActions'
-
+import { Ionicons } from '@expo/vector-icons';
 /**
  * Router
  */
@@ -124,6 +124,18 @@ class UserPodcasts extends Component {
   componentWillMount() {
     this.props.actions.getAllSubscription();
   }
+
+  static navigationOptions = {
+    title: 'Podcasts',
+    tabBarLabel: 'Podcasts',
+    // Note: By default the icon is only shown on iOS. Search the showIcon option below.
+    tabBarIcon: ({ tintColor }) => (
+      <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', alignSelf: 'center'}}>
+        <Ionicons name="ios-mic" size={32} color="#888" />
+        <Text style={{color: "#888888", fontSize: 10}}>Podcasts</Text>
+      </View>
+    )
+  };
 
   _onRefresh() {
     this.setState({refreshing: true});

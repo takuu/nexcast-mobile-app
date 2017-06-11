@@ -126,7 +126,7 @@ class PopularShows extends Component {
                         enableEmptySections={true}
                         dataSource={list}
 
-                        renderRow={(item) => <ShowItem imageUrl={item.image_url} title={item.title} description={item.description} rss={item.feed_url} />}
+                        renderRow={(item) => <ShowItem imageUrl={item.image_url} title={item.title} description={item.description} rss={item.feed_url}  navigation={this.props.navigation} />}
               />
             );
           } else {

@@ -31,6 +31,7 @@ import CategoryList from './CategoryList';
  */
 import React, {Component} from 'react'
 import { StyleSheet, View, Text, ScrollView } from 'react-native'
+import { Ionicons } from '@expo/vector-icons';
 
 /**
  * The platform neutral button
@@ -98,7 +99,19 @@ class Discover extends Component {
     // this.props.actions.getTaggedShows();
   }
 
+  static navigationOptions = {
+    tabBarLabel: 'Discover',
+    // Note: By default the icon is only shown on iOS. Search the showIcon option below.
+    tabBarIcon: ({ tintColor }) => (
+      <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', alignSelf: 'center'}}>
+        <Ionicons name="ios-star" size={32} color="#888" />
+        <Text style={{color: "#888888", fontSize: 10}}>Discover</Text>
+      </View>
+    )
+  };
+
   render () {
+    console.log('Discover: ', this.props);
 
     return (
       <View style={styles.container}>
@@ -111,12 +124,12 @@ class Discover extends Component {
           scrollWithoutAnimation={true}
           renderTabBar={() => <ScrollableTabBar />}>
 
-            <TaggedShows tabLabel='Tagged' match={this.props.match} />
+            <TaggedShows tabLabel='Tagged' match={this.props.match} navigation={this.props.navigation} />
 
 
-            <PopularShows tabLabel='Popular' match={this.props.match} />
+            <PopularShows tabLabel='Popular' match={this.props.match} navigation={this.props.navigation} />
 
-            <ScrollView tabLabel='Categories'>
+            <ScrollView tabLabel='Categories' navigation={this.props.navigation}>
               <CategoryList />
             </ScrollView>
         </ScrollableTabView>

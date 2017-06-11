@@ -1,3 +1,4 @@
+/*
 'use strict'
 import { TabNavigator } from 'react-navigation'
 // Tab-Navigators
@@ -5,13 +6,24 @@ import Queue from '../containers/Queue';
 import UserPodcasts from '../containers/UserPodcasts';
 import Search from '../containers/Search';
 import Discover from '../containers/Discover';
+import Show from '../containers/Show';
+
+
+import TabOneNavigation from './TabOneNavigation';
+import TabTwoNavigation from './TabTwoNavigation';
+// import TabOneNavigation from './TabOneNavigation';
+import TabFourNavigation from './TabFourNavigation';
+
 
 
 const routeConfiguration = {
+
   TabOneNavigation: { screen: Queue },
   TabTwoNavigation: { screen: UserPodcasts },
   TabThreeNavigation: { screen: Search },
   TabFourNavigation: { screen: Discover },
+
+  // TabFourNavigation: { screen: DiscoverNav },
 }
 
 const tabBarConfiguration = {
@@ -37,3 +49,4 @@ export const tabBarReducer = (state,action) => {
     return TabBar.router.getStateForAction(action,state)
   }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 // React
@@ -5,7 +6,7 @@ import React from 'react'
 
 // Navigation
 import { addNavigationHelpers } from 'react-navigation'
-import { TabBar } from './TabBarNavigation'
+import { TabBar } from './TabBarConfiguration'
 
 //Redux
 import { connect } from 'react-redux'
@@ -34,4 +35,4 @@ class TabBarNavigation extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(TabBarNavigation)
+export default connect(mapStateToProps)(TabBarNavigation)*/

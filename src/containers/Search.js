@@ -13,8 +13,9 @@ import ShowItem from '../components/ShowItem';
 
 
 import React, {Component} from 'react'
-import { StyleSheet, View, ListView, ScrollView, Dimensions} from 'react-native'
+import { StyleSheet, View, ListView, ScrollView, Dimensions, Text} from 'react-native'
 const {height, width} = Dimensions.get('window');
+import { Ionicons } from '@expo/vector-icons';
 
 /**
  * The platform neutral button
@@ -90,10 +91,22 @@ class Search extends Component {
     }
   }
 
+  static navigationOptions = {
+    title: 'Search',
+    tabBarLabel: 'Search',
+    // Note: By default the icon is only shown on iOS. Search the showIcon option below.
+    tabBarIcon: ({ tintColor }) => (
+      <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', alignSelf: 'center'}}>
+        <Ionicons name="ios-search" size={32} color="#888" />
+        <Text style={{color: "#888888", fontSize: 10}}>Search</Text>
+      </View>
+    )
+  };
+
   render () {
 
     const {isSearching, results} = this.props.searchShows;
-    console.log('searchShows: ', this.props.searchShows)
+    console.log('Search Container: ', this.props.searchShows);
     const list = ds.cloneWithRows(results || []);
     return (
     <ScrollView >

@@ -19,12 +19,9 @@ import searchShows from './search/searchReducer'
 
 
 // Navigation
-import { QueueNavigation } from '../navigation/QueueNavigation'
-import { UserPodcastsNavigation } from '../navigation/UserPodcastsNavigation'
-import { SearchNavigation } from '../navigation/SearchNavigation'
-import { DiscoverNavigation } from '../navigation/DiscoverNavigation'
-import { TabBar, tabBarReducer } from '../navigation/TabBarNavigation'
-
+// import { TabBar, tabBarReducer } from '../navigation/TabBarConfiguration'
+// import { QueueNavigation, UserPodcastsNavigation, SearchNavigation, DiscoverNavigation } from '../navigation/NavigatorConfiguration';
+import { navReducer } from '../navigation';
 
 /**
  * ## CombineReducers
@@ -33,6 +30,8 @@ import { TabBar, tabBarReducer } from '../navigation/TabBarNavigation'
  * EVERY TIME there is a basic action
  */
 const rootReducer = combineReducers({
+  navReducer,
+/*
   tabBar: tabBarReducer,
 
   tabOne: (state,action) => QueueNavigation.router.getStateForAction(action,state),
@@ -40,6 +39,9 @@ const rootReducer = combineReducers({
   tabTwo: (state,action) => UserPodcastsNavigation.router.getStateForAction(action,state),
 
   tabThree: (state,action) => SearchNavigation.router.getStateForAction(action,state),
+
+  tabFour: (state,action) => DiscoverNavigation.router.getStateForAction(action,state),
+*/
   auth,
   device,
   global,

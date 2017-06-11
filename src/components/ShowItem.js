@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import { View, Text, StyleSheet, Image, TouchableWithoutFeedback, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 
 import Actions from '../lib/ActionsMock';
 const {height, width} = Dimensions.get('window');
@@ -43,7 +43,7 @@ const ShowItem = ({imageUrl, title, description, route, rss, match, navigation})
   const decodedImageUrl = decodeURI(imageUrl);
   return (
     <View>
-      <TouchableWithoutFeedback onPress={() => navigation.navigate('Show')}>
+      <TouchableOpacity onPress={() => {console.log('clicked...'); navigation.navigate('Show');}}>
         <View style={styles.container}>
 
             { decodedImageUrl ? <Image source={{ uri: decodedImageUrl}} style={styles.photo} /> : null }
@@ -57,7 +57,7 @@ const ShowItem = ({imageUrl, title, description, route, rss, match, navigation})
               </Text>
             </View>
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     </View>
   )
 };
@@ -69,6 +69,7 @@ ShowItem.propTypes = {
   description: PropTypes.string,
   route: PropTypes.string,
   rss: PropTypes.string,
+  navigation: PropTypes.object,
 };
 
 ShowItem.defaultProps = {
