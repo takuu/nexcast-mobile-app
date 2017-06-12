@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { ReactNativeAudioStreaming, Player } from 'react-native-audio-streaming';
-import Slider from 'react-native-slider';
+// import { ReactNativeAudioStreaming, Player } from 'react-native-audio-streaming';
+// import Slider from 'react-native-slider';
 import {
   Modal,
   Text,
@@ -16,16 +16,16 @@ import {
   Linking,
 } from 'react-native';
 // This is the swipeable modal
-var ModalBox   = require('react-native-modalbox');
-import { Button } from 'react-native-elements';
+// var ModalBox   = require('react-native-modalbox');
+// import { Button } from 'react-native-elements';
 import Actions from '../lib/ActionsMock';
-import Ion from 'react-native-vector-icons/Ionicons'
+// import Ion from 'react-native-vector-icons/Ionicons'
 import PlayerControls from '../components/PlayerControls';
 import PlayerTags from '../components/PlayerTags';
 import * as playerActions from '../reducers/player/playerActions'
 import * as podcastHistoryActions from '../reducers/podcastHistory/podcastHistoryActions'
 import * as tagActions from '../reducers/tag/tagActions'
-import * as helpers from '../lib/helpers'
+// import * as helpers from '../lib/helpers'
 import { bindActionCreators } from 'redux'
 
 const {height, width} = Dimensions.get('window');

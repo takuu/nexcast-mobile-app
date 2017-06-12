@@ -43,7 +43,7 @@ const ShowItem = ({imageUrl, title, description, route, rss, match, navigation})
   const decodedImageUrl = decodeURI(imageUrl);
   return (
     <View>
-      <TouchableOpacity onPress={() => {console.log('clicked...'); navigation.navigate('Show');}}>
+      <TouchableOpacity onPress={() => {console.log('clicked...', title); navigation.navigate('Show', {title, rss, navigation});}}>
         <View style={styles.container}>
 
             { decodedImageUrl ? <Image source={{ uri: decodedImageUrl}} style={styles.photo} /> : null }

@@ -8,6 +8,7 @@ import UserPodcasts from './containers/UserPodcasts';
 import Search from './containers/Search';
 import Discover from './containers/Discover';
 import Show from './containers/Show';
+// import PlayerModal from './containers/PlayerModal';
 import Profile from './containers/Profile';
 import { Icon } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
@@ -34,7 +35,7 @@ export const UserPodcastsStack = StackNavigator({
   UserPodcasts: {
     screen: UserPodcasts,
     navigationOptions: {
-      title: 'User Podcasts',
+      title: 'Podcasts',
     },
   },
   Show2: {
@@ -64,11 +65,20 @@ export const DiscoverStack = StackNavigator({
   },
   Show: {
     screen: Show,
-    navigationOptions: ({ navigation }) => ({
-      // title: `${navigation.state.params.name.first.toUpperCase()} ${navigation.state.params.name.last.toUpperCase()}`,
-      title: `Show3`,
-    }),
+    navigationOptions: ({ navigation }) => {
+      console.log('Show3: navigation', navigation);
+      return {
+        // title: `${navigation.state.params.name.first.toUpperCase()} ${navigation.state.params.name.last.toUpperCase()}`,
+        title: navigation.state.params.title,
+      }
+    },
   },
+  // Player: {
+  //   screen: PlayerModal,
+  //   navigationOptions: {
+  //     title: 'Player',
+  //   },
+  // },
 });
 
 export const ProfileStack = StackNavigator({
@@ -92,7 +102,7 @@ export const Tabs = TabNavigator({
   UserPodcasts: {
     screen: UserPodcastsStack,
     navigationOptions: {
-      tabBarLabel: 'UserPodcasts',
+      tabBarLabel: 'Podcasts',
       tabBarIcon: ({ tintColor }) => <Ionicons name="ios-mic" size={32} color={tintColor} />,
     },
   },
@@ -123,7 +133,7 @@ export const PrimaryNav = StackNavigator({
   Tabs: {
     screen: Tabs,
   },
-  Settings: {
+  Show: {
     screen: Show,
   },
 }, {
@@ -146,8 +156,8 @@ Navigation.propTypes = {
 };
 
 export const navReducer = (state, action) => {
-  const newState = PrimaryNav.router.getStateForAction(action, state)
-  return newState || state
+  const newState = PrimaryNav.router.getStateForAction(action, state);
+  return newState || state;
 }
 
 function mapStateToProps (state) {

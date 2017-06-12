@@ -163,10 +163,11 @@ class Show extends Component {
     // var rssFeed = getParameterByName('rss', url);
     // console.log('Show componentWillMount', rssFeed);
     var rssFeed = 'http://feeds.feedburner.com/BuildingNexcast/rss';
-    this.props.actions.getEpisodes(rssFeed);
-    this.props.actions.hasTag(rssFeed);
+    const { rss } = this.props.navigation.state.params;
+    this.props.actions.getEpisodes(rss);
+    this.props.actions.hasTag(rss);
     this.props.actions.getAllSubscription();
-    this.props.actions.getPodcast(rssFeed);
+    this.props.actions.getPodcast(rss);
 
   }
 
@@ -180,12 +181,13 @@ class Show extends Component {
 
   render() {
 
-    var rssFeed = 'http://feeds.feedburner.com/BuildingNexcast/rss';
+    // var rssFeed = 'http://feeds.feedburner.com/BuildingNexcast/rss';
+    const { rss } = this.props.navigation.state.params;
 
-    let episodes = this.props.showDetail[rssFeed] || [];
-    let thisShow = this.props.podcastInfo[rssFeed];
+    let episodes = this.props.showDetail[rss] || [];
+    let thisShow = this.props.podcastInfo[rss];
     const tags = this.props.tags;
-    const hasSubscription = this.props.subscription && this.props.subscription[rssFeed];
+    const hasSubscription = this.props.subscription && this.props.subscription[rss];
 
     episodes = _.map(episodes, (episode) => {
       return {
@@ -203,7 +205,7 @@ class Show extends Component {
             if (episodes && episodes.length) {
               return (
                 <View style={styles.listContainer}>
-                  <List containerStyle={{marginTop: 0}}>
+                  <List containerStyle={{marginTop: 0, height: '30%'}}>
                     <View style={styles.container}>
                       <Image source={{ uri: thisShow && thisShow.image_url}} style={styles.photo} />
                       <View style={styles.textStyle}>
@@ -264,7 +266,7 @@ class Show extends Component {
                     style={{paddingBottom: 0}}
                     renderRow={(item) => <EpisodeItem title={thisShow.title} description={item.description}
                     date={item.pubDate} duration={item.duration} episodeTitle={item.title} media={item.media_location}
-                    imageUrl={thisShow.image_url} episodeKey={item.episode_key} hasTag={item.hasTag} />} />
+                    imageUrl={thisShow.image_url} episodeKey={item.episode_key} hasTag={item.hasTag} navigation={this.props.navigation} />} />
                 </View>
               )
             } else {

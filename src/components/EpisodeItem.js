@@ -47,8 +47,8 @@ function _setModalVisible() {
 
 }
 
-const EpisodeItem = ({imageUrl, title, date, duration, description, episodeTitle, media, showImage, episodeKey, progress, hasTag}) => (
-  <TouchableWithoutFeedback onPress={() => Actions.ShowModal({media, title, episodeTitle, duration, imageUrl, episodeKey, progress})}>
+const EpisodeItem = ({imageUrl, title, date, duration, description, episodeTitle, media, showImage, episodeKey, progress, hasTag, navigation}) => (
+  <TouchableWithoutFeedback onPress={() => navigation.navigate('Player', {media, title, episodeTitle, duration, imageUrl, episodeKey, progress})}>
     <View style={styles.container}>
       { imageUrl ? <Image source={{ uri: imageUrl}} style={styles.photo} /> : null }
       <View style={styles.textStyle}>
