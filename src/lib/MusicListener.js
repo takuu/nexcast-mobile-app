@@ -1,7 +1,21 @@
 'use strict';
 
 import { NativeModules, DeviceEventEmitter } from 'react-native';
-import { ReactNativeAudioStreaming } from 'react-native-audio-streaming';
+// import { ReactNativeAudioStreaming } from 'react-native-audio-streaming';
+let ReactNativeAudioStreaming = {
+  pause: () => {},
+  stop: () => {},
+  start: () => {},
+  resume: () => {},
+  play: () => {},
+  getStatus: () => {},
+  seekToTime: () => {},
+  goForward: () => {},
+  goBack: () => {},
+  enableControl: () => {},
+
+};
+
 
 /**
  * High-level docs for the MusicControl iOS API can be written here.

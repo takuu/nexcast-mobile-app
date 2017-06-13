@@ -1,5 +1,11 @@
 'use strict'
-import { ReactNativeAudioStreaming } from 'react-native-audio-streaming';
+// import { ReactNativeAudioStreaming } from 'react-native-audio-streaming';
+let ReactNativeAudioStreaming = {
+  pause: () => {},
+  stop: () => {},
+  start: () => {},
+  resume: () => {},
+};
 import { DeviceEventEmitter } from 'react-native';
 import {AsyncStorage} from 'react-native';
 import _ from 'lodash';

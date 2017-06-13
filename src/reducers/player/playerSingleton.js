@@ -1,5 +1,16 @@
 'use strict';
-import { ReactNativeAudioStreaming } from 'react-native-audio-streaming';
+// import { ReactNativeAudioStreaming } from 'react-native-audio-streaming';
+let ReactNativeAudioStreaming = {
+  pause: () => {},
+  stop: () => {},
+  start: () => {},
+  resume: () => {},
+  play: () => {},
+  getStatus: () => {},
+  seekToTime: () => {},
+  goForward: () => {},
+  goBack: () => {},
+};
 import { DeviceEventEmitter } from 'react-native';
 import {AsyncStorage} from 'react-native';
 import MusicListener from '../../lib/MusicListener';

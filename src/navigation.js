@@ -8,7 +8,7 @@ import UserPodcasts from './containers/UserPodcasts';
 import Search from './containers/Search';
 import Discover from './containers/Discover';
 import Show from './containers/Show';
-// import PlayerModal from './containers/PlayerModal';
+import PlayerModal from './containers/PlayerModal';
 import Profile from './containers/Profile';
 import { Icon } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
@@ -73,12 +73,15 @@ export const DiscoverStack = StackNavigator({
       }
     },
   },
-  // Player: {
-  //   screen: PlayerModal,
-  //   navigationOptions: {
-  //     title: 'Player',
-  //   },
-  // },
+  Player: {
+    screen: PlayerModal,
+    navigationOptions: {
+      title: 'Player',
+    },
+  },
+},{
+  mode: 'modal',
+  headerMode: 'none',
 });
 
 export const ProfileStack = StackNavigator({
@@ -135,6 +138,12 @@ export const PrimaryNav = StackNavigator({
   },
   Show: {
     screen: Show,
+  },
+  Player: {
+    screen: PlayerModal,
+    navigationOptions: {
+      title: 'Player',
+    },
   },
 }, {
   mode: 'modal',

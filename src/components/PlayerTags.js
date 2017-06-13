@@ -1,5 +1,5 @@
 import React, {PropTypes, Component} from 'react';
-import { ReactNativeAudioStreaming, Player } from 'react-native-audio-streaming';
+// import { ReactNativeAudioStreaming, Player } from 'react-native-audio-streaming';
 import {
   ListView,
   View,

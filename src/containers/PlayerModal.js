@@ -55,7 +55,7 @@ class PlayerModal extends Component {
   }
 
   componentWillMount() {
-    const {media, title, episodeTitle, duration, imageUrl, episodeKey, progress} = this.props;
+    const {media, title, episodeTitle, duration, imageUrl, episodeKey, progress} = this.props.navigation.state.params;
 
     this.props.actions.getTags(episodeKey);
 
@@ -121,9 +121,11 @@ class PlayerModal extends Component {
   }
 
   render () {
-    const props = this.props;
+    const props = this.props.navigation.state.params;
     // let player = (this.props.player) ? this.props.player.toJS() : {};
     const {player} = this.state;
+
+    console.log('PlayerModal: (this.state.player) ', player);
 
     let tags = [{}];
 
@@ -148,14 +150,16 @@ class PlayerModal extends Component {
         <Modal
            animationType = {"slide"}
            transparent = {true}
-           visible = {this.state.modalVisible}
+           visible = {true}
            onRequestClose = {() => {console.log('Should this happen?  closing modal.......')}}
            >
-          {/*<ModalBox position={"top"} style={{width: width, height: height}} isOpen={true} swipeArea={50} startOpen={true} animationDuration={10} backdrop={false}>*/}
+
           <View style = {styles.modal}>
+
             <PlayerControls mediaUrl={player.mediaUrl} title={player.title} duration={player.duration} episodeKey={player.episodeKey}
                             description={''} imageUrl={player.imageUrl} episodeTitle={player.episodeTitle} progress={player.progress}
                             playerStatus={player.playerStatus} tags={tagsOnSeekList} onClose={Actions.pop} />
+
 
             {((tags, width, height, styles, currentTagIndex, imageUrl) => {
               if (tags.length > 1) {
@@ -167,7 +171,7 @@ class PlayerModal extends Component {
               } else {
                 return (
                   <View style={{marginTop: 0}}>
-                    {/*<ActivityIndicator animating = {true} size = "small" style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: 80}} />*/}
+                    <ActivityIndicator animating = {true} size = "small" style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: 80}} />
                     <Image source={{ uri: imageUrl}} style={styles.photo} height={height/2} width={width}  />
                   </View>);
               }

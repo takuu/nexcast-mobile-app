@@ -1,5 +1,11 @@
 import React, {PropTypes, Component} from 'react';
-import { ReactNativeAudioStreaming, Player } from 'react-native-audio-streaming';
+// import { ReactNativeAudioStreaming, Player } from 'react-native-audio-streaming';
+let ReactNativeAudioStreaming = {
+  pause: () => {},
+  stop: () => {},
+  start: () => {},
+  resume: () => {},
+};
 import {
   ListView,
   View,
@@ -72,6 +78,7 @@ class PlayerControls extends Component {
   };
 
   componentWillReceiveProps (nextProps) {
+    console.log('PlayerControls: ', this.props, nextProps);
     if(this.props.mediaUrl != nextProps.mediaUrl) {
       console.log('FOUND NEW EPISODE! PLAY IT ~');
       const {duration, episodeKey, episodeTitle, imageUrl, mediaUrl,progress, title } = nextProps;
@@ -133,6 +140,7 @@ class PlayerControls extends Component {
     return (
       <View style = {styles.player}>
 
+
         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', height: 28}}>
           <TouchableWithoutFeedback onPress = {() =>(this.props.onClose())}>
             <Ion style={styles.hideModalControl} name={'ios-arrow-down'} size={30} />
@@ -144,6 +152,7 @@ class PlayerControls extends Component {
           </View>
           <View style={{width: 30, flex: 1, height:10}}></View>
         </View>
+
 
         <View style={styles.buttonContainer}>
           <TouchableWithoutFeedback onPress={()=> (console.log('1x'))}>
@@ -176,8 +185,9 @@ class PlayerControls extends Component {
             <Image resizeMode='contain' style={styles.controls} source={require('../images/icon_skip_forward.png')} />
           </TouchableWithoutFeedback>
           <View style={styles.controls}></View>
-
         </View>
+
+
         <View style={styles.controlsContainer}>
           <View style={styles.dataBar}>
             <Text style={styles.elapsedTime}>{helpers.secondsToHMS(parseInt(progress || 0))}</Text>
@@ -190,11 +200,22 @@ class PlayerControls extends Component {
             <View style={styles.seekSubContainer}>
 
               <View style={{backgroundColor: '#56a0e5', position: 'absolute', width: width-10, height: 18,top: 0, left: 0}}></View>
-              {/*<View style={{backgroundColor: 'white', position: 'absolute',width: 5,height: 18,top: 0,left: progressPosition}}></View>*/}
+
+              {/*<Slider
+                maximumValue={100}
+                value={(progress/duration)*100}
+                step={1}
+                minimumValue={0}
+                trackStyle={customStyles5.track}
+                thumbStyle={customStyles5.thumb}
+                onSlidingComplete={(value) => this.seekToTime(value)}
+                zIndex={10}
+                minimumTrackTintColor='#56a0e5'
+              />*/}
 
               <Slider
                 maximumValue={100}
-                value={(progress/duration)*100}
+                value={1}
                 step={1}
                 minimumValue={0}
                 trackStyle={customStyles5.track}
@@ -209,10 +230,10 @@ class PlayerControls extends Component {
                 ))
               }
             </View>
-
           </View>
-
         </View>
+
+
       </View>
     )
   }
