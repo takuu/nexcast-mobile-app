@@ -86,7 +86,8 @@ function mapDispatchToProps (dispatch) {
 
 class SubCategoryShows extends Component {
   componentWillMount(){
-    this.props.actions.getCategory(this.props.genre);
+    const { genreId } = this.props.navigation.state.params;
+    this.props.actions.getCategory(genreId);
     // this.props.actions.getTaggedShows();
   }
   render() {
@@ -94,8 +95,8 @@ class SubCategoryShows extends Component {
     const myList = _.filter(this.props.podcasts, (item) => {
       return (item.genre_name == this.props.genre);
     });
-    console.log('myList: ', myList);
-    const list = ds.cloneWithRows(myList);
+    console.log('myList: ', this.props, myList);
+    const list = ds.cloneWithRows(this.props.podcasts);
 
     return (
       <ScrollView>
@@ -105,7 +106,7 @@ class SubCategoryShows extends Component {
             <ListView style={{paddingTop: 60,}}
                       dataSource={list}
                       enableEmptySections={true}
-                      renderRow={(item, i) => <ShowItem key={i} imageUrl={item.artworkUrl100} title={item.name} description={item.summary} rss={item.rss_feed}  />}
+                      renderRow={(item, i) => <ShowItem key={i} imageUrl={item.artworkUrl100} title={item.name} description={item.summary} rss={item.rss_feed} navigation={this.props.navigation}  />}
             />
           );
         } else {

@@ -56,6 +56,8 @@ var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     flex: 1,
+    backgroundColor: 'white',
+    height: height,
     marginTop: 0
   },
   summary: {

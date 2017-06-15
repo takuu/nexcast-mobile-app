@@ -49,7 +49,6 @@ function _setModalVisible() {
 
 const EpisodeItem = ({imageUrl, title, date, duration, description, episodeTitle, media, showImage, episodeKey, progress, hasTag, navigation}) => (
   <TouchableWithoutFeedback onPress={() => {
-    console.log('EpisodeItem', imageUrl, title, date, duration, description, episodeTitle, media, showImage, episodeKey, progress, hasTag, navigation);
     navigation.navigate('Player', {media, title, episodeTitle, duration, imageUrl, episodeKey, progress}); }}>
     <View style={styles.container}>
       { imageUrl ? <Image source={{ uri: imageUrl}} style={styles.photo} /> : null }

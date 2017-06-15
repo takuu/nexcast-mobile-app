@@ -102,12 +102,14 @@ class PlayerModal extends Component {
     }*/
   }
 
+
   minimize() {
-    this.props.actions.minimizePlayer();
+    // this.props.actions.minimizePlayer();
+    console.log('minimize: ', this.props.navigation);
+    this.props.navigation.goBack()
   }
   _openExternalLink(req) {
     const isLocal = req.url.search('http://localhost') !== -1;
-    console.log('_openExternalLink: ', req);
 
     if (isLocal) {
       return true;
@@ -125,7 +127,7 @@ class PlayerModal extends Component {
     // let player = (this.props.player) ? this.props.player.toJS() : {};
     const {player} = this.state;
 
-    console.log('PlayerModal: (this.state.player) ', player);
+
 
     let tags = [{}];
 
@@ -133,7 +135,6 @@ class PlayerModal extends Component {
       let tagsHash = this.props.tags.toJS();
       tags = tagsHash[player.episodeKey] || [{}];
     }
-    // console.log('PlayerModal (player): ', player);
 
     const currentTagIndex = _.findLastIndex(tags, (tag) => {
       return player.progress > tag.seconds;
@@ -144,6 +145,7 @@ class PlayerModal extends Component {
         position: (tag.seconds/props.duration) * (width - 10 - 10)
       }
     });
+    console.log('PlayerModal render: ', player, tags, width, height);
 
     return (
 
@@ -158,10 +160,11 @@ class PlayerModal extends Component {
 
             <PlayerControls mediaUrl={player.mediaUrl} title={player.title} duration={player.duration} episodeKey={player.episodeKey}
                             description={''} imageUrl={player.imageUrl} episodeTitle={player.episodeTitle} progress={player.progress}
-                            playerStatus={player.playerStatus} tags={tagsOnSeekList} onClose={Actions.pop} />
+                            playerStatus={player.playerStatus} tags={tagsOnSeekList} onClose={this.minimize} />
 
 
             {((tags, width, height, styles, currentTagIndex, imageUrl) => {
+              console.log('should show IMAGE HERE: ', imageUrl)
               if (tags.length > 1) {
                 return (
                   <View>
@@ -170,8 +173,8 @@ class PlayerModal extends Component {
                 );
               } else {
                 return (
-                  <View style={{marginTop: 0}}>
-                    <ActivityIndicator animating = {true} size = "small" style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: 80}} />
+                  <View style={{marginTop: 0, flex: 1}}>
+                    {/*<ActivityIndicator animating = {true} size = "small" style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: 80}} />*/}
                     <Image source={{ uri: imageUrl}} style={styles.photo} height={height/2} width={width}  />
                   </View>);
               }
@@ -183,7 +186,7 @@ class PlayerModal extends Component {
   }
 }
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 0,

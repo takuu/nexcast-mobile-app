@@ -49,6 +49,7 @@ import { Ionicons } from '@expo/vector-icons';
 var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
+    backgroundColor: 'white',
     flex: 1,
     marginTop: 0
   },
@@ -175,7 +176,7 @@ class Queue extends Component {
               enableEmptySections={true}
               renderRow={(item) => <EpisodeItem title={item.title} description={item.description} progress={item.progress}
               date={item.lastPlayed} duration={item.duration} episodeTitle={item.episodeTitle} media={item.mediaUrl}
-              imageUrl={item.imageUrl} episodeKey={item.episodeKey} />}
+              imageUrl={item.imageUrl} episodeKey={item.episodeKey} navigation={this.props.navigation} />}
             />
           </View>
           );

@@ -78,7 +78,7 @@ class PlayerControls extends Component {
   };
 
   componentWillReceiveProps (nextProps) {
-    console.log('PlayerControls: ', this.props, nextProps);
+    console.log('PlayerControls: componentWillReceiveProps', nextProps, nextProps.progress);
     if(this.props.mediaUrl != nextProps.mediaUrl) {
       console.log('FOUND NEW EPISODE! PLAY IT ~');
       const {duration, episodeKey, episodeTitle, imageUrl, mediaUrl,progress, title } = nextProps;
@@ -95,6 +95,7 @@ class PlayerControls extends Component {
     ReactNativeAudioStreaming.resume();
 
     // ReactNativeAudioStreaming.stop();
+    console.log('componentWillMount => start', mediaUrl);
     this.props.actions.playerStart(mediaUrl, title, episodeTitle, duration, imageUrl, episodeKey, progress);
 
   }
@@ -108,12 +109,12 @@ class PlayerControls extends Component {
     this.props.actions.playerResume(mediaUrl, title, episodeTitle, duration, imageUrl, episodeKey, progress);
   }
   goBack() {
-    const {mediaUrl, title, episodeTitle} = this.props.player;
-    this.props.actions.playerGoBack(mediaUrl);
+    const {mediaUrl, title, episodeTitle, progress} = this.props.player;
+    this.props.actions.playerGoBack(mediaUrl, progress);
   }
   goForward() {
-    const {mediaUrl, title, episodeTitle} = this.props.player;
-    this.props.actions.playerGoForward(mediaUrl);
+    const {mediaUrl, title, episodeTitle, progress} = this.props.player;
+    this.props.actions.playerGoForward(mediaUrl, progress);
 
   }
 
@@ -137,12 +138,15 @@ class PlayerControls extends Component {
       return progress > tag.seconds;
     });
 
+    const sliderProgress = (progress) ? (progress/duration)*100 : 0;
+
     return (
       <View style = {styles.player}>
 
 
-        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', height: 28}}>
-          <TouchableWithoutFeedback onPress = {() =>(this.props.onClose())}>
+        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', height: 28, width: width}}>
+
+          <TouchableWithoutFeedback onPress = {() =>(this.props.onClose())} style={{flex: 1}}>
             <Ion style={styles.hideModalControl} name={'ios-arrow-down'} size={30} />
           </TouchableWithoutFeedback>
 
@@ -150,13 +154,13 @@ class PlayerControls extends Component {
             <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">{title}</Text>
             <Text style={styles.episodeTitle} numberOfLines={2} ellipsizeMode="tail">{episodeTitle}</Text>
           </View>
-          <View style={{width: 30, flex: 1, height:10}}></View>
+          <View style={{width: '5%', height:10}}></View>
         </View>
 
 
         <View style={styles.buttonContainer}>
           <TouchableWithoutFeedback onPress={()=> (console.log('1x'))}>
-            <View>
+            <View style={{height: 30, flex: 1}}>
               <Text style={styles.customTextControls}>1x</Text>
             </View>
           </TouchableWithoutFeedback>
@@ -199,23 +203,11 @@ class PlayerControls extends Component {
 
             <View style={styles.seekSubContainer}>
 
-              <View style={{backgroundColor: '#56a0e5', position: 'absolute', width: width-10, height: 18,top: 0, left: 0}}></View>
-
-              {/*<Slider
-                maximumValue={100}
-                value={(progress/duration)*100}
-                step={1}
-                minimumValue={0}
-                trackStyle={customStyles5.track}
-                thumbStyle={customStyles5.thumb}
-                onSlidingComplete={(value) => this.seekToTime(value)}
-                zIndex={10}
-                minimumTrackTintColor='#56a0e5'
-              />*/}
+              {/*<View style={{backgroundColor: '#56a0e5', position: 'absolute', width: width-10, height: 18,top: 0, left: 0}}></View>*/}
 
               <Slider
                 maximumValue={100}
-                value={1}
+                value={sliderProgress}
                 step={1}
                 minimumValue={0}
                 trackStyle={customStyles5.track}
@@ -232,20 +224,17 @@ class PlayerControls extends Component {
             </View>
           </View>
         </View>
-
-
       </View>
     )
   }
-
 };
 
 var customStyles5 = StyleSheet.create({
   track: {
     height: 20,
     borderRadius: 1,
-    backgroundColor: 'transparent',
-    marginTop: -22,
+    backgroundColor: '#56a0e5',
+    // backgroundColor: 'transparent',
     width: width -10,
   },
   thumb: {
@@ -293,11 +282,10 @@ const styles = StyleSheet.create ({
   },
   titleBox: {
     height: 28,
-    width: width - 70,
+    width: width - (width/8),
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-
     // justifyContent: 'center',
   },
   buttonContainer: {
@@ -341,7 +329,7 @@ const styles = StyleSheet.create ({
     color: 'white',
     // backgroundColor: '#387ef5',
     backgroundColor: '#387ef5',
-    marginTop: 7,
+    marginTop: 0,
     flex: 1,
     height: 30,
     width: (width/5) - 10,

@@ -9,6 +9,8 @@ import Search from './containers/Search';
 import Discover from './containers/Discover';
 import Show from './containers/Show';
 import PlayerModal from './containers/PlayerModal';
+import CategoryList from './containers/CategoryList';
+import SubCategoryShows from './containers/SubCategoryShows';
 import Profile from './containers/Profile';
 import { Icon } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
@@ -20,6 +22,11 @@ export const QueueStack = StackNavigator({
     screen: Queue,
     navigationOptions: {
       title: 'Queue',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#387ef5',
+        elevation: null
+      },
     },
   },
   Show1: {
@@ -27,6 +34,11 @@ export const QueueStack = StackNavigator({
     navigationOptions: ({ navigation }) => ({
       // title: `${navigation.state.params.name.first.toUpperCase()} ${navigation.state.params.name.last.toUpperCase()}`,
       title: `Show1`,
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#387ef5',
+        elevation: null
+      },
     }),
   },
 });
@@ -36,6 +48,11 @@ export const UserPodcastsStack = StackNavigator({
     screen: UserPodcasts,
     navigationOptions: {
       title: 'Podcasts',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#387ef5',
+        elevation: null
+      },
     },
   },
   Show2: {
@@ -43,6 +60,11 @@ export const UserPodcastsStack = StackNavigator({
     navigationOptions: ({ navigation }) => ({
       // title: `${navigation.state.params.name.first.toUpperCase()} ${navigation.state.params.name.last.toUpperCase()}`,
       title: `Show2`,
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#387ef5',
+        elevation: null
+      },
     }),
   },
 });
@@ -52,6 +74,11 @@ export const SearchStack = StackNavigator({
     screen: Search,
     navigationOptions: {
       title: 'Search',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#387ef5',
+        elevation: null
+      },
     },
   }
 });
@@ -61,6 +88,11 @@ export const DiscoverStack = StackNavigator({
     screen: Discover,
     navigationOptions: {
       title: 'Discover',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#387ef5',
+        elevation: null
+      },
     },
   },
   Show: {
@@ -70,6 +102,11 @@ export const DiscoverStack = StackNavigator({
       return {
         // title: `${navigation.state.params.name.first.toUpperCase()} ${navigation.state.params.name.last.toUpperCase()}`,
         title: navigation.state.params.title,
+        headerTintColor: 'white',
+        headerStyle: {
+          backgroundColor: '#387ef5',
+          elevation: null
+        },
       }
     },
   },
@@ -77,11 +114,37 @@ export const DiscoverStack = StackNavigator({
     screen: PlayerModal,
     navigationOptions: {
       title: 'Player',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#387ef5',
+        elevation: null
+      },
     },
   },
+  SubCategoryShows: {
+    screen: SubCategoryShows,
+    navigationOptions: {
+      title: 'SubCategoryShows',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#387ef5',
+        elevation: null
+      },
+    },
+  },
+  CategoryList: {
+    screen: CategoryList,
+    navigationOptions: {
+      title: 'CategoryList',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#387ef5',
+        elevation: null
+      },
+    },
+  }
 },{
   mode: 'modal',
-  headerMode: 'none',
 });
 
 export const ProfileStack = StackNavigator({
@@ -89,6 +152,11 @@ export const ProfileStack = StackNavigator({
     screen: Profile,
     navigationOptions: {
       title: 'Profile',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#387ef5',
+        elevation: null
+      },
     },
   }
 });
@@ -127,7 +195,7 @@ export const Tabs = TabNavigator({
     screen: ProfileStack,
     navigationOptions: {
       tabBarLabel: 'Profile',
-      tabBarIcon: ({ tintColor }) => <Icon name="account-circle" size={35} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => <Ionicons name="ios-person" size={35} color={tintColor} />
     },
   },
 });
@@ -145,6 +213,12 @@ export const PrimaryNav = StackNavigator({
       title: 'Player',
     },
   },
+  SubCategoryShows: {
+    screen: SubCategoryShows,
+  },
+  CategoryList: {
+    screen: CategoryList,
+  }
 }, {
   mode: 'modal',
   headerMode: 'none',

@@ -128,6 +128,7 @@ export function getCategory (id) {
       return BackendFactory(json.token).getCategory(id)
     }).then((data) => {
       let json = (typeof data === 'string') ? JSON.parse(data): data;
+      console.log('getCategorySuccess: ', json);
       (json.status == 1) ?
         dispatch(getCategorySuccess(json.result)) :
         dispatch(getCategoryFailure({error: 'err: server status 0'}));

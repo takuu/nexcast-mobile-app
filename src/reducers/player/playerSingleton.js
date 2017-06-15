@@ -1,16 +1,101 @@
 'use strict';
 // import { ReactNativeAudioStreaming } from 'react-native-audio-streaming';
+import Expo, { Asset, Audio, Font, Video } from 'expo';
+Audio.setAudioModeAsync({
+  allowsRecordingIOS: false,
+  interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+  playsInSilentLockedModeIOS: true,
+  shouldDuckAndroid: true,
+  interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+});
+let playbackInstance;
 let ReactNativeAudioStreaming = {
   pause: () => {},
   stop: () => {},
   start: () => {},
-  resume: () => {},
-  play: () => {},
+  resume: () => {
+    playbackInstance.playAsync();
+  },
+  play: (source) => {
+    //ReactNativeAudioStreaming.play(episode.mediaUrl, {showIniOSMediaCenter: true, showInAndroidNotifications: true, title: episode.title, artist: episode.episodeTitle,elapsedPlaybackTime: episode.progress || 0, duration: episode.duration, artwork: episode.imageUrl});
+    // _start(source);
+    console.log('=====================================playerSingleton play', source);
+  },
   getStatus: () => {},
   seekToTime: () => {},
   goForward: () => {},
   goBack: () => {},
 };
+
+
+async function _start(dispatch, ep = {}) {
+  console.log('_start start');
+  let instance;
+  try {
+    const initialStatus = {
+      shouldPlay: true,
+      rate: 1.0,
+      shouldCorrectPitch: true,
+      volume: 1.0,
+      isMuted: false,
+      isLooping: false,
+    }
+    const {sound , status} = await Audio.Sound.create(
+      { uri: ep.mediaUrl || '' },
+      { shouldPlay: true },
+    );
+    console.log('_start: mid', sound, status);
+    sound.setCallback(_callback);
+
+    instance = sound;
+    console.log('_start finished', ep);
+  } catch(err) {
+    console.log(err);
+  }
+
+  function _callback(status) {
+    console.log('stuff is happing with Audio player', status, ep);
+    currentProgress++;
+
+    let progress = parseInt(status.positionMillis/1000);
+    let duration = parseInt(status.durationMillis/1000);
+    let episode = {mediaUrl: status.uri, playerStatus: (status.isPlaying) ? 1 : 2, duration: duration, lastPlayed: (new Date()).toDateString(),
+      progress: progress, title: ep.episodeTitle, episodeTitle: ep.episodeTitle, imageUrl: '', episodeKey: ep.episodeKey};
+
+    dispatch(playerResumeSuccess(episode));
+    dispatch(setPodcastHistoryRequest());
+
+    podcastHistoryStorage.setHistory(episode).then((history) => {
+      dispatch(setPodcastHistorySuccess(history));
+    });
+
+    if (progress + 1 > duration) {
+
+      try {
+        _stopInterval();
+        var foo = podcastHistoryActions.removePodcastHistory({mediaUrl: status.uri});
+        foo(dispatch);
+        var boo = podcastHistoryActions.getNextPodcastHistory({mediaUrl: status.uri});
+        console.log('boo: ', boo);
+        boo(dispatch).then((next) => {
+          console.log('Some internal stuff...', next);
+          //playerStart(url, title='', episodeTitle='', duration, imageUrl, episodeKey='', progress=0) {
+          var bar = playerActions.playerStart(next.mediaUrl, next.title, next.episodeTitle, next.duration, next.imageUrl, next.episodeKey, next.progress);
+          bar(dispatch);
+        })
+
+      } catch (error) {
+        console.log('getNextPodcastHistory PodcastHistory error: ', error);
+      }
+    }
+  }
+
+  return instance;
+}
+
+
+
+
 import { DeviceEventEmitter } from 'react-native';
 import {AsyncStorage} from 'react-native';
 import MusicListener from '../../lib/MusicListener';
@@ -196,15 +281,6 @@ function _startInterval(dispatch, ep) {
       }
 
 
-
-
-
-
-
-
-
-
-
       /*
       AsyncStorage.getItem(HISTORY_KEY, (err, blob) => {
         if(err) console.log("ASYNC_STORAGE FAIL");
@@ -308,8 +384,13 @@ function _resume(dispatch, episode) {
 
 function _pause() {
   //pause
-  _stopInterval();
-  ReactNativeAudioStreaming.pause();
+  if(true) {
+    playbackInstance.pauseAsync();
+  } else {
+    _stopInterval();
+    ReactNativeAudioStreaming.pause();
+  }
+
 
 }
 
@@ -318,64 +399,90 @@ function _stopNowPlaying() {
 }
 
 export function playerStart(dispatch, episode, cb) {
-  console.log('playerSingleton: (playerStart)');
-  _stopInterval(dispatch);
-  // _stopNowPlaying();
+  if(true) {
+    _stopInterval(dispatch);
+    console.log('playerStart new')
+    _start(dispatch, episode).then((sound) => {
+      playbackInstance = sound;
+      console.log('playerStart callback');
+      playbackInstance.getStatusAsync().then((status) => {
+        console.log('getStatusAsync: ', status);
+      })
+    });
+  } else {
 
-  splashScreenEpisode = {
-    title: episode.title,
-    artwork: episode.imageUrl,
-    artist: episode.episodeTitle,
-    duration: episode.duration,
-    mediaUrl: episode.mediaUrl,
-    progress: episode.progress
-  };
-  //      let episode = {mediaUrl: ep.mediaUrl, playerStatus: 1, duration: ep.duration, lastPlayed: (new Date()).toDateString(),
-  // progress: currentProgress, title: ep.title, episodeTitle: ep.episodeTitle, imageUrl: ep.imageUrl, episodeKey: ep.episodeKey};
-  currentDispatch = dispatch;
 
-  // Some generic status, I'm sure we can use it somewhere
-  ReactNativeAudioStreaming.getStatus((error, status) => {
-    if(error) {
-      cb(error, episode);
-    }
-    // episode.progress = status.progress;
+    console.log('playerSingleton: (playerStart)', episode);
+    _stopInterval(dispatch);
+    // _stopNowPlaying();
 
-    if(status.url == episode.mediaUrl) {
-      console.log("ZOMG ZOOOOOMMMM.. I mean resume.....");
-      _resume(dispatch, episode);
-      _setNowPlaying(episode)
-      cb(null, episode)
-    } else {
-      ReactNativeAudioStreaming.play(episode.mediaUrl, {showIniOSMediaCenter: true, showInAndroidNotifications: true, title: episode.title, artist: episode.episodeTitle,elapsedPlaybackTime: episode.progress || 0, duration: episode.duration, artwork: episode.imageUrl});
-      /*
-       MusicControl.setNowPlaying({
-       title: episode.title,
-       artwork: episode.imageUrl,
-       artist: episode.episodeTitle,
-       duration: episode.duration,
-       });
-       */
+    splashScreenEpisode = {
+      title: episode.title,
+      artwork: episode.imageUrl,
+      artist: episode.episodeTitle,
+      duration: episode.duration,
+      mediaUrl: episode.mediaUrl,
+      progress: episode.progress
+    };
+    //      let episode = {mediaUrl: ep.mediaUrl, playerStatus: 1, duration: ep.duration, lastPlayed: (new Date()).toDateString(),
+    // progress: currentProgress, title: ep.title, episodeTitle: ep.episodeTitle, imageUrl: ep.imageUrl, episodeKey: ep.episodeKey};
+    currentDispatch = dispatch;
 
-      _startInterval(dispatch, episode);
-      _setNowPlaying(episode);
-      if(episode.progress > 0) {
-        currentProgress = episode.progress;
-        _pause();
-        setTimeout(function() {
-          // episode.progress = progress;
-          ReactNativeAudioStreaming.seekToTime(episode.progress);
-          _resume(dispatch, episode)
-          // _setNowPlaying(episode);
-          cb(null, episode)
-        }, 300);
-      } else {
-        currentProgress = episode.progress;
-        cb(null, episode)
+    // Some generic status, I'm sure we can use it somewhere
+    ReactNativeAudioStreaming.getStatus((error, status) => {
+      if (error) {
+        cb(error, episode);
       }
-    }
+      // episode.progress = status.progress;
 
-  });
+      if (status.url == episode.mediaUrl) {
+        console.log("ZOMG ZOOOOOMMMM.. I mean resume.....");
+        _resume(dispatch, episode);
+        _setNowPlaying(episode)
+        cb(null, episode)
+      } else {
+        console.log("ZOMG ZOOOOOMMMM.. Start playing for first time", status.url, episode.mediaUrl);
+
+        ReactNativeAudioStreaming.play(episode.mediaUrl, {
+          showIniOSMediaCenter: true,
+          showInAndroidNotifications: true,
+          title: episode.title,
+          artist: episode.episodeTitle,
+          elapsedPlaybackTime: episode.progress || 0,
+          duration: episode.duration,
+          artwork: episode.imageUrl
+        });
+        /*
+         MusicControl.setNowPlaying({
+         title: episode.title,
+         artwork: episode.imageUrl,
+         artist: episode.episodeTitle,
+         duration: episode.duration,
+         });
+         */
+
+        _startInterval(dispatch, episode);
+        _setNowPlaying(episode);
+        if (episode.progress > 0) {
+          currentProgress = episode.progress;
+          _pause();
+          setTimeout(function () {
+            // episode.progress = progress;
+            ReactNativeAudioStreaming.seekToTime(episode.progress);
+            _resume(dispatch, episode)
+            // _setNowPlaying(episode);
+            cb(null, episode)
+          }, 300);
+        } else {
+          currentProgress = episode.progress;
+          cb(null, episode)
+        }
+      }
+
+    });
+
+
+  }
 
 }
 export function playerResume(dispatch, episode, cb) {

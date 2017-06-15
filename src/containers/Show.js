@@ -1,4 +1,3 @@
-console.log('==========================SHOW: THIS DOES LOAD HERE A');
 
 import React, {PropTypes, Component} from 'react';
 import {
@@ -26,7 +25,6 @@ import * as tagActions from '../reducers/tag/tagActions';
 import Loader from '../components/Loader';
 
 import { getParameterByName } from '../lib/helpers';
-console.log('==========================SHOW: THIS DOES LOAD HERE B');
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 const rawData = {
@@ -91,6 +89,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 8,
     flexDirection: 'row',
+    backgroundColor: 'white',
     //alignItems: 'center',
     borderBottomColor: '#EEEEEE',
     borderBottomWidth: 1
@@ -148,15 +147,12 @@ function mapDispatchToProps (dispatch) {
     actions: bindActionCreators({ ...showDetailActions, ...subscriptionActions, ...tagActions, ...podcastActions }, dispatch)
   }
 }
-console.log('==========================SHOW: THIS DOES LOAD HERE C');
 
 class Show extends Component {
   constructor(props) {
     super(props);
-    console.log('Show constructor');
     this.setSubscription = this.setSubscription.bind(this);
     this.removeSubscription = this.removeSubscription.bind(this);
-    console.log('==========================SHOW: THIS DOES LOAD HERE D');
   }
   componentWillMount() {
     // var url = 'http://localhost:80' + this.props.location.search;
@@ -195,7 +191,6 @@ class Show extends Component {
         hasTag: !!tags[episode.episode_key]
       }
     });
-    console.log('Show (Container)', thisShow, episodes);
 
     const list = ds.cloneWithRows((episodes) || []);
     return (
@@ -263,7 +258,7 @@ class Show extends Component {
                   <ListView
                     dataSource={list}
                     enableEmptySections={true}
-                    style={{paddingBottom: 0}}
+                    style={{paddingBottom: 0, backgroundColor: 'white'}}
                     renderRow={(item) => <EpisodeItem title={thisShow.title} description={item.description}
                     date={item.pubDate} duration={item.duration} episodeTitle={item.title} media={item.media_location}
                     imageUrl={thisShow.image_url} episodeKey={item.episode_key} hasTag={item.hasTag} navigation={this.props.navigation} />} />

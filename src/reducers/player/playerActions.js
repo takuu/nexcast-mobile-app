@@ -11,6 +11,7 @@ import {AsyncStorage} from 'react-native';
 import _ from 'lodash';
 
 import * as playerSingleton from './playerSingleton';
+import * as audioSingleton from './audioSingleton';
 
 const {
   PLAYER_RESUME_REQUEST,
@@ -119,7 +120,7 @@ export function playerStart(url, title='', episodeTitle='', duration, imageUrl, 
 
     dispatch(playerStartRequest({mediaUrl: url, playerStatus: 3, title, episodeTitle}));
 
-    playerSingleton.playerStart(dispatch, episode, (error, result) => {
+    audioSingleton.playerStart(dispatch, episode, (error, result) => {
       (error) ? dispatch(playerStartFailure(error)) : dispatch(playerStartSuccess(result));
     });
 
@@ -136,7 +137,7 @@ export function playerResume(url, title='', episodeTitle='', duration, imageUrl,
     let episode = {mediaUrl: url, playerStatus: 1, lastPlayed: (new Date()).toDateString(),
       title, episodeTitle, imageUrl, episodeKey, duration, progress};
 
-    playerSingleton.playerResume(dispatch, episode, (error, result) => {
+    audioSingleton.playerResume(dispatch, episode, (error, result) => {
       (error) ? dispatch(playerResumeFailure(error)): dispatch(playerResumeSuccess(result));
     });
   }
@@ -159,7 +160,7 @@ export function playerPause(url) {
     let episode = {mediaUrl: url, playerStatus: 2, lastPlayed: (new Date()).toDateString()};
     dispatch(playerPauseRequest(episode));
 
-    playerSingleton.playerPause(dispatch, episode, (error, result) => {
+    audioSingleton.playerPause(dispatch, episode, (error, result) => {
       (error) ? dispatch(playerPauseFailure(error)): dispatch(playerPauseSuccess(result));
     });
   }
@@ -170,7 +171,7 @@ export function playerStop(url) {
     let episode = {mediaUrl: url, playerStatus: 4};
     dispatch(playerStopRequest(episode));
 
-    playerSingleton.playerStop(dispatch, episode, (error, result) => {
+    audioSingleton.playerStop(dispatch, episode, (error, result) => {
       (error) ? dispatch(playerStopFailure(error)): dispatch(playerStopSuccess(result));
     });
 
@@ -183,34 +184,34 @@ export function playerSeekTo(url, progress) {
     let episode = {mediaUrl: url, playerStatus: 1, progress};
     dispatch(playerSeekToRequest(episode));
 
-    playerSingleton.playerSeekTo(dispatch, episode, (error, result) => {
+    audioSingleton.playerSeekTo(dispatch, episode, (error, result) => {
       (error) ? dispatch(playerSeekToFailure(error)): dispatch(playerSeekToSuccess(result));
     });
 
   }
 }
 
-export function playerGoForward(url) {
+export function playerGoForward(url, progress) {
   return dispatch => {
 
-    let episode = {mediaUrl: url};
+    let episode = {mediaUrl: url, progress: progress};
     dispatch(playerGoForwardRequest(episode));
 
-    playerSingleton.playerGoForward(dispatch, episode, (error, result) => {
+    audioSingleton.playerGoForward(dispatch, episode, (error, result) => {
       (error) ? dispatch(playerGoForwardFailure(error)): dispatch(playerGoForwardSuccess(result));
     });
 
   }
 }
 
-export function playerGoBack(url) {
+export function playerGoBack(url, progress) {
   return dispatch => {
 
-    let episode = {mediaUrl: url};
+    let episode = {mediaUrl: url, progress: progress};
     dispatch(playerGoBackRequest(episode));
 
 
-    playerSingleton.playerGoBack(dispatch, episode, (error, result) => {
+    audioSingleton.playerGoBack(dispatch, episode, (error, result) => {
       (error) ? dispatch(playerGoBackFailure(error)): dispatch(playerGoBackSuccess(result));
     });
   }

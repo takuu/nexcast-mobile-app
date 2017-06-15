@@ -44,6 +44,7 @@ import _ from 'lodash';
 var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
+    backgroundColor: 'white',
     flex: 1
   },
   list: {

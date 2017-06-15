@@ -18,7 +18,7 @@ import Navigation, { PrimaryNav } from './navigation';
 
 const App = () => (
   <Provider store={store}>
-    <Navigation />
+      <Navigation />
   </Provider>
 );
 

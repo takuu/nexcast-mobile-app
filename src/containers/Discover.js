@@ -42,6 +42,7 @@ var styles = StyleSheet.create({
   container: {
     marginTop: 0,
     flexDirection: 'column',
+    backgroundColor: 'white',
     flex: 1
   },
   summary: {
@@ -130,7 +131,7 @@ class Discover extends Component {
             <PopularShows tabLabel='Popular' match={this.props.match} navigation={this.props.navigation} />
 
             <ScrollView tabLabel='Categories' navigation={this.props.navigation}>
-              <CategoryList />
+              <CategoryList navigation={this.props.navigation} />
             </ScrollView>
         </ScrollableTabView>
 
