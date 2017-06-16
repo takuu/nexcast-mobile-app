@@ -91,22 +91,22 @@ class SubCategoryShows extends Component {
     // this.props.actions.getTaggedShows();
   }
   render() {
+    const { genreId } = this.props.navigation.state.params;
 
     const myList = _.filter(this.props.podcasts, (item) => {
-      return (item.genre_name == this.props.genre);
+      return (item.genre_id == genreId);
     });
     console.log('myList: ', this.props, myList);
-    const list = ds.cloneWithRows(this.props.podcasts);
-
+    const list = ds.cloneWithRows(myList);
     return (
-      <ScrollView>
+      <ScrollView style={{backgroundColor: 'white'}}>
       {((myList, list) => {
         if (myList && myList.length) {
           return (
-            <ListView style={{paddingTop: 60,}}
+            <ListView style={{paddingTop: 0,}}
                       dataSource={list}
                       enableEmptySections={true}
-                      renderRow={(item, i) => <ShowItem key={i} imageUrl={item.artworkUrl100} title={item.name} description={item.summary} rss={item.rss_feed} navigation={this.props.navigation}  />}
+                      renderRow={(item, i) => <ShowItem key={i} imageUrl={item.image_url} title={item.title} description={item.description} rss={item.feed_url} match={this.props.match} navigation={this.props.navigation}  />}
             />
           );
         } else {

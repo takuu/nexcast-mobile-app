@@ -86,7 +86,19 @@ export function getPopular () {
         let json = (typeof data === 'string') ? JSON.parse(data): data;
         let result = _.map(json.result, (item) => {
           return {
-            ...item.podcast
+
+            artist_name: item.podcast.artist_name,
+            description: item.podcast.description,
+            feed_url: item.podcast.feed_url,
+            id: item.podcast.id,
+            image_url: item.podcast.image_url,
+            title: item.podcast.title,
+            release_date: item.podcast.release_date,
+            created_at: item.created_at,
+            genre_id: item.genre_id,
+            rank_date: item.rank_date,
+            rank_number: item.rank_number,
+
           };
         });
 
@@ -129,8 +141,23 @@ export function getCategory (id) {
     }).then((data) => {
       let json = (typeof data === 'string') ? JSON.parse(data): data;
       console.log('getCategorySuccess: ', json);
+      let result = _.map(json.result, (item) => {
+        return {
+          artist_name: item.podcast.artist_name,
+          description: item.podcast.description,
+          feed_url: item.podcast.feed_url,
+          id: item.podcast.id,
+          image_url: item.podcast.image_url,
+          title: item.podcast.title,
+          release_date: item.podcast.release_date,
+          created_at: item.created_at,
+          genre_id: item.genre_id,
+          rank_date: item.rank_date,
+          rank_number: item.rank_number,
+        };
+      });
       (json.status == 1) ?
-        dispatch(getCategorySuccess(json.result)) :
+        dispatch(getCategorySuccess(result)) :
         dispatch(getCategoryFailure({error: 'err: server status 0'}));
 
       // GOTO SOME PAGE

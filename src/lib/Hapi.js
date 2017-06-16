@@ -230,8 +230,8 @@ export class Hapi extends Backend {
   async getCategory(id) {
     // url: API_URL + 'popular?category='+id+'&max=200&order_type=asc'
     return await this._fetch({
-      method: 'POST',
-      url: `/popular?category=${id}&max=200&order_type=asc`
+      method: 'GET',
+      url: `/toppodcasts/popular?category_id=${id}`
     })
       .then((res) => {
         if ((res.status === 200 || res.status === 201)) {
