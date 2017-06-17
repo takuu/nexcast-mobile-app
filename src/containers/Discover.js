@@ -25,7 +25,8 @@ import Header from '../components/Header'
 
 import PopularShows from './PopularShows';
 import TaggedShows from './TaggedShows';
-import CategoryList from './CategoryList';
+// import CategoryList from './CategoryList';
+import CategoryShows from './CategoryShows';
 /**
  * The components needed from React
  */
@@ -57,7 +58,7 @@ var styles = StyleSheet.create({
     marginRight: 10
   },
   tab: {
-    marginTop: 20,
+    marginTop: 0,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -118,7 +119,8 @@ class Discover extends Component {
       <View style={styles.container}>
         <ScrollableTabView
           style={styles.tab}
-          initialPage={0}
+          initialPage={1}
+          prerenderingSiblingsNumber={1}
           tabBarUnderlineStyle={{backgroundColor: '#444444', height: 2}}
           tabBarActiveTextColor="#444444"
           tabBarInactiveTextColor="#848484"
@@ -130,9 +132,12 @@ class Discover extends Component {
 
             <PopularShows tabLabel='Popular' match={this.props.match} navigation={this.props.navigation} />
 
-            <ScrollView tabLabel='Categories' navigation={this.props.navigation}>
+
+            <CategoryShows tabLabel="Categories" match={this.props.match} navigation={this.props.navigation}/>
+
+{/*            <ScrollView tabLabel='Categories' navigation={this.props.navigation}>
               <CategoryList navigation={this.props.navigation} />
-            </ScrollView>
+            </ScrollView>*/}
         </ScrollableTabView>
 
       </View>

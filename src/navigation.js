@@ -7,6 +7,12 @@ import Queue from './containers/Queue';
 import UserPodcasts from './containers/UserPodcasts';
 import Search from './containers/Search';
 import Discover from './containers/Discover';
+
+
+import TaggedShows from './containers/TaggedShows';
+import PopularShows from './containers/PopularShows';
+import CategoryShows from './containers/CategoryShows';
+
 import Show from './containers/Show';
 import PlayerModal from './containers/PlayerModal';
 import CategoryList from './containers/CategoryList';
@@ -123,13 +129,16 @@ export const DiscoverStack = StackNavigator({
   },
   SubCategoryShows: {
     screen: SubCategoryShows,
-    navigationOptions: {
-      title: 'SubCategoryShows',
-      headerTintColor: 'white',
-      headerStyle: {
-        backgroundColor: '#387ef5',
-        elevation: null
-      },
+    navigationOptions: ({ navigation }) => {
+      // title: 'SubCategoryShows',
+      return {
+        title: navigation.state.params.genre,
+        headerTintColor: 'white',
+        headerStyle: {
+          backgroundColor: '#387ef5',
+          elevation: null
+        },
+      }
     },
   },
   CategoryList: {

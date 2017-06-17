@@ -95,6 +95,7 @@ class CategoryList extends Component {
                     // Actions.SubCategoryShows({title: item.genre_name, genre: item.genre_name})
                   }}
                   title={item.genre_name}
+                  style={{padding: '2%', borderBottomWidth: 1, borderColor: '#eeeeee'}}
                 />
               </TouchableWithoutFeedback>
             ))
