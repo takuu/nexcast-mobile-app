@@ -141,7 +141,7 @@ class Queue extends Component {
     this.props.actions.getAllPodcastHistory();
   }
 
-  static navigationOptions = {
+  /*static navigationOptions = {
     title: 'Queue',
     tabBarLabel: 'Queue',
     // Note: By default the icon is only shown on iOS. Search the showIcon option below.
@@ -151,7 +151,7 @@ class Queue extends Component {
         <Text style={{color: "#888888", fontSize: 10}}>Queue</Text>
       </View>
     )
-  };
+  };*/
 
   render () {
     // console.log('Queue: ', this.props);

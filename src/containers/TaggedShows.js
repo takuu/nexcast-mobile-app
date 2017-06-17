@@ -145,14 +145,18 @@ class TaggedShows extends Component {
   constructor(props) {
     super(props);
     this.state = {refreshing: false};
-    // this._onRefresh = this._onRefresh.bind(this);
+    this._onRefresh = this._onRefresh.bind(this);
   }
 
   componentWillMount() {
     this.props.actions.getTaggedShows();
+    setTimeout(() => {
+      this._onRefresh();
+    }, 1000);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    console.log('shouldComponentUpdate: ');
     this.setState({refreshing: false});
     return this.props.taggedShows !== nextProps.taggedShows;
   }
@@ -170,8 +174,7 @@ class TaggedShows extends Component {
   }
 
   render() {
-    console.log('TaggedShows (Container): ', (this.props.taggedShows.toJS())[0]);
-    console.log('props', this.props);
+    console.log('TaggedShows (Container): render');
     const list = ds.cloneWithRows(this.props.taggedShows.toJS());
     // const list = ds.cloneWithRows(rawData);
     return (
@@ -191,6 +194,8 @@ class TaggedShows extends Component {
             return (
               <ListView style={{marginBottom: 60}}
                         enableEmptySections={true}
+                        pageSize={15}
+                        removeClippedSubviews={false}
                         dataSource={list}
                         renderRow={(item) => <ShowItem imageUrl={item.image_url} title={item.title} description={item.description} rss={item.feed_url} match={this.props.match} navigation={this.props.navigation} />}
               />

@@ -27,7 +27,7 @@ export const QueueStack = StackNavigator({
   Queue: {
     screen: Queue,
     navigationOptions: {
-      title: 'Queue',
+      title: 'Queues',
       headerTintColor: 'white',
       headerStyle: {
         backgroundColor: '#387ef5',
@@ -47,6 +47,8 @@ export const QueueStack = StackNavigator({
       },
     }),
   },
+}, {
+  headerMode: 'none',
 });
 
 export const UserPodcastsStack = StackNavigator({
@@ -73,6 +75,8 @@ export const UserPodcastsStack = StackNavigator({
       },
     }),
   },
+},{
+  headerMode: 'none',
 });
 
 export const SearchStack = StackNavigator({
@@ -87,6 +91,59 @@ export const SearchStack = StackNavigator({
       },
     },
   }
+},{
+  headerMode: 'none',
+});
+
+export const DiscoverQueue = TabNavigator({
+  TaggedShows: {
+    screen: TaggedShows,
+    navigationOptions: {
+      title: 'Tagged Shows',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#387ef5',
+        elevation: null
+      },
+    },
+  },
+  PopularShows: {
+    screen: PopularShows,
+    navigationOptions: {
+      title: 'Popular',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#387ef5',
+        elevation: null
+      },
+    },
+  },
+  CategoryShows: {
+    screen: CategoryShows,
+    navigationOptions: {
+      title: 'Category',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#387ef5',
+        elevation: null
+      },
+    },
+  }
+}, {
+  tabBarPosition: 'top',
+  swipeEnabled: true,
+  lazyLoad: true,
+  animationEnabled: false,
+  tabBarOptions: {
+    activeTintColor: '#387ef5',
+    indicatorStyle: {
+      backgroundColor: '#387ef5',
+      color: '#387ef5',
+    },
+    style: {
+      backgroundColor: 'white',
+    },
+  },
 });
 
 export const DiscoverStack = StackNavigator({
@@ -194,7 +251,7 @@ export const Tabs = TabNavigator({
     },
   },
   Discover: {
-    screen: DiscoverStack,
+    screen: DiscoverQueue,
     navigationOptions: {
       tabBarLabel: 'Discover',
       tabBarIcon: ({ tintColor }) => <Ionicons name="ios-star" size={32} color={tintColor} />
@@ -230,7 +287,7 @@ export const PrimaryNav = StackNavigator({
   }
 }, {
   mode: 'modal',
-  headerMode: 'none',
+  // headerMode: 'none',
 });
 
 const Navigation = ({ dispatch, primaryNav }) => (
