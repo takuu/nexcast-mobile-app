@@ -4,7 +4,9 @@ import {
   View,
   RefreshControl,
   ScrollView,
+  Dimensions
 } from 'react-native';
+const {height, width} = Dimensions.get('window');
 
 import ShowItem from '../components/ShowItem';
 import Loader from '../components/Loader';
@@ -105,24 +107,23 @@ class PopularShows extends Component {
   render() {
 
     const list = ds.cloneWithRows(this.props.podcasts.toJS());
-    console.log('PopularShows container', list.length, this.props.match);
-    // const list = ds.cloneWithRows(rawData);
     return (
 
 
+    <View style={{backgroundColor: 'white', height: height}}>
       <ScrollView
         tabLabel='Popular'
         refreshControl={
-                          <RefreshControl
-                            refreshing={this.state.refreshing}
-                            onRefresh={this._onRefresh.bind(this)}
-                            />
-                        }
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh.bind(this)}
+          />
+        }
       >
         {((podcasts, list) => {
           if (podcasts && podcasts.length) {
             return (
-              <ListView style={{marginBottom: 60}}
+              <ListView style={{marginBottom: 0}}
                         enableEmptySections={true}
                         dataSource={list}
 
@@ -136,6 +137,8 @@ class PopularShows extends Component {
           }
         })(this.props.podcasts.toJS(), list)}
       </ScrollView>
+    </View>
+
     )
   }
 

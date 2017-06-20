@@ -6,7 +6,9 @@ import {
   StyleSheet,
   ScrollView,
   RefreshControl,
+  Dimensions,
 } from 'react-native';
+const {height, width} = Dimensions.get('window');
 
 import ShowItem from '../components/ShowItem';
 import Loader from '../components/Loader';
@@ -174,12 +176,11 @@ class TaggedShows extends Component {
   }
 
   render() {
-    console.log('TaggedShows (Container): render');
     const list = ds.cloneWithRows(this.props.taggedShows.toJS());
     // const list = ds.cloneWithRows(rawData);
     return (
 
-      <View>
+      <View style={{backgroundColor: 'white'}}>
       <ScrollView
         tabLabel='Tagged'
         refreshControl={
@@ -208,9 +209,6 @@ class TaggedShows extends Component {
         })(this.props.taggedShows.toJS(), list)}
       </ScrollView>
       </View>
-
-
-
 
 
     )

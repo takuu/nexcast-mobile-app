@@ -74,7 +74,7 @@ export function removeSubscription (show={}) {
     AsyncStorage.getItem(SUBSCRIPTION_KEY, (err, blob) => {
       if(err) console.log("ASYNC_STORAGE FAIL");
       let subscriptionHash = JSON.parse(blob) || {};
-      if (subscriptionHash && subscriptionHash[show.rss]) delete subscriptionHash[show.rss];
+      if (subscriptionHash && subscriptionHash[show.feed_url]) delete subscriptionHash[show.feed_url];
       // _.remove(subscriptionHash, {rss: show.rss});
       AsyncStorage.setItem(SUBSCRIPTION_KEY, JSON.stringify(subscriptionHash), () => {
         dispatch(removeSubscriptionSuccess(subscriptionHash));
@@ -92,7 +92,7 @@ export function setSubscription (show={}) {
     AsyncStorage.getItem(SUBSCRIPTION_KEY, (err, blob) => {
       if(err) console.log("ASYNC_STORAGE FAIL");
       let subscriptionHash = JSON.parse(blob) || {};
-      subscriptionHash[show.rss] = _.merge(subscriptionHash[show.rss], show);
+      subscriptionHash[show.feed_url] = _.merge(subscriptionHash[show.feed_url], show);
       AsyncStorage.setItem(SUBSCRIPTION_KEY, JSON.stringify(subscriptionHash), () => {
         console.log('finishing up setSubscription...');
         dispatch(setSubscriptionSuccess(subscriptionHash));

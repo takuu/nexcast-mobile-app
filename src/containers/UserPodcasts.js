@@ -51,8 +51,8 @@ var styles = StyleSheet.create({
     justifyContent: 'flex-start',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginBottom: 60,
-    marginTop: 0
+    marginBottom: 0,
+    marginTop: 0,
   },
   summary: {
     fontFamily: 'BodoniSvtyTwoITCTT-Book',
@@ -116,7 +116,6 @@ class UserPodcasts extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log(nextProps, nextState);
     this.setState({refreshing: false});
     return true;
     return this.props.subscription !== nextProps.subscription;
@@ -154,10 +153,9 @@ class UserPodcasts extends Component {
     const foobar = _.map(this.props.subscription.toJS());
     // const list = ds.cloneWithRows(rawData);
     const list = ds.cloneWithRows(foobar);
-    console.log('User Podcasts', foobar);
     return (
       <View style={styles.container}>
-        {(() => {
+        {((foobar, list) => {
           if(foobar && foobar.length) {
             return (
               <ListView contentContainerStyle={styles.list}
@@ -168,8 +166,9 @@ class UserPodcasts extends Component {
                             />
                         }
                         enableEmptySections={true}
+                        removeClippedSubviews={false}
                         dataSource={list}
-                        renderRow={(item) => <ImageGridItem imageUrl={item.imageurl} rss={item.rss} title={item.title} />} />
+                        renderRow={(item) => <ImageGridItem imageUrl={item.image_url} rss={item.feed_url} title={item.title} />} />
             )
 
           } else {

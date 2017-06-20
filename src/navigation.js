@@ -1,4 +1,7 @@
-import { StackNavigator, TabNavigator, addNavigationHelpers } from 'react-navigation';
+import { StackNavigator, TabNavigator, addNavigationHelpers, TabBarBottom } from 'react-navigation';
+import {
+  View, Text, Dimensions
+} from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
@@ -20,7 +23,8 @@ import SubCategoryShows from './containers/SubCategoryShows';
 import Profile from './containers/Profile';
 import { Icon } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
-
+import CustomTabBar from './components/CustomTabBar';
+const {height, width} = Dimensions.get('window');
 
 
 export const QueueStack = StackNavigator({
@@ -77,6 +81,9 @@ export const UserPodcastsStack = StackNavigator({
   },
 },{
   headerMode: 'none',
+  swipeEnabled: true,
+  lazyLoad: true,
+  animationEnabled: false,
 });
 
 export const SearchStack = StackNavigator({
@@ -134,6 +141,19 @@ export const DiscoverQueue = TabNavigator({
   swipeEnabled: true,
   lazyLoad: true,
   animationEnabled: false,
+  // tabBarComponent: CustomTabBar,
+/*  tabBarComponent: (props) => {
+    console.log('tabBarComponent: ', props);
+    return (
+      <View >
+        <View style={{position: 'absolute', top: 0, height: 10, width: width, backgroundColor: 'green', zIndex: 100000000 }}>
+          <Text>Testt</Text>
+        </View>
+        <TabBarBottom {...props} />
+     </View>
+
+    );
+  },*/
   tabBarOptions: {
     activeTintColor: '#387ef5',
     indicatorStyle: {
@@ -142,7 +162,21 @@ export const DiscoverQueue = TabNavigator({
     },
     style: {
       backgroundColor: 'white',
+
     },
+    tabStyle: {
+      flex: 1,
+      height: '20%',
+      alignItems: 'center',
+      backgroundColor: 'white',
+      justifyContent: 'center',
+    },
+    labelStyle: {
+      fontSize: 14,
+      alignItems: 'center',
+      backgroundColor: 'white',
+      justifyContent: 'center',
+    }
   },
 });
 
@@ -225,6 +259,8 @@ export const ProfileStack = StackNavigator({
       },
     },
   }
+}, {
+  headerMode: 'none',
 });
 
 
@@ -264,6 +300,8 @@ export const Tabs = TabNavigator({
       tabBarIcon: ({ tintColor }) => <Ionicons name="ios-person" size={35} color={tintColor} />
     },
   },
+}, {
+  tabBarComponent: CustomTabBar,
 });
 
 export const PrimaryNav = StackNavigator({

@@ -86,7 +86,7 @@ EpisodeItem.defaultProps = {
   title: '',
   episodeTitle: '',
   date: '',
-  duration: '',
+  duration: 0,
   description: '',
   media: '',
   progress: 0,

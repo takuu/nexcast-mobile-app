@@ -11,10 +11,12 @@ var styles = StyleSheet.create({
     height: 124,
     backgroundColor: '#F6F6F6',
     alignItems: 'center',
+    zIndex: 10000,
   },
   thumb: {
     width: 124,
-    height: 124
+    height: 124,
+    backgroundColor: '#0f0',
   },
   text: {
     flex: 1,
@@ -24,7 +26,6 @@ var styles = StyleSheet.create({
 });
 const ImageGridItem = ({imageUrl, route, rss, title}) => {
   const decodedImageUrl = decodeURI(imageUrl);
-  const scene = route || 'UserShow';
   return (
 
     <View style={styles.row}>

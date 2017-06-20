@@ -79,7 +79,6 @@ function mapDispatchToProps (dispatch) {
 
 class CategoryList extends Component {
   render() {
-    console.log('CategoryList container', this.props);
     return (
       <ScrollView style={{flex: 1}}>
         <List containerStyle={{marginBottom: 40, marginTop: 0, flex: 1}}>

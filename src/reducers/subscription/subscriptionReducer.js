@@ -13,7 +13,7 @@ import Immutable from 'immutable';
 const initialState = new Immutable.Map();
 
 const mapEntities = (state, newSubscription) => {
-  return state.set(newSubscription.rss, newSubscription);
+  return state.set(newSubscription.feed_url, newSubscription);
 };
 
 export default (state = initialState, action) => {

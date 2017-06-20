@@ -156,7 +156,7 @@ class Queue extends Component {
   render () {
     // console.log('Queue: ', this.props);
     const orderedQueue = _.orderBy(this.props.podcastHistory.toJS(), ['lastPlayed']);
-    // console.log('orderedQueue: ', orderedQueue);
+    console.log('orderedQueue: ', orderedQueue);
     const list = ds.cloneWithRows(orderedQueue);
     // const list = ds.cloneWithRows(rawData);
     return (

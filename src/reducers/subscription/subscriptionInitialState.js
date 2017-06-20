@@ -20,15 +20,14 @@ import {Record} from 'immutable'
 var SubscriptionRecord = Record({
   "id": "",
   "title": "",
-  "imageurl": "",
-  "published_date": "",
+  "image_url": "",
+  "release_date": "",
   "language": "",
-  "author": "",
+  "artist_name": "",
   "keywords": "",
-  "owner_email": "",
   "owner_name": "",
-  "long_desc": "",
-  "rss": "",
+  "description": "",
+  "feed_url": "",
   "episodes": []
 
 });
