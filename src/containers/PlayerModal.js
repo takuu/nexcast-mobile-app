@@ -145,7 +145,6 @@ class PlayerModal extends Component {
         position: (tag.seconds/props.duration) * (width - 10 - 10)
       }
     });
-    console.log('PlayerModal render: ', player, tags, width, height);
 
     return (
 
@@ -164,7 +163,6 @@ class PlayerModal extends Component {
 
 
             {((tags, width, height, styles, currentTagIndex, imageUrl) => {
-              console.log('should show IMAGE HERE: ', imageUrl)
               if (tags.length > 1) {
                 return (
                   <View>

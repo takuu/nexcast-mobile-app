@@ -19,7 +19,6 @@ let ReactNativeAudioStreaming = {
   play: (source) => {
     //ReactNativeAudioStreaming.play(episode.mediaUrl, {showIniOSMediaCenter: true, showInAndroidNotifications: true, title: episode.title, artist: episode.episodeTitle,elapsedPlaybackTime: episode.progress || 0, duration: episode.duration, artwork: episode.imageUrl});
     // _start(source);
-    console.log('=====================================playerSingleton play', source);
   },
   getStatus: () => {},
   seekToTime: () => {},
@@ -29,7 +28,6 @@ let ReactNativeAudioStreaming = {
 
 
 async function _start(dispatch, ep = {}) {
-  console.log('_start start');
   let instance;
   try {
     const initialStatus = {
@@ -44,17 +42,14 @@ async function _start(dispatch, ep = {}) {
       { uri: ep.mediaUrl || '' },
       { shouldPlay: true },
     );
-    console.log('_start: mid', sound, status);
     sound.setCallback(_callback);
 
     instance = sound;
-    console.log('_start finished', ep);
   } catch(err) {
-    console.log(err);
+    console.log('_start: ', err);
   }
 
   function _callback(status) {
-    console.log('stuff is happing with Audio player', status, ep);
     currentProgress++;
 
     let progress = parseInt(status.positionMillis/1000);
@@ -76,9 +71,7 @@ async function _start(dispatch, ep = {}) {
         var foo = podcastHistoryActions.removePodcastHistory({mediaUrl: status.uri});
         foo(dispatch);
         var boo = podcastHistoryActions.getNextPodcastHistory({mediaUrl: status.uri});
-        console.log('boo: ', boo);
         boo(dispatch).then((next) => {
-          console.log('Some internal stuff...', next);
           //playerStart(url, title='', episodeTitle='', duration, imageUrl, episodeKey='', progress=0) {
           var bar = playerActions.playerStart(next.mediaUrl, next.title, next.episodeTitle, next.duration, next.imageUrl, next.episodeKey, next.progress);
           bar(dispatch);
@@ -228,8 +221,6 @@ MusicListener.on('skipBackward', () => {
 
 function _startInterval(dispatch, ep) {
   if(interval == -1337) {
-    console.log('================================START INTERVAL========================================');
-    console.log('episode: ', ep);
     interval = setInterval(function() {
 
       currentProgress++;

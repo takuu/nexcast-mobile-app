@@ -90,7 +90,6 @@ const HISTORY_KEY = 'HISTORY_STORAGE';
 
 
 export function getAllPodcastHistory () {
-  console.log('getAllPodcastHistory() was called');
 
   // AsyncStorage.removeItem(HISTORY_KEY, (err) => {});
   return async dispatch => {
@@ -114,7 +113,6 @@ export function getNextPodcastHistory (currentEpisode) {
 
   // AsyncStorage.removeItem(HISTORY_KEY, (err) => {});
   return async dispatch => {
-    console.log('getNextPodcastHistory again');
     let next;
     try {
       next = await podcastHistoryStorage.getNextHistory(currentEpisode);
@@ -128,13 +126,11 @@ export function getNextPodcastHistory (currentEpisode) {
 
 
 export function removePodcastHistory (episode={}) {
-  console.log('removePodcastHistory() was called');
   return async dispatch => {
 
     dispatch(removePodcastHistoryRequest());
 
     try {
-      console.log('removePodcastHistory again');
       let newHistory = await podcastHistoryStorage.removeHistory(episode);
       dispatch(removePodcastHistorySuccess(newHistory));
     } catch (error) {
@@ -146,12 +142,10 @@ export function removePodcastHistory (episode={}) {
 
 // This is unused.......
 export function setPodcastHistoryDeprecated (episode={}) {
-  console.log('setPodcastHistory() was called');
   return async dispatch => {
     try {
       let historyHash = await AsyncStorage.getItem(HISTORY_KEY) || {};
       historyHash = JSON.parse(historyHash);
-      console.log('===========================historyHash: ', historyHash);
       historyHash[episode.mediaUrl] = _.merge(historyHash[episode.mediaUrl], episode);
       await AsyncStorage.setItem(HISTORY_KEY, JSON.stringify(historyHash));
       dispatch(setPodcastHistorySuccess(historyHash));

@@ -32,6 +32,7 @@ export function playerNextPodcastSuccess (json) { return { type: GET_NEXT_PODCAS
 
 let splashScreenEpisode = {};
 let currentDispatch;
+let playerStatus;
 
 Audio.setAudioModeAsync({
   allowsRecordingIOS: false,
@@ -59,7 +60,6 @@ let ReactNativeAudioStreaming = {
 
 
 async function _start(dispatch, ep = {}) {
-  console.log('_start start');
   let instance;
   try {
     const initialStatus = {
@@ -69,27 +69,25 @@ async function _start(dispatch, ep = {}) {
       volume: 1.0,
       isMuted: false,
       isLooping: false,
-    }
+    };
     const {sound , status} = await Audio.Sound.create(
       { uri: ep.mediaUrl || '' },
       { shouldPlay: true },
     );
-    console.log('_start: mid', sound, status);
     sound.setCallback(_callback);
+    playerStatus = 1;
 
     instance = sound;
-    console.log('_start finished', ep);
   } catch(err) {
     console.log(err);
   }
 
   function _callback(status) {
-    console.log('stuff is happing with Audio player', status, ep);
-
     let progress = parseInt(status.positionMillis/1000);
     let duration = parseInt(status.durationMillis/1000);
-    let episode = {mediaUrl: status.uri, playerStatus: (status.isPlaying) ? 1 : 2, duration: duration, lastPlayed: (new Date()).toDateString(),
+    let episode = {mediaUrl: status.uri, playerStatus: playerStatus, duration: duration, lastPlayed: (new Date()).toDateString(),
       progress: progress, title: ep.episodeTitle, episodeTitle: ep.episodeTitle, imageUrl: ep.imageUrl, episodeKey: ep.episodeKey};
+    console.log('Audio callback: ', episode);
 
     dispatch(playerResumeSuccess(episode));
     dispatch(setPodcastHistoryRequest());
@@ -101,12 +99,12 @@ async function _start(dispatch, ep = {}) {
     if (progress + 1 > duration) {
 
       try {
+        // This is to get the next episodes in queue
+
         var foo = podcastHistoryActions.removePodcastHistory({mediaUrl: status.uri});
         foo(dispatch);
         var boo = podcastHistoryActions.getNextPodcastHistory({mediaUrl: status.uri});
-        console.log('boo: ', boo);
         boo(dispatch).then((next) => {
-          console.log('Some internal stuff...', next);
           //playerStart(url, title='', episodeTitle='', duration, imageUrl, episodeKey='', progress=0) {
           var bar = playerActions.playerStart(next.mediaUrl, next.title, next.episodeTitle, next.duration, next.imageUrl, next.episodeKey, next.progress);
           bar(dispatch);
@@ -125,7 +123,6 @@ async function setStatus(config ={}) {
   let playbackStatus;
   try {
     playbackStatus = await playbackInstance.setStatusAsync(config);
-    console.log('playbackStatus', playbackStatus);
   } catch (err) {
     console.log('playbackStatus setStatus: ', err);
   }
@@ -136,11 +133,15 @@ async function setStatus(config ={}) {
 
 function _resume(dispatch, episode) {
   // ReactNativeAudioStreaming.resume();
+  playerStatus = 1;
   playbackInstance.playAsync();
+
 }
 
 function _pause() {
+  playerStatus = 2;
   playbackInstance.pauseAsync();
+
 }
 
 function _stopNowPlaying() {
@@ -148,11 +149,8 @@ function _stopNowPlaying() {
 }
 
 export function playerStart(dispatch, episode, cb) {
-
-    console.log('playerStart new');
     _start(dispatch, episode).then((sound) => {
       playbackInstance = sound;
-      console.log('playerStart callback');
       playbackInstance.getStatusAsync().then((status) => {
         console.log('getStatusAsync: ', status);
       })
@@ -172,7 +170,6 @@ export function playerStop(dispatch, episode, cb) {
 }
 export function playerGoForward(dispatch, episode, cb) {
   // playbackInstance.playFromPositionAsync(episode.progress-15);
-  console.log('=======================playerGoForward=======================', episode);
   setStatus({shouldPlay: true, positionMillis: (episode.progress+15) * 1000}).then((status) => {
     console.log('playerGoForward', status);
   });

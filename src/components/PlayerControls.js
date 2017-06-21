@@ -78,9 +78,7 @@ class PlayerControls extends Component {
   };
 
   componentWillReceiveProps (nextProps) {
-    console.log('PlayerControls: componentWillReceiveProps', nextProps, nextProps.progress);
     if(this.props.mediaUrl != nextProps.mediaUrl) {
-      console.log('FOUND NEW EPISODE! PLAY IT ~');
       const {duration, episodeKey, episodeTitle, imageUrl, mediaUrl,progress, title } = nextProps;
       this.props.actions.playerStart(mediaUrl, title, episodeTitle, duration, imageUrl, episodeKey, progress);
     }
@@ -95,17 +93,18 @@ class PlayerControls extends Component {
     ReactNativeAudioStreaming.resume();
 
     // ReactNativeAudioStreaming.stop();
-    console.log('componentWillMount => start', mediaUrl);
     this.props.actions.playerStart(mediaUrl, title, episodeTitle, duration, imageUrl, episodeKey, progress);
 
   }
   pause() {
     const {mediaUrl} = this.props.player;
+    console.log('PAUSED CLICKED');
     this.props.actions.playerPause(mediaUrl);
   }
 
   resume() {
     const {mediaUrl, title, episodeTitle, duration, imageUrl, episodeKey, progress} = this.props.player;
+    console.log('RESUME CLICKED');
     this.props.actions.playerResume(mediaUrl, title, episodeTitle, duration, imageUrl, episodeKey, progress);
   }
   goBack() {
@@ -171,12 +170,14 @@ class PlayerControls extends Component {
 
           {((playerStatus, resume, pause) => {
             if (playerStatus == 1) {
+              console.log('PLAYING: SHOW PAUSE');
               return (
                 <TouchableWithoutFeedback onPress={()=> (pause())}>
                   <Ion style={styles.customImageControls} name={'ios-pause'} size={30} />
                 </TouchableWithoutFeedback>
               );
             } else {
+              console.log('PAUSED: SHOW PLAY');
               return (
                 <TouchableWithoutFeedback onPress={()=> (resume())}>
                   <Ion style={styles.customImageControls} name={'ios-play'} size={30} />
