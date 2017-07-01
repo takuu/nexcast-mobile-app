@@ -90,7 +90,18 @@ export const SearchStack = StackNavigator({
   headerMode: 'none',
 });
 
-export const DiscoverQueue = TabNavigator({
+
+export const TaggedShowsStack = StackNavigator({
+  TaggedShows: {
+    screen: TaggedShows,
+  },
+  Show: {
+    screen: Show,
+  }
+}, {
+});
+
+export const DiscoverTabs = TabNavigator({
   TaggedShows: {
     screen: TaggedShows,
     navigationOptions: {
@@ -167,6 +178,8 @@ export const DiscoverQueue = TabNavigator({
     }
   },
 });
+
+
 
 export const DiscoverStack = StackNavigator({
   Discover: {
@@ -275,7 +288,7 @@ export const Tabs = TabNavigator({
     },
   },
   Discover: {
-    screen: DiscoverQueue,
+    screen: DiscoverTabs,
     navigationOptions: {
       tabBarLabel: 'Discover',
       tabBarIcon: ({ tintColor }) => <Ionicons name="ios-star" size={32} color={tintColor} />

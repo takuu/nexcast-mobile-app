@@ -2,49 +2,21 @@
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-
-/**
- * The actions we need
- */
 import * as authActions from '../reducers/auth/authActions'
 import * as globalActions from '../reducers/global/globalActions'
 import * as podcastHistoryActions from '../reducers/podcastHistory/podcastHistoryActions'
 
 import _ from 'lodash';
-
-/**
- * Router
- */
 import Actions from '../lib/ActionsMock';
-
-/**
- * The Header will display a Image and support Hot Loading
- */
 import Header from '../components/Header'
 import EpisodeItem from '../components/EpisodeItem'
-
-/**
- * The components needed from React
- */
 import React, {Component} from 'react'
 import { StyleSheet, View, ListView, ScrollView, TouchableWithoutFeedback, Dimensions, Text, RefreshControl } from 'react-native'
 const {height, width} = Dimensions.get('window');
-
-/**
- * The platform neutral button
- */
 const Button = require('apsl-react-native-button')
 import Ion from 'react-native-vector-icons/Ionicons'
-
-
 import { List, ListItem } from 'react-native-elements'
 import { Ionicons } from '@expo/vector-icons';
-/**
- *  Instead of including all app states via ...state
- *  One could explicitly enumerate only those which Queue.js will depend on.
- *
- */
-
 
 var styles = StyleSheet.create({
   container: {
@@ -69,14 +41,10 @@ var styles = StyleSheet.create({
     width: 50
   }
 })
-/**
- * ### Translations
- */
+
 var I18n = require('react-native-i18n')
 import Translations from '../lib/Translations'
 I18n.translations = Translations
-
-
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 const rawData = [
@@ -104,10 +72,6 @@ function mapStateToProps (state) {
 }
 
 
-
-/*
- * Bind all the actions
- */
 function mapDispatchToProps (dispatch) {
   return {
     actions: bindActionCreators({ ...authActions, ...globalActions, ...podcastHistoryActions }, dispatch)
@@ -117,7 +81,6 @@ class Queue extends Component {
   constructor(props) {
     super(props);
     this.state = {refreshing: false};
-    // this._onRefresh = this._onRefresh.bind(this);
   }
 
   componentWillMount() {
@@ -144,18 +107,6 @@ class Queue extends Component {
     this.setState({refreshing: true});
     this.props.actions.getAllPodcastHistory();
   }
-
-  /*static navigationOptions = {
-    title: 'Queue',
-    tabBarLabel: 'Queue',
-    // Note: By default the icon is only shown on iOS. Search the showIcon option below.
-    tabBarIcon: ({ tintColor }) => (
-      <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', alignSelf: 'center'}}>
-        <Ionicons name="logo-buffer" size={32} color="#888" />
-        <Text style={{color: "#888888", fontSize: 10}}>Queue</Text>
-      </View>
-    )
-  };*/
 
   render () {
     // console.log('Queue: ', this.props);
@@ -206,10 +157,4 @@ class Queue extends Component {
   }
 }
 
-/**
- * Connect the properties
- * <EpisodeItem title={thisShow.title} description={item.description}
- date={item.pubDate} duration={item.duration} episodeTitle={item.title} media={item.media_location} imageUrl={thisShow.imageurl}
- />}
- */
 export default connect(mapStateToProps, mapDispatchToProps)(Queue)

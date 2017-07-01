@@ -32,9 +32,6 @@ function mapStateToProps (state) {
   }
 }
 
-/*
- * Bind all the actions
- */
 function mapDispatchToProps (dispatch) {
   return {
     actions: bindActionCreators({ ...searchActions }, dispatch)
@@ -60,9 +57,6 @@ var styles = StyleSheet.create({
   }
 });
 
-/**
- * ## App class
- */
 class Search extends Component {
 
   render () {
@@ -90,8 +84,6 @@ class SearchHeaderIcon extends React.Component {
   }
 }
 
-// function searchUpdated(text) {}
-
 class SearchContainer extends Component {
   constructor(props) {
     super(props);
@@ -116,7 +108,4 @@ class SearchContainer extends Component {
   }
 }
 
-/**
- * Connect the properties
- */
 export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer)

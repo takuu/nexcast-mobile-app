@@ -1,6 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-// import { ReactNativeAudioStreaming, Player } from 'react-native-audio-streaming';
-// import Slider from 'react-native-slider';
 import {
   Modal,
   Text,
@@ -15,17 +13,13 @@ import {
   ActivityIndicator,
   Linking,
 } from 'react-native';
-// This is the swipeable modal
-// var ModalBox   = require('react-native-modalbox');
-// import { Button } from 'react-native-elements';
 import Actions from '../lib/ActionsMock';
-// import Ion from 'react-native-vector-icons/Ionicons'
+
 import PlayerControls from '../components/PlayerControls';
 import PlayerTags from '../components/PlayerTags';
 import * as playerActions from '../reducers/player/playerActions'
 import * as podcastHistoryActions from '../reducers/podcastHistory/podcastHistoryActions'
 import * as tagActions from '../reducers/tag/tagActions'
-// import * as helpers from '../lib/helpers'
 import { bindActionCreators } from 'redux'
 
 const {height, width} = Dimensions.get('window');
@@ -94,17 +88,10 @@ class PlayerModal extends Component {
       }});
     }
 
-    /*if (currentPlayer.progress + 1 > currentPlayer.duration && !this.state.finished) {
-      actions.removePodcastHistory({mediaUrl: currentPlayer.mediaUrl});
-      actions.getNextPodcastHistory({mediaUrl: currentPlayer.mediaUrl});
-      this.setState({finished: true});
-      console.log('player: ', currentPlayer);
-    }*/
   }
 
 
   minimize() {
-    // this.props.actions.minimizePlayer();
     console.log('minimize: ', this.props.navigation);
     this.props.navigation.goBack()
   }
@@ -124,10 +111,7 @@ class PlayerModal extends Component {
 
   render () {
     const props = this.props.navigation.state.params;
-    // let player = (this.props.player) ? this.props.player.toJS() : {};
     const {player} = this.state;
-
-
 
     let tags = [{}];
 
@@ -172,7 +156,6 @@ class PlayerModal extends Component {
               } else {
                 return (
                   <View style={{marginTop: 0, flex: 1}}>
-                    {/*<ActivityIndicator animating = {true} size = "small" style={{ flex: 1, justifyContent: 'center', alignItems: 'center', height: 80}} />*/}
                     <Image source={{ uri: imageUrl}} style={styles.photo} height={height/2} width={width}  />
                   </View>);
               }

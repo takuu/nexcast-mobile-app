@@ -1,4 +1,3 @@
-
 import React, {PropTypes, Component} from 'react';
 import {
   View,
@@ -27,62 +26,6 @@ import Loader from '../components/Loader';
 import { getParameterByName } from '../lib/helpers';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-const rawData = {
-  "status": 1,
-  "result": {
-    "id": "3c8865ee08ca6686c37fd677b7451698",
-    "title": "Twenty Thousand Hertz",
-    "imageurl": "http:\/\/static.libsyn.com\/p\/assets\/7\/e\/c\/b\/7ecb8d382f02537c\/20kHz-s1-ArtworkiTunes.jpg",
-    "published_date": "Tue, 29 Nov 2016 16:57:28 +0000",
-    "language": "en",
-    "author": "Defacto Sound",
-    "keywords": "",
-    "owner_email": "dallas@20k.org",
-    "owner_name": "Dallas Taylor",
-    "long_desc": "The stories behind the world's most recognizable and interesting sounds. ",
-    "episodes": [{
-      "title": "8-bit Sounds",
-      "pubDate": "Tue, 29 Nov 2016 16:57:28 +0000",
-      "link": "http:\/\/20khz.libsyn.com\/8-bit-sounds",
-      "description": "<p class=\"p1\">Primitive, yet iconic, 8-bit audio defined a generation through video game sounds and music. Discover the history and innovation behind those audio marvels that still fascinate today.<\/p>",
-      "duration": "12:31",
-      "keywords": "",
-      "subtitle": "Primitive, yet iconic, 8-bit audio defined a generation through video game sounds and music. Discover the history and innovation behind those audio marvels that still fascinate today.",
-      "media_location": "http:\/\/traffic.libsyn.com\/20khz\/20K_-_8-Bit_11-29.mp3?dest-id=440475",
-      "episode_key": "87667914e0bca5e355395aa97d41ffe9"
-    }, {
-      "title": "The NBC Chimes",
-      "pubDate": "Tue, 15 Nov 2016 21:23:38 +0000",
-      "link": "http:\/\/20khz.libsyn.com\/the-nbc-chimes",
-      "description": "<p><span style=\"font-weight: 400;\">NBC\u2019s three little chimes didn\u2019t just define a television network, they defined a generation. Where did they come from and what is the surprising impact they have had on current and future media? Featuring<\/span> <span style= \"font-weight: 400;\">the last person to play the NBC chimes on the NBC radio network, broadcaster Rick Greenhut, and radio historian, John Schneider.<br \/> <br \/><\/span> Find out more at <a href=\"http:\/\/www.20k.org\" target= \"_blank\">20k.org<\/a>.<br \/> <br \/> 20K<br \/> 20,000<\/p>",
-      "duration": "13:09",
-      "keywords": "",
-      "subtitle": "NBC\u2019s three little chimes didn\u2019t just define a television network, they defined a generation. Where did they come from and what is the surprising impact they have had on current and future media? Featuring the last person to play the NBC chimes on...",
-      "media_location": "http:\/\/traffic.libsyn.com\/20khz\/20K_-_NBC_11-23_Update_2.mp3?dest-id=440475",
-      "episode_key": "d789a0787ad5951c653d9ca5006bbb5b"
-    }, {
-      "title": "The Voice of Siri",
-      "pubDate": "Tue, 01 Nov 2016 02:18:52 +0000",
-      "link": "http:\/\/20khz.libsyn.com\/the-voice-of-siri",
-      "description": "<p>When Siri launched in 2011, she permanently changed the way people interacted with their technology. What was it like to be the voice behind that voice? And how did they make that voice come to life? Featuring the original voice of Siri, voice actor Susan Bennett, and Director of Speech to Text Technology for Nuance, Dr. Andrew Breen.<\/p>",
-      "duration": "12:30",
-      "keywords": "",
-      "subtitle": "When Siri launched in 2011, she permanently changed the way people interacted with their technology. What was it like to be the voice behind that voice? And how did they make that voice come to life? Featuring the original voice of Siri, voice actor...",
-      "media_location": "http:\/\/traffic.libsyn.com\/20khz\/20K_-_EP1_Siri.mp3?dest-id=440475",
-      "episode_key": "df68b4d739383d809ec461586f463e04"
-    }, {
-      "title": "Trailer",
-      "pubDate": "Mon, 31 Oct 2016 19:49:50 +0000",
-      "link": "http:\/\/20khz.libsyn.com\/trailer",
-      "description": "<p>Twenty Thousand Hertz: Stories about the world's most recognizable and interesting sounds. Presented by <a href= \"http:\/\/www.defactosound.com\">Defacto Sound<\/a>.<\/p>",
-      "duration": "01:38",
-      "keywords": "",
-      "subtitle": "Twenty Thousand Hertz: Stories about the world's most recognizable and interesting sounds. Presented by Defacto Sound.",
-      "media_location": "http:\/\/traffic.libsyn.com\/20khz\/20K_-_Series_Promo_v3.mp3?dest-id=440475",
-      "episode_key": "fe6161fc8ef4fb34d95830deff1a2059"
-    }]
-  }
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -155,9 +98,6 @@ class Show extends Component {
     this.removeSubscription = this.removeSubscription.bind(this);
   }
   componentWillMount() {
-    // var url = 'http://localhost:80' + this.props.location.search;
-    // var rssFeed = getParameterByName('rss', url);
-    // console.log('Show componentWillMount', rssFeed);
     var rssFeed = 'http://feeds.feedburner.com/BuildingNexcast/rss';
     const { rss } = this.props.navigation.state.params;
     this.props.actions.getEpisodes(rss);
@@ -181,6 +121,7 @@ class Show extends Component {
     const { rss } = this.props.navigation.state.params;
 
     let episodes = this.props.showDetail[rss] || [];
+    console.log('Show: episodes', episodes);
     let thisShow = this.props.podcastInfo[rss];
     const tags = this.props.tags;
     const hasSubscription = this.props.subscription && this.props.subscription[rss];

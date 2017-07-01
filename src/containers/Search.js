@@ -17,17 +17,10 @@ import { StyleSheet, View, ListView, ScrollView, Dimensions, Text} from 'react-n
 const {height, width} = Dimensions.get('window');
 import { Ionicons } from '@expo/vector-icons';
 
-/**
- * The platform neutral button
- */
 const Button = require('apsl-react-native-button')
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-/**
- *  Instead of including all app states via ...state
- *  One could explicitly enumerate only those which Search.js will depend on.
- *
- */
+
 function mapStateToProps (state) {
   return {
     auth: {
@@ -43,9 +36,6 @@ function mapStateToProps (state) {
   }
 }
 
-/*
- * Bind all the actions
- */
 function mapDispatchToProps (dispatch) {
   return {
     actions: bindActionCreators({ ...authActions, ...globalActions }, dispatch)
@@ -73,9 +63,6 @@ var styles = StyleSheet.create({
   }
 })
 
-/**
- * ## App class
- */
 class Search extends Component {
   constructor(props) {
     super(props);
@@ -145,7 +132,4 @@ class Search extends Component {
   }
 }
 
-/**
- * Connect the properties
- */
 export default connect(mapStateToProps, mapDispatchToProps)(Search)

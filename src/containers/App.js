@@ -93,10 +93,7 @@ import Translations from '../lib/Translations'
 I18n.translations = Translations
 
 let App = React.createClass({
-    /**
-     * See if there's a sessionToken from a previous login
-     *
-     */
+
   componentDidMount () {
         // Use a timer so App screen is displayed
     this.setTimeout(

@@ -3,43 +3,23 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Actions from '../lib/ActionsMock';
-/**
- * The actions we need
- */
 
 import * as authActions from '../reducers/auth/authActions'
 import * as globalActions from '../reducers/global/globalActions'
 import * as subscriptionActions from '../reducers/subscription/subscriptionActions'
 import { Ionicons } from '@expo/vector-icons';
-/**
- * Router
- */
 
-/**
- * The Header will display a Image and support Hot Loading
- */
 import Header from '../components/Header'
 import ImageGridItem from '../components/ImageGridItem';
 
-/**
- * The components needed from React
- */
 import React, {Component} from 'react'
 import { StyleSheet, View, ListView, TouchableWithoutFeedback, Text, Dimensions, RefreshControl } from 'react-native'
 const {height, width} = Dimensions.get('window');
 
-/**
- * The platform neutral button
- */
+
 const Button = require('apsl-react-native-button')
 import Ion from 'react-native-vector-icons/Ionicons'
 import _ from 'lodash';
-
-/**
- *  Instead of including all app states via ...state
- *  One could explicitly enumerate only those which UserPodcasts.js will depend on.
- *
- */
 
 var styles = StyleSheet.create({
   container: {
@@ -66,33 +46,12 @@ var styles = StyleSheet.create({
     marginRight: 10
   }
 });
-/**
- * ### Translations
- */
+
 var I18n = require('react-native-i18n')
 import Translations from '../lib/Translations'
 I18n.translations = Translations
 
-
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-const rawData = [{
-  "rss": "http://feeds.feedburner.com/TheAdamCarollaPodcast",
-  "image": "http://ace.noxsolutions.com/images/podcast/AdamCarolla_3_4_1400.png",
-  "date": "2016-12-03T19:40:57.584Z"
-}, {
-  "rss": "http://feeds.feedburner.com/BuildingNexcast/rss",
-  "image": "http://static.libsyn.com/p/assets/c/2/a/d/c2ade2d446381379/buildIt.jpg",
-  "date": "2016-12-03T19:41:01.991Z"
-}, {
-  "rss": "http://feeds.serialpodcast.org/serialpodcast",
-  "image": "https://serialpodcast.org/sites/all/modules/custom/serial/img/serial-itunes-logo.png",
-  "date": "2016-12-03T19:41:07.829Z"
-}, {
-  "rss": "http://feeds.podtrac.com/5EZzzED0uv_k",
-  "image": "https://serialpodcast.org/sites/all/modules/custom/serial/img/serial-itunes-logo.png",
-  "date": "2016-12-03T20:19:00.728Z"
-}];
-
 
 function mapStateToProps (state) {
   return {
@@ -100,9 +59,6 @@ function mapStateToProps (state) {
   }
 }
 
-/*
- * Bind all the actions
- */
 function mapDispatchToProps (dispatch) {
   return {
     actions: bindActionCreators({ ...authActions, ...globalActions, ...subscriptionActions }, dispatch)
@@ -151,7 +107,6 @@ class UserPodcasts extends Component {
 
   render () {
     const foobar = _.map(this.props.subscription.toJS());
-    // const list = ds.cloneWithRows(rawData);
     const list = ds.cloneWithRows(foobar);
     return (
       <View style={styles.container}>
@@ -193,7 +148,4 @@ class UserPodcasts extends Component {
   }
 }
 
-/**
- * Connect the properties
- */
-export default connect(mapStateToProps, mapDispatchToProps)(UserPodcasts)
+export default connect(mapStateToProps, mapDispatchToProps)(UserPodcasts);

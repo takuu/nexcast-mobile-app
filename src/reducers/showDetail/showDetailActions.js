@@ -82,6 +82,7 @@ export function getEpisodes (rss = '') {
             episode.rss = rss;
             return episode
           });
+          console.log('PRE EPISODE_SUCCESS: ', episodes);
           dispatch(getEpisodesSuccess(episodes));
         } else {
           dispatch(getEpisodesFailure({error: 'err: fetching episodes failed'}));

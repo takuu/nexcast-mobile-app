@@ -107,33 +107,4 @@ class CategoryList extends Component {
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryList)
 
-/*
-export default React.createClass({
-  render() {
-    console.log('CategoryList container');
-    return (
-      <ScrollView style={{flex: 1}}>
-        <List containerStyle={{marginBottom: 40, marginTop: 0, flex: 1}}>
-          {
-            rawData.map((item) => (
-            <TouchableWithoutFeedback key={item.genre_id} onPress={() => {
-              this.props.navigation.navigate('SubCategoryShows', {genre: item.genre_name, genreId: item.genre_id});
-              // Actions.SubCategoryShows({genre: item.genre_name, genreId: item.genre_id})
-            }}>
-              <ListItem
-                onPress={() => {
-                  this.props.navigation.navigate('SubCategoryShows', {media, title, episodeTitle, duration, imageUrl, episodeKey, progress});
-                  // Actions.SubCategoryShows({title: item.genre_name, genre: item.genre_name})
-                }}
-                title={item.genre_name}
-              />
-            </TouchableWithoutFeedback>
-            ))
-          }
-        </List>
-      </ScrollView>
-    )
-  },
-});
-*/
 

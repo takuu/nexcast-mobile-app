@@ -1,18 +1,10 @@
 'use strict';
 
-/**
- * The components needed from React
- */
 import React, {Component} from 'react'
 import { StyleSheet, View, Text} from 'react-native'
 var Mailer = require('NativeModules').RNMail;
 
-
-/**
- * The platform neutral button
- */
 const Button = require('apsl-react-native-button')
-
 
 var styles = StyleSheet.create({
   container: {
@@ -31,9 +23,6 @@ var styles = StyleSheet.create({
   }
 })
 
-/**
- * ## App class
- */
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -47,8 +36,6 @@ class Profile extends Component {
     Mailer.mail({
       subject: 'Greetings',
       recipients: ['hi2@nexcast.co'],
-      // ccRecipients: ['supportCC@example.com'],
-      // bccRecipients: ['supportBCC@example.com'],
       body: 'test',
       isHTML: true, // iOS only, exclude if false
     }, (error, event) => {

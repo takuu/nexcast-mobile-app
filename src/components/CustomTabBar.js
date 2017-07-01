@@ -4,12 +4,12 @@ import { View, Text, Dimensions, TouchableWithoutFeedback, StyleSheet } from 're
 import { TabBarBottom } from 'react-navigation';
 const {height, width} = Dimensions.get('window');
 
-import { bindActionCreators } from 'redux'
-import Ion from 'react-native-vector-icons/Ionicons'
+import { bindActionCreators } from 'redux';
+import Ion from 'react-native-vector-icons/Ionicons';
 
 
-import { connect } from 'react-redux'
-import * as playerActions from '../reducers/player/playerActions'
+import { connect } from 'react-redux';
+import * as playerActions from '../reducers/player/playerActions';
 
 
 const styles = StyleSheet.create({
@@ -28,6 +28,7 @@ function mapStateToProps (state) {
     player: state.player.toJS(),
   }
 }
+
 function mapDispatchToProps (dispatch) {
   return {
     actions: bindActionCreators({ ...playerActions  }, dispatch)
@@ -59,7 +60,7 @@ class CustomTabBar extends Component {
         {(() => {
           if(playerStatus) {
             return (
-              <View style={{position: 'absolute', top: -30, height: 30, width: width, backgroundColor: '#0371d8', paddingTop: 4, paddingRight: 12, paddingLeft: 12, flex: 1, flexDirection: 'row'}}>
+              <View style={{position: 'absolute', top: -32, height: 32, width: width, backgroundColor: '#0371d8', paddingTop: 0, paddingRight: 12, paddingLeft: 12, flex: 1, flexDirection: 'row'}}>
                 <Text style={{color: 'white', lineHeight: 32, width: (width - (width/6))}} numberOfLines={1} ellipsizeMode="tail">{title} :{episodeTitle}</Text>
                 {/*<Ion style={styles.controls} name={'ios-play'} size={24} />*/}
 

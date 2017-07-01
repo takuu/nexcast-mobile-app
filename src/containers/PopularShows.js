@@ -91,7 +91,6 @@ class PopularShows extends Component {
   }
   componentWillMount(){
     this.props.actions.getPopular();
-    // this.props.actions.getTaggedShows();
   }
   shouldComponentUpdate(nextProps, nextState) {
     // The assumption is that there are no other props coming in than props.podcasts
@@ -126,7 +125,6 @@ class PopularShows extends Component {
               <ListView style={{marginBottom: 0}}
                         enableEmptySections={true}
                         dataSource={list}
-
                         renderRow={(item) => <ShowItem imageUrl={item.image_url} title={item.title} description={item.description} rss={item.feed_url}  navigation={this.props.navigation} />}
               />
             );
