@@ -1,5 +1,5 @@
 import React, {PropTypes, Component} from 'react';
-// import { ReactNativeAudioStreaming, Player } from 'react-native-audio-streaming';
+
 import {
   ListView,
   View,
@@ -48,21 +48,7 @@ class PlayerTags extends Component {
     currentTagIndex: 0,
     tagList: []
   };
-/*  shouldComponentUpdate(nextProps, nextState) {
-    const {tagList} = nextProps;
-    let shouldUpdate = false;
-    console.log('shouldComponentUpdate: ', tagList, this.props.tagList);
 
-    if(tagList.length != this.props.tagList.length) return true;
-    _.map(tagList, (tag, i) => {
-      if(this.props.tagList[i].cards_sid != tag.cards_sid) {
-        shouldUpdate = true;
-      }
-    });
-
-    return shouldUpdate;
-
-  }*/
   _renderItem(tag, index) {
     return (
       <View>
@@ -74,15 +60,12 @@ class PlayerTags extends Component {
 
   render() {
     const {tagList, currentTagIndex} = this.props;
-    // console.log('PlayerTags2: ', tagList);
     return (
 
       <View>
         <ScrollView horizontal={true} style={{width: width, backgroundColor: 'white'}} contentContainerStyle={{margin: 0, padding: 0}} decelerationRate={0} contentOffset={{x: currentTagIndex * width, y: 0}}
                     snapToInterval={width} snapToAlignment="center">
           {_.map(tagList, (tag, index) => {
-            //const button = (tag.button1_text) ? (<Button large title={tag.button1_text} buttonStyle={{ backgroundColor: '#02dd78' }} />) : null;
-
 
             const button = (tag.button1_text) ? `
                           <button style="width:100%;height:50px;border:none;border-radius:5px;background-color:#02dd78;color:#fff;font-size:1.4em;" onclick="window.open('${tag.button1_link}', '_blank', 'location=yes')">
@@ -98,7 +81,6 @@ class PlayerTags extends Component {
               webContent = `<img style='width:100%;padding:0px;margin:0px; ' src='${tag.image_location}' />`;
               //https://youtu.be/MoYjVTbLWyo
             } else if (tag.video_location) {
-              //webContent = `<iframe width='300' height='200' src='${tag.video_location}' frameborder='0' allowfullscreen></iframe>`
               video = (
                 <View style={{width: width, height: 220, resizeMode: 'contain'}}>
                   <WebView
@@ -126,18 +108,6 @@ class PlayerTags extends Component {
                          scrollEnabled={true}
                          automaticallyAdjustContentInsets={false}
                          onNavigationStateChange={(event) => {
-                                      /*
-                                     console.log('onNavigationStateChange: ', event);
-                                      const isLocal = event.url.search('http://dev.nexcast.co/mapi') !== -1;
-                                      const isProd = event.url.search('http://www.nexcast.co/mapi') !== -1;
-                                      const isYouTube = event.url.search('youtu.be') !== -1;
-                                      if(isLocal) {
-                                      } else if (isProd) {
-                                      } else if (isYouTube) {
-                                      } else {
-                                        Linking.openURL(event.url);
-                                      }
-                                      */
                                     }}
 
                          source={{html: formattedContent || ''}}
@@ -157,8 +127,6 @@ class PlayerTags extends Component {
 
               </ScrollView>
             )
-
-
           })}
 
         </ScrollView>

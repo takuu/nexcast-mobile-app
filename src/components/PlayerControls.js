@@ -1,5 +1,4 @@
 import React, {PropTypes, Component} from 'react';
-// import { ReactNativeAudioStreaming, Player } from 'react-native-audio-streaming';
 let ReactNativeAudioStreaming = {
   pause: () => {},
   stop: () => {},

@@ -105,8 +105,6 @@ class TabBar extends Component {
       <View>
         {(() => {
           if(playerStatus) {
-            //{media, title, episodeTitle, duration, imageUrl, description}
-            //Actions.ShowModal({media, title, episodeTitle, duration, imageUrl, episodeKey, progress}
             return (
               <TouchableWithoutFeedback onPress={() => Actions.ShowModal({media:mediaUrl, title, episodeTitle, duration, imageUrl, episodeKey, description})}>
                 <View style={{height: 93, backgroundColor: '#0371d8', paddingTop: 4, paddingRight: 12, paddingLeft: 12, flex: 1, flexDirection: 'row'}}>
