@@ -26,7 +26,6 @@ export function getEpisodesSuccess (json) {
   }
 }
 export function getEpisodesFailure (err) {
-  console.log('getEpisodesFailure: ', err);
   return {
     type: GET_EPISODES_FAILURE,
     payload: err
@@ -41,7 +40,6 @@ export function getPodcastSuccess (json) {
   }
 }
 export function getPodcastFailure (err) {
-  console.log('getPodcastFailure: ', err);
   return {
     type: GET_PODCAST_FAILURE,
     payload: err
@@ -51,9 +49,7 @@ export function getPodcastFailure (err) {
 export function getPodcast (rss = '') {
   return async (dispatch) =>  {
     try {
-      console.log('starting getPodcast: ');
       const tokenResult = await BackendFactory().registerThisDevice(CONFIG.deviceUID);
-      console.log('tokenResult: ', tokenResult);
       if(tokenResult.status == 1) {
 
       } else {
@@ -66,12 +62,11 @@ export function getPodcast (rss = '') {
 }
 
 export function getEpisodes (rss = '') {
-  console.log('getEpisodes() was called');
+
   return async (dispatch) => {
     try {
-      console.log('starting getEpisodes: ');
       const tokenResult = await BackendFactory().registerThisDevice(CONFIG.deviceUID);
-      console.log('tokenResult: ', tokenResult);
+
       if(tokenResult.status == 1) {
         const {token} = tokenResult;
         const episodesResult = await BackendFactory(token).getEpisodes(rss);
@@ -82,7 +77,6 @@ export function getEpisodes (rss = '') {
             episode.rss = rss;
             return episode
           });
-          console.log('PRE EPISODE_SUCCESS: ', episodes);
           dispatch(getEpisodesSuccess(episodes));
         } else {
           dispatch(getEpisodesFailure({error: 'err: fetching episodes failed'}));

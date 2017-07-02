@@ -1,30 +1,11 @@
-/**
- * Register.js
- *
- * Allow user to register
- */
 'use strict'
-/**
- * ## Imports
- *
- * Redux
- */
+
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-
-/**
- * The actions we need
- */
 import * as authActions from '../reducers/auth/authActions'
 
-/**
- *   LoginRender
- */
 import LoginRender from '../components/LoginRender'
 
-/**
- * The necessary React
- */
 import React from 'react'
 
 const {
@@ -32,10 +13,6 @@ const {
   REGISTER,
   FORGOT_PASSWORD
 } = require('../lib/constants').default
-
-/**
- * ## Redux boilerplate
- */
 
 function mapStateToProps (state) {
   return {
@@ -54,9 +31,6 @@ function buttonPressHandler (signup, username, email, password) {
   signup(username, email, password)
 }
 
-/**
- * ### Translations
- */
 var I18n = require('react-native-i18n')
 import Translations from '../lib/Translations'
 I18n.translations = Translations

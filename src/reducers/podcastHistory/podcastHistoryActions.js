@@ -104,7 +104,6 @@ export function getAllPodcastHistory () {
 }
 
 export function getNextPodcastHistory (currentEpisode) {
-  console.log('getNextPodcastHistory() was called');
 
   // AsyncStorage.removeItem(HISTORY_KEY, (err) => {});
   return async dispatch => {

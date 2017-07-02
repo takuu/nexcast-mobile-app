@@ -92,7 +92,6 @@ class PlayerModal extends Component {
 
 
   minimize() {
-    console.log('minimize: ', this.props.navigation);
     this.props.navigation.goBack()
   }
   _openExternalLink(req) {

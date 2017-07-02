@@ -47,7 +47,6 @@ export function getCategoriesOld () {
   }
 }
 export function getCategories () {
-  console.log('getCategories() was called');
   return dispatch => {
     dispatch(getCategoriesRequest())
 
@@ -55,7 +54,7 @@ export function getCategories () {
       if(!json && !json.token) dispatch(getCategoriesFailure({error: 'err: never got token'}));
       return BackendFactory(json.token).getCategories()
     }).then((data) => {
-      console.log('zomg categories podcasts??', data);
+
       let json = (typeof data === 'string') ? JSON.parse(data): data;
       (json.status == 1) ?
         dispatch(getCategoriesSuccess(json.result)) :

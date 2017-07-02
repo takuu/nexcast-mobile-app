@@ -54,7 +54,6 @@ export function getAllSubscriptionSuccess(json) {
 const SUBSCRIPTION_KEY = 'SUBSCRIPTION_STORAGE';
 
 export function getAllSubscription () {
-  console.log('getAllSubscription() was called');
   // AsyncStorage.removeItem(SUBSCRIPTION_KEY, (err) => {});
   return dispatch => {
     AsyncStorage.getItem(SUBSCRIPTION_KEY, (err, blob) => {
@@ -67,7 +66,6 @@ export function getAllSubscription () {
 
 
 export function removeSubscription (show={}) {
-  console.log('removeSubscription() was called');
   return dispatch => {
 
     dispatch(removeSubscriptionRequest());
@@ -85,7 +83,6 @@ export function removeSubscription (show={}) {
 }
 
 export function setSubscription (show={}) {
-  console.log('setSubscription() was called');
   return dispatch => {
 
     dispatch(setSubscriptionRequest());
@@ -94,7 +91,6 @@ export function setSubscription (show={}) {
       let subscriptionHash = JSON.parse(blob) || {};
       subscriptionHash[show.feed_url] = _.merge(subscriptionHash[show.feed_url], show);
       AsyncStorage.setItem(SUBSCRIPTION_KEY, JSON.stringify(subscriptionHash), () => {
-        console.log('finishing up setSubscription...');
         dispatch(setSubscriptionSuccess(subscriptionHash));
       })
     });

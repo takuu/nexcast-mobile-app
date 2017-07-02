@@ -95,7 +95,6 @@ class Search extends Component {
   render () {
 
     const {isSearching, results} = this.props.searchShows;
-    console.log('Search Container: ', this.props.searchShows);
     const list = ds.cloneWithRows(results || []);
     return (
     <ScrollView >

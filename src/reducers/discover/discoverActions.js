@@ -124,7 +124,6 @@ export function getCategory (id) {
       return BackendFactory(json.token).getCategory(id)
     }).then((data) => {
       let json = (typeof data === 'string') ? JSON.parse(data): data;
-      console.log('getCategorySuccess: ', json);
       let result = _.map(json.result, (item) => {
         return {
           artist_name: item.podcast.artist_name,

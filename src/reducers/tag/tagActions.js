@@ -96,13 +96,11 @@ export function getTaggedShowsOld () {
 
 
 export function hasTag (rss) {
-  console.log('hasTag() was called');
   return dispatch => {
     dispatch(hasTagRequest());
 
     return BackendFactory().registerThisDevice(CONFIG.deviceUID).then((json) => {
       if(!json && !json.token) dispatch(hasTagFailure({error: 'err: never got token'}));
-      console.log('hasTag token: ', json.token);
       return BackendFactory(json.token).hasTag(rss);
     }).then((data) => {
       let json = (typeof data === 'string') ? JSON.parse(data): data;

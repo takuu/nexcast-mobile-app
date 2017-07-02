@@ -92,7 +92,6 @@ class Queue extends Component {
     const a = this.props.podcastHistory.toJS();
     const b = nextProps.podcastHistory.toJS();
 
-    // console.log('should Queue update? ', a, b);
     return this.props.podcastHistory !== nextProps.podcastHistory;
   }
 
@@ -109,9 +108,7 @@ class Queue extends Component {
   }
 
   render () {
-    // console.log('Queue: ', this.props);
     const orderedQueue = _.orderBy(this.props.podcastHistory.toJS(), ['lastPlayed']);
-    console.log('Queue Container');
     const list = ds.cloneWithRows(orderedQueue);
     // const list = ds.cloneWithRows(rawData);
     return (

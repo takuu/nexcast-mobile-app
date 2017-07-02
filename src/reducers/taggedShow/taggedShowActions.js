@@ -38,7 +38,6 @@ export function getTaggedShows () {
       return BackendFactory(json.token).getTaggedShows()
     }).then((data) => {
       let json = (typeof data === 'string') ? JSON.parse(data): data;
-      console.log('getTaggedShows (taggedShowActions)', json.status, json.error, json.result.length);
 
       (json.status == 1) ?
         dispatch(getTaggedShowsSuccess(json.result)) :

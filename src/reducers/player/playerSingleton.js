@@ -46,7 +46,7 @@ async function _start(dispatch, ep = {}) {
 
     instance = sound;
   } catch(err) {
-    console.log('_start: ', err);
+    console.log('playerSingleton err _start: ', err);
   }
 
   function _callback(status) {
@@ -148,20 +148,16 @@ let currentDispatch;
 
 MusicListener.on('play', ()=> {
   // _resume(currentDispatch, splashScreenEpisode);
-  console.log('MusicListener: (play2)');
   // MusicControl.MusicControl(splashScreenEpisode);
 });
 
 MusicListener.on('togglePlayPause', () => {
-  console.log('toggle play.pause');
 });
 
 MusicListener.on('resume', () => {
-  console.log('resume away');
 });
 
 MusicListener.on('pause', ()=> {
-  console.log('MusicListener: (pause2)');
   // ReactNativeAudioStreaming.pause();
 
   // _pause();
@@ -169,11 +165,9 @@ MusicListener.on('pause', ()=> {
 });
 
 MusicListener.on('skipForward', () => {
-  console.log('skip forward');
 });
 
 MusicListener.on('skipBackward', () => {
-  console.log('skip backward');
 });
 
 
@@ -203,9 +197,7 @@ function _startInterval(dispatch, ep) {
           var foo = podcastHistoryActions.removePodcastHistory({mediaUrl: ep.mediaUrl});
           foo(dispatch);
           var boo = podcastHistoryActions.getNextPodcastHistory({mediaUrl: ep.mediaUrl});
-          console.log('boo: ', boo);
           boo(dispatch).then((next) => {
-            console.log('Some internal stuff...', next);
             //playerStart(url, title='', episodeTitle='', duration, imageUrl, episodeKey='', progress=0) {
             var bar = playerActions.playerStart(next.mediaUrl, next.title, next.episodeTitle, next.duration, next.imageUrl, next.episodeKey, next.progress);
             bar(dispatch);
@@ -261,18 +253,12 @@ function _stopNowPlaying() {
 export function playerStart(dispatch, episode, cb) {
   if(true) {
     _stopInterval(dispatch);
-    console.log('playerStart new')
     _start(dispatch, episode).then((sound) => {
       playbackInstance = sound;
-      console.log('playerStart callback');
       playbackInstance.getStatusAsync().then((status) => {
-        console.log('getStatusAsync: ', status);
       })
     });
   } else {
-
-
-    console.log('playerSingleton: (playerStart)', episode);
     _stopInterval(dispatch);
     // _stopNowPlaying();
 
@@ -296,12 +282,10 @@ export function playerStart(dispatch, episode, cb) {
       // episode.progress = status.progress;
 
       if (status.url == episode.mediaUrl) {
-        console.log("ZOMG ZOOOOOMMMM.. I mean resume.....");
         _resume(dispatch, episode);
         _setNowPlaying(episode)
         cb(null, episode)
       } else {
-        console.log("ZOMG ZOOOOOMMMM.. Start playing for first time", status.url, episode.mediaUrl);
 
         ReactNativeAudioStreaming.play(episode.mediaUrl, {
           showIniOSMediaCenter: true,
@@ -394,7 +378,6 @@ export function playerGoForward(dispatch, episode, cb) {
       cb(error, episode);
     } else {
       const {duration, progress, status} = statusObj;
-      console.log('playerGoForward (status): ', statusObj);
       episode.progress = progress;
       episode.duration = duration;
       episode.playerStatus = (status == "PLAYING") ? 1 : 2;

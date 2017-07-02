@@ -20,7 +20,6 @@ export default (state = initialState, action) => {
       // Received pocasts data from an external API
       break;
     case GET_PODCAST_SUCCESS:
-      console.log('GET_PODCAST_SUCCESS: ', action.payload);
       if (!action.payload) { return state }
 
       return mapEntities(state, action.payload);

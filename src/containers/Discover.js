@@ -113,7 +113,6 @@ class Discover extends Component {
   };
 
   render () {
-    console.log('Discover: ', this.props);
 
     return (
       <View style={styles.container}>

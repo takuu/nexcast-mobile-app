@@ -87,7 +87,6 @@ async function _start(dispatch, ep = {}) {
     let duration = parseInt(status.durationMillis/1000);
     let episode = {mediaUrl: status.uri, playerStatus: playerStatus, duration: duration, lastPlayed: (new Date()).toDateString(),
       progress: progress, title: ep.episodeTitle, episodeTitle: ep.episodeTitle, imageUrl: ep.imageUrl, episodeKey: ep.episodeKey};
-    console.log('Audio callback: ', episode);
 
     dispatch(playerResumeSuccess(episode));
     dispatch(setPodcastHistoryRequest());
@@ -152,7 +151,6 @@ export function playerStart(dispatch, episode, cb) {
     _start(dispatch, episode).then((sound) => {
       playbackInstance = sound;
       playbackInstance.getStatusAsync().then((status) => {
-        console.log('getStatusAsync: ', status);
       })
     });
 
@@ -171,20 +169,17 @@ export function playerStop(dispatch, episode, cb) {
 export function playerGoForward(dispatch, episode, cb) {
   // playbackInstance.playFromPositionAsync(episode.progress-15);
   setStatus({shouldPlay: true, positionMillis: (episode.progress+15) * 1000}).then((status) => {
-    console.log('playerGoForward', status);
   });
 }
 
 export function playerSeekTo(dispatch, episode, cb) {
   // playbackInstance.playFromPositionAsync(episode.progress);
   setStatus({shouldPlay: true, positionMillis: episode.progress * 1000}).then((status) => {
-    console.log('playerSeekTo', status);
   });
 }
 export function playerGoBack(dispatch, episode, cb) {
   // playbackInstance.playFromPositionAsync(episode.progress-15);
   setStatus({shouldPlay: true, positionMillis: (episode.progress-15) * 1000}).then((status) => {
-    console.log('playerGoBack', status);
   });
 }
 

@@ -121,7 +121,6 @@ class Show extends Component {
     const { rss } = this.props.navigation.state.params;
 
     let episodes = this.props.showDetail[rss] || [];
-    console.log('Show: episodes', episodes);
     let thisShow = this.props.podcastInfo[rss];
     const tags = this.props.tags;
     const hasSubscription = this.props.subscription && this.props.subscription[rss];

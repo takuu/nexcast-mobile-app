@@ -18,7 +18,6 @@ export function getPodcastSuccess (json) {
   }
 }
 export function getPodcastFailure (err) {
-  console.log('getPodcastFailure: ', err);
   return {
     type: GET_PODCAST_FAILURE,
     payload: err
@@ -28,9 +27,7 @@ export function getPodcastFailure (err) {
 export function getPodcast (rss = '') {
   return async (dispatch) =>  {
     try {
-      console.log('starting getPodcast: ');
       const tokenResult = await BackendFactory().registerThisDevice(CONFIG.deviceUID);
-      console.log('tokenResult: ', tokenResult);
       if(tokenResult.status == 1) {
         const {token} = tokenResult;
         const podcastResult = await BackendFactory(token).getPodcast(rss);

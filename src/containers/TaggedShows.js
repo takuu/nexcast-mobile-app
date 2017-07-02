@@ -47,7 +47,6 @@ class TaggedShows extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log('shouldComponentUpdate: ');
     this.setState({refreshing: false});
     return this.props.taggedShows !== nextProps.taggedShows;
   }

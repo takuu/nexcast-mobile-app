@@ -20,7 +20,6 @@ export default (state = initialState, action) => {
 
     // Handles some UI actions
     case SEARCH_SHOWS_REQUEST:
-      console.log('SEARCH_SHOWS_REQUEST is called');
       return Immutable.Map(result);
     case SEARCH_SHOWS_FAILURE:
     // Received pocasts data from an external API

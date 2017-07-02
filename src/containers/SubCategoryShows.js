@@ -39,7 +39,6 @@ class SubCategoryShows extends Component {
     const myList = _.filter(this.props.podcasts, (item) => {
       return (item.genre_id == genreId);
     });
-    console.log('myList: ', this.props, myList);
     const list = ds.cloneWithRows(myList);
     return (
       <ScrollView style={{backgroundColor: 'white'}}>
