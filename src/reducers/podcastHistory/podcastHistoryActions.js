@@ -99,12 +99,7 @@ export function getAllPodcastHistory () {
     } catch (error) {
       console.log('podcastHistoryActions.getAllPodcastHistory error: ', error);
     }
-/*
-    AsyncStorage.getItem(HISTORY_KEY, (err, blob) => {
-      if(err) console.log("ASYNC_STORAGE FAIL");
-      let historyHash = JSON.parse(blob) || {};
-      dispatch(getAllPodcastHistorySuccess(historyHash));
-    });*/
+
   }
 }
 

@@ -96,30 +96,4 @@ export function getEpisodes (rss = '') {
   };
 
 
-/*  return dispatch => {
-    dispatch(getEpisodesRequest());
-    return BackendFactory().registerThisDevice(CONFIG.deviceUID).then((json) => {
-      if(!json && !json.token) dispatch(getEpisodesFailure({error: 'err: never got token'}));
-      return BackendFactory(json.token).getEpisodes(rss);
-    }).then((data) => {
-      let json = (typeof data === 'string') ? JSON.parse(data): data;
-      console.log('getEpisodes (raw): ', json);
-      if (json.status == 1) {
-        json.result.rss = rss;
-        json.result.episodes = _.map(json.result.episodes, (episode) => {
-          episode.durationFormatted = episode.duration;
-          episode.duration = helpers.hmsToSecondsOnly(episode.duration);
-          episode.title = episode.title.replace('↵', '');
-          return episode;
-        });
-        dispatch(getEpisodesSuccess(json.result))
-      } else {
-        dispatch(getEpisodesFailure({error: 'err: server status 0'}));
-      }
-    })
-      .catch((error) => {
-      console.log('cannot get token');
-        dispatch(getEpisodesFailure(error));
-      })
-  }*/
 }

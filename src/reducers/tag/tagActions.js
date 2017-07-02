@@ -12,19 +12,11 @@ const {
 
 } = require('../../lib/constants').default;
 
-/**
- * BackendFactory - base class for server implementation
- * AppAuthToken for localStorage sessionToken access
- */
 const BackendFactory = require('../../lib/BackendFactory').default;
 import {appAuthToken} from '../../lib/AppAuthToken'
 import _ from 'lodash';
 import * as helpers from '../../lib/helpers'
 import CONFIG from '../../lib/config'
-
-/**
- * ## retreiving profile actions
- */
 
 export function updateEpisodesHasTagsSuccess(json) {
   return {
@@ -68,11 +60,6 @@ export function getTagsFailure (err) {
   }
 }
 
-/**
- * ## State actions
- * controls which form is displayed to the user
- * as in login, register, logout or reset password
- */
 export function hasTagOld (url) {
   return dispatch => {
     dispatch(hasTagRequest())

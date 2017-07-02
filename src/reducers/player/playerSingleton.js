@@ -141,48 +141,6 @@ MusicListener.enableControl('skipForward', true, {interval: 15}); // iOS only
 MusicListener.enableControl('skipBackward', true, {interval: 15}); // iOS only
 
 
-/*
-MusicControl.enableBackgroundMode(true);
-MusicControl.enableControl('seekForward', true);
-MusicControl.enableControl('seekBackward', true);
-MusicControl.enableControl('nextTrack', false);
-MusicControl.enableControl('previousTrack', false);
-MusicControl.enableControl('play', true);
-MusicControl.enableControl('pause', true);
-MusicControl.enableControl('togglePlayPause', true);
-MusicControl.enableControl('skipForward', true, {interval: 15}); // iOS only
-MusicControl.enableControl('skipBackward', true, {interval: 15}); // iOS only
-
-MusicControl.on('play', ()=> {
-  // _resume(currentDispatch, splashScreenEpisode);
-  console.log('MusicControl: (play2)');
-  // MusicControl.MusicControl(splashScreenEpisode);
-});
-
-MusicControl.on('togglePlayPause', () => {
-  console.log('toggle play.pause');
-});
-
-MusicControl.on('resume', () => {
-  console.log('resume away');
-});
-
-MusicControl.on('pause', ()=> {
-  console.log('MusicControl: (pause2)');
-  ReactNativeAudioStreaming.pause();
-
-  // _pause();
-  // MusicControl.setNowPlaying(splashScreenEpisode);
-});
-
-MusicControl.on('skipForward', () => {
-  console.log('skip forward');
-});
-
-MusicControl.on('skipBackward', () => {
-  console.log('skip backward');
-});
-*/
 
 
 let splashScreenEpisode = {};
@@ -253,17 +211,6 @@ function _startInterval(dispatch, ep) {
             bar(dispatch);
           })
 
-
-
-/*          podcastHistoryStorage.removeHistory(episode).then((newHistory) => {
-            dispatch(removePodcastHistorySuccess(newHistory));
-
-            // podcastHistoryActions.getNextPodcastHistory({mediaUrl: ep.mediaUrl});
-            podcastHistoryStorage.getNextHistory(episode).then((next) => {
-              console.log('START PLAYING NEXT: ', next);
-              dispatch(playerStartSuccess(next));
-            });
-          });*/
         } catch (error) {
           console.log('getNextPodcastHistory PodcastHistory error: ', error);
         }
@@ -271,74 +218,6 @@ function _startInterval(dispatch, ep) {
 
       }
 
-
-      /*
-      AsyncStorage.getItem(HISTORY_KEY, (err, blob) => {
-        if(err) console.log("ASYNC_STORAGE FAIL");
-        let historyHash = JSON.parse(blob) || {};
-        historyHash[episode.mediaUrl] = _.merge(historyHash[episode.mediaUrl], episode);
-        AsyncStorage.setItem(HISTORY_KEY, JSON.stringify(historyHash), () => {
-          dispatch(setPodcastHistorySuccess(historyHash));
-        });
-      });
-      */
-
-      /*
-       ReactNativeAudioStreaming.getStatus((error, st) => {
-       const {status, progress, duration, url} = st;
-
-       switch (status) {
-       case PLAYING:
-       console.log('PLAYING');
-
-       case STREAMING:
-       let episode = {mediaUrl: ep.mediaUrl, playerStatus: 1, duration: duration, lastPlayed: (new Date()).toDateString(),
-       progress: progress, title: ep.title, episodeTitle: ep.episodeTitle, imageUrl: ep.imageUrl, episodeKey: ep.episodeKey};
-
-       // Same thing below???
-       // let episode = _.merge(ep, {playerStatus: 1, duration, progress, lastPlayed: (new Date()).toDateString()})
-
-
-
-       dispatch(playerResumeSuccess(episode));
-       dispatch(setPodcastHistoryRequest());
-
-       //AsyncStorage.removeItem(HISTORY_KEY, (err) => {});
-       AsyncStorage.getItem(HISTORY_KEY, (err, blob) => {
-       if(err) console.log("ASYNC_STORAGE FAIL");
-       let historyHash = JSON.parse(blob) || {};
-       historyHash[episode.mediaUrl] = _.merge(historyHash[episode.mediaUrl], episode);
-       AsyncStorage.setItem(HISTORY_KEY, JSON.stringify(historyHash), () => {
-       dispatch(setPodcastHistorySuccess(historyHash));
-       });
-       });
-
-
-       //dispatch(setPodcastHistoryRequest({mediaUrl: url, playerStatus: 1, duration: evt.duration,lastPlayed: (new Date()).toDateString(),
-       //  progress: evt.progress, title, episodeTitle, imageUrl, episodeKey}));
-       break;
-       case PAUSED:
-       dispatch(playerPauseSuccess({mediaUrl: ep.mediaUrl, playerStatus: 2, duration: duration, progress: progress}));
-       break;
-       case STOPPED:
-       dispatch(playerStopSuccess({mediaUrl: ep.mediaUrl, playerStatus: 4, duration: duration, progress: progress}));
-       break;
-       case ERROR:
-       console.log('ERR: ReactNativeAudioStreaming');
-       break;
-       case BUFFERING:
-       console.log('BUFFERING');
-       break;
-       case BUFFERING_START:
-       console.log('BUFFERING_START');
-       break;
-       case START_PREPARING:
-       console.log('START_PREPARING....');
-       break;
-       }
-
-       });
-       */
 
     }, 1000);
   }
@@ -351,16 +230,6 @@ function _stopInterval(dispatch) {
 
 
 function _setNowPlaying(episode) {
-
-  /*
-
-  MusicControl.setNowPlaying({
-    title: episode.title,
-    artwork: episode.imageUrl,
-    artist: episode.episodeTitle,
-    duration: episode.duration,
-  });
-  */
 
 }
 
@@ -443,14 +312,6 @@ export function playerStart(dispatch, episode, cb) {
           duration: episode.duration,
           artwork: episode.imageUrl
         });
-        /*
-         MusicControl.setNowPlaying({
-         title: episode.title,
-         artwork: episode.imageUrl,
-         artist: episode.episodeTitle,
-         duration: episode.duration,
-         });
-         */
 
         _startInterval(dispatch, episode);
         _setNowPlaying(episode);
@@ -559,6 +420,7 @@ export function playerSeekTo(dispatch, episode, cb) {
     }
   });
 }
+
 export function playerGoBack(dispatch, episode, cb) {
   currentProgress = (currentProgress > 15) ? currentProgress - 15 : 0;
   ReactNativeAudioStreaming.goBack(15);

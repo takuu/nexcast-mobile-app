@@ -2,13 +2,6 @@
 
 import {Record} from 'immutable'
 
-/*
- PLAYING: 1,
- PAUSED: 2,
- LOADING: 3,
- STOPPED: 4,
-*/
-
 var PodcastHistoryRecord = Record({
   "playerStatus": "",
   "playPosition": "",
