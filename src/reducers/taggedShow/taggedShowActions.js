@@ -31,7 +31,7 @@ export function getTaggedShowsFailure (err) {
 
 export function getTaggedShows () {
   return dispatch => {
-    dispatch(getTaggedShowsRequest())
+    dispatch(getTaggedShowsRequest());
 
     return BackendFactory().registerThisDevice(CONFIG.deviceUID).then((json) => {
       if(!json && !json.token) dispatch(getTaggedShowsFailure({error: 'err: never got token'}));

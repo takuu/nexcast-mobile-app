@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const {
   GET_POPULAR_REQUEST,
