@@ -318,9 +318,6 @@ export const PrimaryNav = StackNavigator({
   Tabs: {
     screen: Tabs,
   },
-  // Show: {
-  //   screen: Show,
-  // },
   Show: {
     screen: Show,
     navigationOptions: ({ navigation }) => {

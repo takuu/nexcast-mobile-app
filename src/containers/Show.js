@@ -200,7 +200,7 @@ class Show extends Component {
                     enableEmptySections={true}
                     style={{paddingBottom: 0, backgroundColor: 'white'}}
                     renderRow={(item) => <EpisodeItem title={thisShow.title} description={item.description}
-                    date={item.pubDate} duration={item.duration} episodeTitle={item.title} media={item.media_location}
+                    date={item.pub_date} duration={item.duration} episodeTitle={item.title} media={item.media_location}
                     imageUrl={thisShow.image_url} episodeKey={item.episode_key} hasTag={item.hasTag} navigation={this.props.navigation} />} />
                 </View>
               )
