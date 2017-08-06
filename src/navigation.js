@@ -90,7 +90,7 @@ export const SearchStack = StackNavigator({
   headerMode: 'none',
 });
 
-
+/*
 export const TaggedShowsStack = StackNavigator({
   TaggedShows: {
     screen: TaggedShows,
@@ -100,6 +100,7 @@ export const TaggedShowsStack = StackNavigator({
   }
 }, {
 });
+*/
 
 export const DiscoverTabs = TabNavigator({
   TaggedShows: {
@@ -155,26 +156,34 @@ export const DiscoverTabs = TabNavigator({
   },*/
   tabBarOptions: {
     activeTintColor: '#387ef5',
+    activeBorderWidth: 25,
+    activeBorderColor: '#EEEEEE',
+    activeBackgroundColor: '#56a0e5',
+    
     indicatorStyle: {
-      backgroundColor: '#387ef5',
+      backgroundColor: '#56a0e5',
       color: '#387ef5',
     },
     style: {
-      backgroundColor: 'white',
+      backgroundColor: '#56a0e5 ',
 
     },
     tabStyle: {
       flex: 1,
       height: '20%',
       alignItems: 'center',
-      backgroundColor: 'white',
+      backgroundColor: 'green',
       justifyContent: 'center',
     },
     labelStyle: {
       fontSize: 14,
-      alignItems: 'center',
+      // alignItems: 'center',
       backgroundColor: 'white',
-      justifyContent: 'center',
+      lineHeight: 40,
+      paddingBottom: '2%',
+      paddingTop: '10%',
+      // justifyContent: 'center',
+      marginBottom: '1%',
     }
   },
 });
@@ -309,8 +318,23 @@ export const PrimaryNav = StackNavigator({
   Tabs: {
     screen: Tabs,
   },
+  // Show: {
+  //   screen: Show,
+  // },
   Show: {
     screen: Show,
+    navigationOptions: ({ navigation }) => {
+      console.log('Show3: navigation', navigation);
+      return {
+        // title: `${navigation.state.params.name.first.toUpperCase()} ${navigation.state.params.name.last.toUpperCase()}`,
+        title: navigation.state.params.title,
+        headerTintColor: 'white',
+        headerStyle: {
+          backgroundColor: '#387ef5',
+          elevation: null
+        },
+      }
+    },
   },
   Player: {
     screen: PlayerModal,
@@ -346,7 +370,7 @@ Navigation.propTypes = {
 export const navReducer = (state, action) => {
   const newState = PrimaryNav.router.getStateForAction(action, state);
   return newState || state;
-}
+};
 
 function mapStateToProps (state) {
   return {
