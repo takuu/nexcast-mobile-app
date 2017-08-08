@@ -25,7 +25,8 @@ var styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     backgroundColor: 'white',
-    flex: 1
+    flex: 1,
+    borderBottomWidth: 1, borderBottomColor: '#DDDDDD'
   },
   list: {
     justifyContent: 'flex-start',
@@ -128,16 +129,18 @@ class UserPodcasts extends Component {
 
           } else {
             return (
-              <View style={{marginTop: 0}}>
+                <View style={{ flex: 1, flexDirection: 'row' }}>
                   <TouchableWithoutFeedback onPress={() => Actions.Main({title: 'Discover'})}>
-                    <View style={{flex: 1, flexDirection: 'row', borderBottomWidth: 1, borderColor: '#DDDDDD'}}>
-                      <View style={{ height: height/10,justifyContent: 'center',marginLeft: 8}}>
-                        <Text style={{lineHeight: 41, fontSize: 18, }}>Subscribe to Podcasts</Text>
+                    <View style={{flex: 1, flexDirection: 'row', height: height/10, width: '100%', borderBottomWidth: 1, borderBottomColor: '#DDDDDD'}}>
+                      <View style={{ justifyContent: 'center',marginLeft: 8}}>
+                        <Text style={{lineHeight: 41, fontSize: 18,}}>Subscribe to Podcasts</Text>
                       </View>
-                      <Ion  style={{flex: 1, height: height/10, width: 10, lineHeight: height/10, textAlign: 'right', marginRight: 8}} name='ios-arrow-forward' size={30} />
+                      <Ion style={{flex: 1, height: height/11, width: 10, lineHeight: height/11, textAlign: 'right', marginRight: 8}} name='ios-arrow-forward' size={30} />
                     </View>
                   </TouchableWithoutFeedback>
-              </View>
+                </View>
+
+
             )
           }
         })(foobar, list)}

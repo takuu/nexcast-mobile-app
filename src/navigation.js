@@ -165,7 +165,7 @@ export const DiscoverTabs = TabNavigator({
       color: '#387ef5',
     },
     style: {
-      backgroundColor: '#56a0e5 ',
+      backgroundColor: '#56a0e5',
 
     },
     tabStyle: {
