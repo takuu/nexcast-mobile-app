@@ -91,20 +91,44 @@ export const SearchStack = StackNavigator({
 });
 
 /*
+
 export const TaggedShowsStack = StackNavigator({
   TaggedShows: {
     screen: TaggedShows,
+    navigationOptions: {
+      title: 'Tagged Shows',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#387ef5',
+        elevation: null
+      },
+    },
   },
   Show: {
     screen: Show,
+    navigationOptions: ({ navigation }) => {
+      console.log('Show3: navigation', navigation);
+      return {
+        // title: `${navigation.state.params.name.first.toUpperCase()} ${navigation.state.params.name.last.toUpperCase()}`,
+        title: navigation.state.params.title,
+        headerTintColor: 'white',
+        headerStyle: {
+          backgroundColor: '#387ef5',
+          elevation: null
+        },
+      }
+    },
   }
 }, {
+  headerMode: 'none',
 });
 */
+
 
 export const DiscoverTabs = TabNavigator({
   TaggedShows: {
     screen: TaggedShows,
+    // screen: TaggedShowsStack,
     navigationOptions: {
       title: 'Tagged Shows',
       headerTintColor: 'white',
@@ -202,7 +226,7 @@ export const DiscoverStack = StackNavigator({
       },
     },
   },
-  Show: {
+/*  Show: {
     screen: Show,
     navigationOptions: ({ navigation }) => {
       console.log('Show3: navigation', navigation);
@@ -217,7 +241,7 @@ export const DiscoverStack = StackNavigator({
       }
     },
   },
-  Player: {
+  Play*/er: {
     screen: PlayerModal,
     navigationOptions: {
       title: 'Player',
@@ -314,6 +338,8 @@ export const Tabs = TabNavigator({
   tabBarComponent: CustomTabBar,
 });
 
+
+
 export const PrimaryNav = StackNavigator({
   Tabs: {
     screen: Tabs,
@@ -346,7 +372,7 @@ export const PrimaryNav = StackNavigator({
     screen: CategoryList,
   }
 }, {
-  mode: 'modal',
+  // mode: 'modal',
   // headerMode: 'none',
 });
 
