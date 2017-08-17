@@ -125,6 +125,8 @@ export const TaggedShowsStack = StackNavigator({
 */
 
 
+
+
 export const DiscoverTabs = TabNavigator({
   TaggedShows: {
     screen: TaggedShows,
@@ -211,6 +213,38 @@ export const DiscoverTabs = TabNavigator({
     }
   },
 });
+
+export const DiscoveringStack = StackNavigator({
+  DiscoverTabs: {
+    screen: DiscoverTabs,
+    navigationOptions: {
+      title: 'Search',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#387ef5',
+        elevation: null
+      },
+    },
+  },
+  Show: {
+    screen: Show,
+    navigationOptions: ({ navigation }) => {
+      console.log('Show3: navigation', navigation);
+      return {
+        // title: `${navigation.state.params.name.first.toUpperCase()} ${navigation.state.params.name.last.toUpperCase()}`,
+        title: navigation.state.params.title,
+        headerTintColor: 'white',
+        headerStyle: {
+          backgroundColor: '#387ef5',
+          elevation: null
+        },
+      }
+    },
+  },
+},{
+  headerMode: 'none',
+});
+
 
 
 
@@ -321,7 +355,7 @@ export const Tabs = TabNavigator({
     },
   },
   Discover: {
-    screen: DiscoverTabs,
+    screen: DiscoveringStack,
     navigationOptions: {
       tabBarLabel: 'Discover',
       tabBarIcon: ({ tintColor }) => <Ionicons name="ios-star" size={32} color={tintColor} />
@@ -344,7 +378,7 @@ export const PrimaryNav = StackNavigator({
   Tabs: {
     screen: Tabs,
   },
-  Show: {
+/*  Show: {
     screen: Show,
     navigationOptions: ({ navigation }) => {
       console.log('Show3: navigation', navigation);
@@ -358,7 +392,7 @@ export const PrimaryNav = StackNavigator({
         },
       }
     },
-  },
+  },*/
   Player: {
     screen: PlayerModal,
     navigationOptions: {
