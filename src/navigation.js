@@ -31,7 +31,7 @@ export const QueueStack = StackNavigator({
   Queue: {
     screen: Queue,
     navigationOptions: {
-      title: 'Queues',
+      title: 'Queue',
       headerTintColor: 'white',
       headerStyle: {
         backgroundColor: '#387ef5',
@@ -40,7 +40,7 @@ export const QueueStack = StackNavigator({
     },
   },
 }, {
-  headerMode: 'none',
+  // headerMode: 'none',
 });
 
 export const UserPodcastsStack = StackNavigator({
@@ -68,7 +68,7 @@ export const UserPodcastsStack = StackNavigator({
     }),
   },
 },{
-  headerMode: 'none',
+  // headerMode: 'none',
   swipeEnabled: true,
   lazyLoad: true,
   animationEnabled: false,
@@ -87,45 +87,8 @@ export const SearchStack = StackNavigator({
     },
   }
 },{
-  headerMode: 'none',
+  // headerMode: 'none',
 });
-
-/*
-
-export const TaggedShowsStack = StackNavigator({
-  TaggedShows: {
-    screen: TaggedShows,
-    navigationOptions: {
-      title: 'Tagged Shows',
-      headerTintColor: 'white',
-      headerStyle: {
-        backgroundColor: '#387ef5',
-        elevation: null
-      },
-    },
-  },
-  Show: {
-    screen: Show,
-    navigationOptions: ({ navigation }) => {
-      console.log('Show3: navigation', navigation);
-      return {
-        // title: `${navigation.state.params.name.first.toUpperCase()} ${navigation.state.params.name.last.toUpperCase()}`,
-        title: navigation.state.params.title,
-        headerTintColor: 'white',
-        headerStyle: {
-          backgroundColor: '#387ef5',
-          elevation: null
-        },
-      }
-    },
-  }
-}, {
-  headerMode: 'none',
-});
-*/
-
-
-
 
 export const DiscoverTabs = TabNavigator({
   TaggedShows: {
@@ -214,11 +177,11 @@ export const DiscoverTabs = TabNavigator({
   },
 });
 
-export const DiscoveringStack = StackNavigator({
+export const DiscoverStack = StackNavigator({
   DiscoverTabs: {
     screen: DiscoverTabs,
     navigationOptions: {
-      title: 'Search',
+      title: 'Discover',
       headerTintColor: 'white',
       headerStyle: {
         backgroundColor: '#387ef5',
@@ -242,78 +205,12 @@ export const DiscoveringStack = StackNavigator({
     },
   },
 },{
-  headerMode: 'none',
+  // headerMode: 'none',
 });
 
 
 
 
-export const DiscoverStack = StackNavigator({
-  Discover: {
-    screen: Discover,
-    navigationOptions: {
-      title: 'Discover',
-      headerTintColor: 'white',
-      headerStyle: {
-        backgroundColor: '#387ef5',
-        elevation: null
-      },
-    },
-  },
-/*  Show: {
-    screen: Show,
-    navigationOptions: ({ navigation }) => {
-      console.log('Show3: navigation', navigation);
-      return {
-        // title: `${navigation.state.params.name.first.toUpperCase()} ${navigation.state.params.name.last.toUpperCase()}`,
-        title: navigation.state.params.title,
-        headerTintColor: 'white',
-        headerStyle: {
-          backgroundColor: '#387ef5',
-          elevation: null
-        },
-      }
-    },
-  },
-  Play*/er: {
-    screen: PlayerModal,
-    navigationOptions: {
-      title: 'Player',
-      headerTintColor: 'white',
-      headerStyle: {
-        backgroundColor: '#387ef5',
-        elevation: null
-      },
-    },
-  },
-  SubCategoryShows: {
-    screen: SubCategoryShows,
-    navigationOptions: ({ navigation }) => {
-      // title: 'SubCategoryShows',
-      return {
-        title: navigation.state.params.genre,
-        headerTintColor: 'white',
-        headerStyle: {
-          backgroundColor: '#387ef5',
-          elevation: null
-        },
-      }
-    },
-  },
-  CategoryList: {
-    screen: CategoryList,
-    navigationOptions: {
-      title: 'CategoryList',
-      headerTintColor: 'white',
-      headerStyle: {
-        backgroundColor: '#387ef5',
-        elevation: null
-      },
-    },
-  }
-},{
-  mode: 'modal',
-});
 
 export const ProfileStack = StackNavigator({
   Profile: {
@@ -328,7 +225,7 @@ export const ProfileStack = StackNavigator({
     },
   }
 }, {
-  headerMode: 'none',
+  // headerMode: 'none',
 });
 
 
@@ -355,11 +252,13 @@ export const Tabs = TabNavigator({
     },
   },
   Discover: {
-    screen: DiscoveringStack,
+    screen: DiscoverStack,
     navigationOptions: {
       tabBarLabel: 'Discover',
-      tabBarIcon: ({ tintColor }) => <Ionicons name="ios-star" size={32} color={tintColor} />
+      tabBarIcon: ({ tintColor }) => <Ionicons name="ios-star" size={32} color={tintColor} />,
+
     },
+
   },
   Profile: {
     screen: ProfileStack,
@@ -378,21 +277,6 @@ export const PrimaryNav = StackNavigator({
   Tabs: {
     screen: Tabs,
   },
-/*  Show: {
-    screen: Show,
-    navigationOptions: ({ navigation }) => {
-      console.log('Show3: navigation', navigation);
-      return {
-        // title: `${navigation.state.params.name.first.toUpperCase()} ${navigation.state.params.name.last.toUpperCase()}`,
-        title: navigation.state.params.title,
-        headerTintColor: 'white',
-        headerStyle: {
-          backgroundColor: '#387ef5',
-          elevation: null
-        },
-      }
-    },
-  },*/
   Player: {
     screen: PlayerModal,
     navigationOptions: {
@@ -407,7 +291,7 @@ export const PrimaryNav = StackNavigator({
   }
 }, {
   // mode: 'modal',
-  // headerMode: 'none',
+  headerMode: 'none',
 });
 
 const Navigation = ({ dispatch, primaryNav }) => (
@@ -417,7 +301,7 @@ const Navigation = ({ dispatch, primaryNav }) => (
       state: primaryNav
     })}
   />
-)
+);
 
 Navigation.propTypes = {
   dispatch: PropTypes.func.isRequired,
