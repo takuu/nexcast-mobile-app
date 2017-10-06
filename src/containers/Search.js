@@ -87,7 +87,7 @@ class Search extends Component {
     tabBarIcon: ({ tintColor }) => (
       <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', alignSelf: 'center'}}>
         <Ionicons name="ios-search" size={32} color="#888" />
-        <Text style={{color: "#888888", fontSize: 10}}>Search</Text>
+        <Text style={{color: "#888888", fontSize: 10}}>Searchh</Text>
       </View>
     )
   };

@@ -1,6 +1,6 @@
 import { StackNavigator, TabNavigator, addNavigationHelpers, TabBarBottom } from 'react-navigation';
 import {
-  View, Text, Dimensions
+  View, Text, Dimensions, StyleSheet
 } from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -25,6 +25,19 @@ import { Icon } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import CustomTabBar from './components/CustomTabBar';
 const {height, width} = Dimensions.get('window');
+import { SearchBar } from 'react-native-elements';
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#387ef5",
+    borderWidth: 0,
+  },
+  inputText: {
+    backgroundColor: "#56a0e5",
+    borderWidth: 0,
+    fontSize: 11
+  }
+});
 
 
 export const QueueStack = StackNavigator({
@@ -74,6 +87,23 @@ export const UserPodcastsStack = StackNavigator({
   animationEnabled: false,
 });
 
+/*
+For Android
+// import { SearchBar } from 'react-native-elements';
+<SearchBar round containerStyle={{ backgroundColor: "#387ef5", borderWidth: 0 }}
+                 inputStyle={{backgroundColor: "#56a0e5", borderWidth: 0, fontSize: 11}} onChangeText={()=> {}}
+                 placeholder='Search' placeholderTextColor="#ffffff" />
+ */
+
+
+Search.navigationOptions = {
+  header:(// Your custom header
+    <View style={{ height:64, backgroundColor: '#387ef5', marginTop:0 }}>
+      <SearchBar round containerStyle={{ backgroundColor: "#387ef5", borderWidth: 0 }}
+                 inputStyle={{backgroundColor: "#56a0e5", borderWidth: 0, fontSize: 11}} onChangeText={()=> {}}
+                 placeholder='Search' placeholderTextColor="#ffffff" />
+    </View>
+  )}
 export const SearchStack = StackNavigator({
   Search: {
     screen: Search,

@@ -178,8 +178,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   photo: {
-    height: null,
-    flex: 1,
+    // height: null,
+    // flex: 1,
     width: width,
   }
 });

@@ -33,6 +33,8 @@
     "react-native-elements": "^0.12.2",
     "react-native-i18n": "^1.0.0",
     "react-native-scrollable-tab-view": "0.6.6",
+    "react-native-search-bar": "^3.0.0",
+    "react-native-search-box": "0.0.11",
     "react-native-simple-store": "^1.2.0",
     "react-native-slider": "^0.10.0",
     "react-native-vector-icons": "^4.3.0",
