@@ -233,6 +233,19 @@ export const DiscoverStack = StackNavigator({
       }
     },
   },
+  SubCategoryShows: {
+    screen: SubCategoryShows,
+    navigationOptions: ({ navigation }) => {
+      return {
+        title: navigation.state.params.title,
+        headerTintColor: 'white',
+        headerStyle: {
+          backgroundColor: '#387ef5',
+          elevation: null
+        },
+      }
+    },
+  },
 },{
   // headerMode: 'none',
 });
@@ -311,9 +324,6 @@ export const PrimaryNav = StackNavigator({
     navigationOptions: {
       title: 'Player',
     },
-  },
-  SubCategoryShows: {
-    screen: SubCategoryShows,
   },
   CategoryList: {
     screen: CategoryList,
