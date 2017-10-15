@@ -82,6 +82,7 @@ class TabBar extends Component {
   pause() {
     const {mediaUrl} = this.props.player;
     this.props.actions.playerPause(mediaUrl);
+    console.log('TabBar pause: ', this.props);
   }
 
   resume() {
@@ -99,6 +100,10 @@ class TabBar extends Component {
       (this.props.hideOnChildTabs && Actions.deepestExplicitValueForKey(selected, 'tabs'));
 
     const {title, mediaUrl, episodeTitle, duration, imageUrl, description, playerStatus, episodeKey} = this.props.player || {};
+
+
+    console.log('TabBar render: ', this.props);
+
 
 
     const contents = (

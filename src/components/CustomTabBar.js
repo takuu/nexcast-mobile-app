@@ -45,6 +45,7 @@ class CustomTabBar extends Component {
   pause() {
     const {mediaUrl} = this.props.player;
     this.props.actions.playerPause(mediaUrl);
+    console.log('CustomTabBar pause: ', this.props);
   }
 
   resume() {
@@ -53,34 +54,40 @@ class CustomTabBar extends Component {
     this.props.actions.playerResume(mediaUrl, title, episodeTitle, duration, imageUrl, episodeKey, progress);
   }
   render() {
-    const { player: {title, episodeTitle, playerStatus} } = this.props;
+    const { player: {mediaUrl, title, duration, imageUrl, episodeTitle, playerStatus, episodeKey, progress}, navigation } = this.props;
+
+    console.log('CustomTabBar render: ', this.props);
+    //navigation.navigate('Player', {media, title, episodeTitle, duration, imageUrl, episodeKey, progress})
     return (
       <View>
 
         {(() => {
           if(playerStatus) {
             return (
-              <View style={{position: 'absolute', top: -32, height: 32, width: width, backgroundColor: '#0371d8', paddingTop: 0, paddingRight: 12, paddingLeft: 12, flex: 1, flexDirection: 'row'}}>
-                <Text style={{color: 'white', lineHeight: 32, width: (width - (width/6))}} numberOfLines={1} ellipsizeMode="tail">{title} :{episodeTitle}</Text>
-                {/*<Ion style={styles.controls} name={'ios-play'} size={24} />*/}
+              <TouchableWithoutFeedback onPress={() => navigation.navigate('Player', {media: mediaUrl, title, episodeTitle, duration, imageUrl, episodeKey, progress})}>
+                <View style={{position: 'absolute', top: -32, height: 32, width: width, backgroundColor: '#0371d8', paddingTop: 0, paddingRight: 12, paddingLeft: 12, flex: 1, flexDirection: 'row'}}>
+                  <Text style={{color: 'white', lineHeight: 32, width: (width - (width/6))}} numberOfLines={1} ellipsizeMode="tail">{title} :{episodeTitle}</Text>
+                  {/*<Ion style={styles.controls} name={'ios-play'} size={24} />*/}
 
-                {((playerStatus, resume, pause) => {
-                  if (playerStatus && playerStatus == 1) {
-                    return (
-                      <TouchableWithoutFeedback onPress={()=> (pause())}>
-                        <Ion style={styles.controls} name={'ios-pause'} size={24} />
-                      </TouchableWithoutFeedback>
-                    );
-                  } else {
-                    return (
-                      <TouchableWithoutFeedback onPress={()=> (resume())}>
-                        <Ion style={styles.controls} name={'ios-play'} size={24} />
-                      </TouchableWithoutFeedback>
-                    )
-                  }
-                })(playerStatus, this.resume, this.pause)}
+                  {((playerStatus, resume, pause) => {
+                    if (playerStatus && playerStatus == 1) {
+                      return (
+                        <TouchableWithoutFeedback onPress={()=> (pause())}>
+                          <Ion style={styles.controls} name={'ios-pause'} size={24} />
+                        </TouchableWithoutFeedback>
+                      );
+                    } else {
+                      return (
+                        <TouchableWithoutFeedback onPress={()=> (resume())}>
+                          <Ion style={styles.controls} name={'ios-play'} size={24} />
+                        </TouchableWithoutFeedback>
+                      )
+                    }
+                  })(playerStatus, this.resume, this.pause)}
 
-              </View>
+                </View>
+              </TouchableWithoutFeedback>
+
             )
           } else {
             return (

@@ -218,7 +218,7 @@ class PlayerControls extends Component {
               />
               {
                 this.props.tags.map((tag, i) => (
-                  <View key={i} zIndex={5} style={{backgroundColor: '#387ef5', position: 'absolute',width: 2,height: 18,top: 0,left: tag.position}}></View>
+                  <View key={i} zIndex={10} style={{backgroundColor: '#387ef5', position: 'absolute',width: 2,height: 35,top: 0,left: tag.position}}></View>
                 ))
               }
             </View>

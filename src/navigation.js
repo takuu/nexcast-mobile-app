@@ -222,7 +222,6 @@ export const DiscoverStack = StackNavigator({
   Show: {
     screen: Show,
     navigationOptions: ({ navigation }) => {
-      console.log('Show3: navigation', navigation);
       return {
         // title: `${navigation.state.params.name.first.toUpperCase()} ${navigation.state.params.name.last.toUpperCase()}`,
         title: navigation.state.params.title,

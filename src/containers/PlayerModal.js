@@ -112,11 +112,54 @@ class PlayerModal extends Component {
     const props = this.props.navigation.state.params;
     const {player} = this.state;
 
-    let tags = [{}];
+
+    let tags = [{
+
+      "cards_sid": "",
+      "podcast_sid": "",
+      "podcast_key": "",
+      "podcast_rssurl": "http://hwcdn.libsyn.com/p/4/e/c/4ecc5b19d7cadb16/Part_9_-_Form_the_Team_-_Fend_off_the_Trolls.mp3?c_id=12701737&expiration=1507823015&hwt=191cf98caf240c6e57c4e1040782b9dc",
+      "episode_key": "",
+      "media_location": "",
+      "time": "",
+      "seconds": 12,
+      "duration": 500,
+      "content": "",
+      "button1_text": "Baby Corgi",
+      "button1_link": "",
+      "image_location": "http://cdn3-www.dogtime.com/assets/uploads/gallery/pembroke-welsh-corgi-dog-breed-pictures/prance-8.jpg",
+      "youtube_location": "",
+      "status": "",
+      "created_at": "",
+      "updated_at": ""
+
+    },
+    {
+
+      "cards_sid": "",
+      "podcast_sid": "",
+      "podcast_key": "",
+      "podcast_rssurl": "http://hwcdn.libsyn.com/p/4/e/c/4ecc5b19d7cadb16/Part_9_-_Form_the_Team_-_Fend_off_the_Trolls.mp3?c_id=12701737&expiration=1507823015&hwt=191cf98caf240c6e57c4e1040782b9dc",
+      "episode_key": "",
+      "media_location": "",
+      "time": "",
+      "seconds": 200,
+      "duration": 500,
+      "content": "",
+      "button1_text": "Corgi with a ball",
+      "button1_link": "http://www.google.com",
+      "image_location": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRL5BtKrfpJ0DeaQ1cQeRvq3ZlyN6r0YvlgnZDOY4dJy90yF3BL",
+      "youtube_location": "",
+      "status": "",
+      "created_at": "",
+      "updated_at": ""
+
+    }];
+    console.log('PlayerModal: render', player, tags);
 
     if (this.props.tags) {
       let tagsHash = this.props.tags.toJS();
-      tags = tagsHash[player.episodeKey] || [{}];
+      // tags = tagsHash[player.episodeKey] || [{}];
     }
 
     const currentTagIndex = _.findLastIndex(tags, (tag) => {
@@ -125,7 +168,7 @@ class PlayerModal extends Component {
 
     const tagsOnSeekList = _.map(tags || [], (tag) => {
       return {
-        position: (tag.seconds/props.duration) * (width - 10 - 10)
+        position: (tag.seconds/player.duration) * (width - 10 - 10)
       }
     });
 

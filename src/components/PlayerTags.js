@@ -99,7 +99,7 @@ class PlayerTags extends Component {
             const formattedContent = `<style type="text/css">a{color: #01D56F;}</style><div style='width:100%;line-height:20px;margin-bottom:100px;'>${webContent}<br> <p style="color:#404040;font-size:18px;margin:1% 1% 5% 1%;white-space: normal;padding: 1%;">${tag.formattedContent}</p> ${button}</div>`;
 
             const webView =  (
-                <WebView style={{ flex: 1, backgroundColor: 'white', resizeMode: 'contain'}}
+                <WebView style={{ flex: 1, backgroundColor: 'white'}}
                          contentInset={{top: -28, left: -8, bottom: 0, right: -8}}
                          onError={(e)=> {console.log(e)}}
                          onLoad = {() => {console.log('Should this happen?  onLoad.......')}}
