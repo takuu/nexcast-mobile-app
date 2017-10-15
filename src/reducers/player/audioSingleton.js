@@ -33,6 +33,7 @@ export function playerNextPodcastSuccess (json) { return { type: GET_NEXT_PODCAS
 let splashScreenEpisode = {};
 let currentDispatch;
 let playerStatus;
+let currentEpisode = {};
 
 Audio.setAudioModeAsync({
   allowsRecordingIOS: false,
@@ -148,11 +149,18 @@ function _stopNowPlaying() {
 }
 
 export function playerStart(dispatch, episode, cb) {
+  
+  
+  console.log('playerStart: ', episode);
+  if(currentEpisode.mediaUrl != episode.mediaUrl) {
+    currentEpisode = _.cloneDeep(episode);
     _start(dispatch, episode).then((sound) => {
       playbackInstance = sound;
       playbackInstance.getStatusAsync().then((status) => {
       })
     });
+  }
+
 
 
 }
