@@ -5,17 +5,18 @@ import { connect } from 'react-redux'
 import * as authActions from '../reducers/auth/authActions'
 import * as globalActions from '../reducers/global/globalActions'
 import * as podcastHistoryActions from '../reducers/podcastHistory/podcastHistoryActions'
+import { getEpisodes } from "../reducers/showDetail/showDetailActions";
 
 import _ from 'lodash';
 import Actions from '../lib/ActionsMock';
-import Header from '../components/Header'
+import Header from '../components/Header';
 import EpisodeItem from '../components/EpisodeItem'
 import React, {Component} from 'react'
 import { StyleSheet, View, ListView, ScrollView, TouchableWithoutFeedback, Dimensions, Text, RefreshControl } from 'react-native'
 const {height, width} = Dimensions.get('window');
-const Button = require('apsl-react-native-button')
-import Ion from 'react-native-vector-icons/Ionicons'
-import { List, ListItem } from 'react-native-elements'
+const Button = require('apsl-react-native-button');
+import Ion from 'react-native-vector-icons/Ionicons';
+import { List, ListItem } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 
 var styles = StyleSheet.create({
@@ -40,11 +41,11 @@ var styles = StyleSheet.create({
     height: 50,
     width: 50
   }
-})
+});
 
-var I18n = require('react-native-i18n')
-import Translations from '../lib/Translations'
-I18n.translations = Translations
+var I18n = require('react-native-i18n');
+import Translations from '../lib/Translations';
+I18n.translations = Translations;
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 const rawData = [
@@ -74,7 +75,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({ ...authActions, ...globalActions, ...podcastHistoryActions }, dispatch)
+    actions: bindActionCreators({ ...authActions, ...globalActions, ...podcastHistoryActions, getEpisodes }, dispatch)
   }
 }
 class Queue extends Component {
@@ -85,6 +86,7 @@ class Queue extends Component {
 
   componentWillMount() {
     this.props.actions.getAllPodcastHistory();
+    this.props.actions.getEpisodesBySubscription();
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -105,10 +107,12 @@ class Queue extends Component {
   _onRefresh() {
     this.setState({refreshing: true});
     this.props.actions.getAllPodcastHistory();
+    this.props.actions.getEpisodesBySubscription();
+
   }
 
   render () {
-    const orderedQueue = _.orderBy(this.props.podcastHistory.toJS(), ['lastPlayed']);
+    const orderedQueue = _.orderBy(this.props.podcastHistory.toJS(), ['lastPlayed', 'publishDate']);
     const list = ds.cloneWithRows(orderedQueue);
     // const list = ds.cloneWithRows(rawData);
     return (
@@ -121,13 +125,14 @@ class Queue extends Component {
                         }>
     {((orderedQueue, list) => {
       if(orderedQueue && orderedQueue.length) {
+        console.log('Queue: ', list, orderedQueue);
         return (
           <View>
             <ListView
               dataSource={list}
               enableEmptySections={true}
               renderRow={(item) => <EpisodeItem title={item.title} description={item.description} progress={item.progress}
-              date={item.lastPlayed} duration={item.duration} episodeTitle={item.episodeTitle} media={item.mediaUrl}
+              date={item.publishDate} duration={item.duration} episodeTitle={item.episodeTitle} media={item.mediaUrl}
               imageUrl={item.imageUrl} episodeKey={item.episodeKey} navigation={this.props.navigation} />}
             />
           </View>

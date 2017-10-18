@@ -6,6 +6,7 @@ var PodcastHistoryRecord = Record({
   "playerStatus": "",
   "playPosition": "",
   "playCount": "",
+  "episodeKey": "",
   "duration": "",
   "progress": "",
   "mediaUrl": "",
@@ -23,3 +24,16 @@ class PodcastHistoryInitial extends PodcastHistoryRecord {
   }
 }
 export default PodcastHistoryInitial
+
+
+/*
+duration
+episodeKey
+episodeTitle
+imageUrl
+lastPlayed
+mediaUrl
+playerStatus
+progress
+title
+ */

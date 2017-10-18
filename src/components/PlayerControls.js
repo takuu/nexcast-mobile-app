@@ -82,6 +82,14 @@ class PlayerControls extends Component {
       this.props.actions.playerStart(mediaUrl, title, episodeTitle, duration, imageUrl, episodeKey, progress);
     }
   }
+  componentWillUpdate(nextProps, nextState ) {
+    console.log('componentWillUpdate: ', this.props.player, nextProps.player);
+    const isEqual = _.isEqual(this.props.player, nextProps.player);
+    console.log('isEqual: ', isEqual);
+
+    return !isEqual;
+
+  }
   componentWillMount () {
     const {mediaUrl, title, episodeTitle, duration, imageUrl, episodeKey, progress} = this.props;
     this.start(mediaUrl, title, episodeTitle, duration, imageUrl, episodeKey, progress);
@@ -213,6 +221,8 @@ class PlayerControls extends Component {
                 trackStyle={customStyles5.track}
                 thumbStyle={customStyles5.thumb}
                 onSlidingComplete={(value) => this.seekToTime(value)}
+                onSlidingStart={(value) => this.pause()}
+                onValueChange={(value) => {console.log('onValueChange: ', value)}}
                 zIndex={10}
                 minimumTrackTintColor='#56a0e5'
               />
@@ -238,7 +248,7 @@ var customStyles5 = StyleSheet.create({
     width: width -10,
   },
   thumb: {
-    width: 3,
+    width: 5,
     height: 30,
     borderRadius: 1,
     zIndex: 10,

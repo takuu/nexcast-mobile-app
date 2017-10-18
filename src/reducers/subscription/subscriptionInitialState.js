@@ -5,17 +5,16 @@ import {Record} from 'immutable'
 // TODO: This is the exact same as showDetailInitialState
 
 var SubscriptionRecord = Record({
-  "id": "",
-  "title": "",
-  "image_url": "",
-  "release_date": "",
-  "language": "",
-  "artist_name": "",
-  "keywords": "",
-  "owner_name": "",
   "description": "",
-  "feed_url": "",
-  "episodes": []
+  "description_clean": "",
+  "duration": "",
+  "episode_key": "",
+  "image_location": "",
+  "keywords": "",
+  "media_location": "",
+  "pub_date": "",
+  "rss": "",
+  "title": "",
 
 });
 

@@ -244,14 +244,15 @@ export class Hapi extends Backend {
         throw (error)
       })
   }
-  async getEpisodes(rss) {
+  async getEpisodes(rss, limit) {
     // url: API_URL + 'getEpisodesByRss?rss=' + rss;
     console.log('Hapi getEpisodes params (rss): ', rss);
+    const url = (limit) ? `/episodes/episodeByRSS?rss=${rss}&limit=${limit}`: `/episodes/episodeByRSS?rss=${rss}`;
     return await this._fetch({
       // method: 'POST',
       // url: `/getEpisodesByRss?rss=${rss}`
       method: 'GET',
-      url: `/episodes/episodeByRSS?rss=${rss}`
+      url
     })
       .then((res) => {
         if ((res.status === 200 || res.status === 201)) {

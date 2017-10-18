@@ -155,7 +155,6 @@ class PlayerModal extends Component {
       "updated_at": ""
 
     }];
-    console.log('PlayerModal: render', player, tags);
 
     if (this.props.tags) {
       let tagsHash = this.props.tags.toJS();

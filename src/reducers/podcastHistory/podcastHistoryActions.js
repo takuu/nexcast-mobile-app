@@ -18,11 +18,16 @@ const {
   PLAYER_START_FAILURE,
 } = require('../../lib/constants').default;
 
+import ActionTypes from '../../lib/constants';
+const BackendFactory = require('../../lib/BackendFactory').default;
+
 import * as podcastHistoryStorage from './podcastHistoryStorage';
 
 import Immutable from 'immutable';
 import {AsyncStorage} from 'react-native';
 import _ from 'lodash';
+import moment from 'moment';
+import CONFIG from '../../lib/config'
 
 export function playerStartRequest (json) { return { type: PLAYER_START_REQUEST, payload: json }}
 export function playerStartSuccess (json) { return { type: PLAYER_START_SUCCESS, payload: json }}
@@ -87,6 +92,7 @@ export function getAllPodcastHistorySuccess (json) {
 }
 
 const HISTORY_KEY = 'HISTORY_STORAGE';
+const SUBSCRIPTION_KEY = 'SUBSCRIPTION_STORAGE';
 
 
 export function getAllPodcastHistory () {
@@ -132,6 +138,72 @@ export function removePodcastHistory (episode={}) {
     }
   }
 }
+
+export function getEpisodesBySubscription() {
+  return async (dispatch) => {
+    try {
+
+
+      const subscriptionsBlob = await AsyncStorage.getItem(SUBSCRIPTION_KEY);
+      let subscriptions = JSON.parse(subscriptionsBlob) || {};
+      dispatch({ type: ActionTypes.GET_ALL_SUBSCRIPTION_SUCCESS, payload: subscriptions });
+      const tokenResult = await BackendFactory().registerThisDevice(CONFIG.deviceUID);
+
+      console.log('getEpisodesBySubscription: 1', tokenResult, subscriptions);
+      if(tokenResult.status == 1) {
+        const {token} = tokenResult;
+        let episodeList = [];
+        for(let i=0; i<Object.keys(subscriptions).length; i++) {
+          const key = Object.keys(subscriptions)[i];
+          const podcast = subscriptions[key];
+          const episodesResult = await BackendFactory(token).getEpisodes(podcast.feed_url, 5);
+
+          if (episodesResult.status == 1) {
+            let {result} = episodesResult;
+            console.log('episodesResult: ', episodesResult);
+            let episodes = _.orderBy(_.map(result, (episode) => {
+              episode.title = episode.title.replace('↵', '');
+              episode.rss = podcast.feed_url;
+              return {
+                title: episode.title.replace('↵', ''),
+                rss: podcast.feed_url,
+                duration: episode.duration,
+                episodeKey: episode.episode_key,
+                publishDate: episode.pub_date,
+                episodeTitle: episode.title.replace('↵', ''),
+                imageUrl: episode.image_location,
+                lastPlayed: Date.now(),
+                mediaUrl: episode.media_location,
+                playerStatus: 0,
+                progress: 0
+              };
+            }), 'pub_date');
+            episodeList = episodeList.concat(episodes);
+            console.log('getEpisodesBySubscription 2 podcast: ', episodes, episodeList);
+
+          } else {
+            dispatch({ type: ActionTypes.GET_EPISODES_FAILURE, payload: 'err: fetching episodes failed' });
+          }
+
+        }
+        console.log('getEpisodesBySubscription 3 podcast: ', episodeList);
+        dispatch({ type: ActionTypes.GET_ALL_SUBSCRIPTION_EPISODES_SUCCESS, payload: episodeList});
+
+
+
+
+
+      } else {
+        // Failed to get token
+      }
+
+    } catch (error) {
+      console.log('general error: ', error);
+    }
+  }
+}
+
+
 
 
 // This is unused.......

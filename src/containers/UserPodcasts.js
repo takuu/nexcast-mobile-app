@@ -108,6 +108,7 @@ class UserPodcasts extends Component {
 
   render () {
     const foobar = _.map(this.props.subscription.toJS());
+    console.log('subscriptions: ', foobar);
     const list = ds.cloneWithRows(foobar);
     return (
       <View style={styles.container}>

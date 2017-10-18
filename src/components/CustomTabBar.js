@@ -45,7 +45,6 @@ class CustomTabBar extends Component {
   pause() {
     const {mediaUrl} = this.props.player;
     this.props.actions.playerPause(mediaUrl);
-    console.log('CustomTabBar pause: ', this.props);
   }
 
   resume() {
@@ -56,7 +55,6 @@ class CustomTabBar extends Component {
   render() {
     const { player: {mediaUrl, title, duration, imageUrl, episodeTitle, playerStatus, episodeKey, progress}, navigation } = this.props;
 
-    console.log('CustomTabBar render: ', this.props);
     //navigation.navigate('Player', {media, title, episodeTitle, duration, imageUrl, episodeKey, progress})
     return (
       <View>
