@@ -24,12 +24,13 @@ var styles = StyleSheet.create({
     fontWeight: 'bold'
   }
 });
-const ImageGridItem = ({imageUrl, route, rss, title}) => {
+const ImageGridItem = ({imageUrl, route, rss, title, navigation}) => {
   const decodedImageUrl = decodeURI(imageUrl);
+  //navigation.navigate('Show', {title, rss, navigation});
   return (
 
     <View style={styles.row}>
-      <TouchableWithoutFeedback  onPress={() => Actions.UserShow({rss: rss, title})} >
+      <TouchableWithoutFeedback  onPress={() => navigation.navigate('Show', {title, rss, navigation})} >
         <Image style={styles.thumb} source={{ uri: decodedImageUrl}} />
       </TouchableWithoutFeedback>
 

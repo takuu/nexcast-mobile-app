@@ -1,10 +1,10 @@
 'use strict';
 
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import * as authActions from '../reducers/auth/authActions'
-import * as globalActions from '../reducers/global/globalActions'
-import * as podcastHistoryActions from '../reducers/podcastHistory/podcastHistoryActions'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as authActions from '../reducers/auth/authActions';
+import * as globalActions from '../reducers/global/globalActions';
+import * as podcastHistoryActions from '../reducers/podcastHistory/podcastHistoryActions';
 import { getEpisodes } from "../reducers/showDetail/showDetailActions";
 
 import _ from 'lodash';
@@ -93,6 +93,8 @@ class Queue extends Component {
     this.setState({refreshing: false});
     const a = this.props.podcastHistory.toJS();
     const b = nextProps.podcastHistory.toJS();
+
+    console.log('Queue shouldComponentUpdate: ', this.props, nextProps);
 
     return this.props.podcastHistory !== nextProps.podcastHistory;
   }

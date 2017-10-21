@@ -110,6 +110,7 @@ class UserPodcasts extends Component {
     const foobar = _.map(this.props.subscription.toJS());
     console.log('subscriptions: ', foobar);
     const list = ds.cloneWithRows(foobar);
+
     return (
       <View style={styles.container}>
         {((foobar, list) => {
@@ -125,7 +126,7 @@ class UserPodcasts extends Component {
                         enableEmptySections={true}
                         removeClippedSubviews={false}
                         dataSource={list}
-                        renderRow={(item) => <ImageGridItem imageUrl={item.image_url} rss={item.feed_url} title={item.title} />} />
+                        renderRow={(item) => <ImageGridItem imageUrl={item.image_url} rss={item.feed_url} title={item.title} navigation={this.props.navigation} />} />
             )
 
           } else {
